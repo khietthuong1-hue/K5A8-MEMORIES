@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Web Hoàn Chỉnh Với Sóng & Biểu Tượng</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ------------------------------------------- */
+        /* CÀI ĐẶT CHUNG (Từ Code Của Bạn) */
+        /* ------------------------------------------- */
+        :root {
+            --primary-color: #00BFFF; /* Deep Sky Blue */
+            --secondary-color: #4BD0FA; /* Light Blue */
+            --text-dark: #333333;
+            --text-light: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-dark);
+            /* Áp dụng gradient nền từ code của bạn */
+            background: linear-gradient(180deg, #F0F8FF 0%, var(--secondary-color) 100%);
+            min-height: 100vh;
+        }
+
+        /* ------------------------------------------- */
+        /* THANH ĐIỀU HƯỚNG (Vị trí đặt các ICON LINK) */
+        /* ------------------------------------------- */
+        .navbar {
+            display: flex;
+            justify-content: flex-end; /* Đẩy các icon sang phải */
+            padding: 20px 50px;
+            background-color: rgba(255, 255, 255, 0.8); /* Nền trong suốt nhẹ */
+        }
+
+        .icon-link {
+            text-decoration: none; /* Bỏ gạch chân link */
+            color: var(--primary-color);
+            font-size: 1.8rem; /* Kích thước icon */
+            margin-left: 25px;
+            transition: color 0.3s;
+        }
+
+        .icon-link:hover {
+            color: #007bff; /* Thay đổi màu khi rê chuột */
+        }
+
+        /* ------------------------------------------- */
+        /* HIỆU ỨNG SÓNG (Đánh Sóng) */
+        /* ------------------------------------------- */
+        .wave-container {
+            position: relative;
+            width: 100%;
+            height: 150px; 
+            overflow: hidden;
+            background-color: var(--primary-color); /* Màu nền phía trên sóng */
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px; 
+            background: var(--text-light); /* Màu của sóng (Trắng) */
+            border-radius: 50% 50% 0 0; 
+            transform: scaleX(2); 
+            animation: wave-motion 4s infinite alternate linear;
+        }
+
+        .wave.second-wave {
+            height: 70px;
+            background: rgba(255, 255, 255, 0.5); /* Sóng phụ màu trong suốt nhẹ */
+            bottom: -20px; 
+            animation: wave-motion 5s infinite alternate-reverse linear; 
+        }
+
+        @keyframes wave-motion {
+            from {
+                transform: scaleX(2) translateY(0);
+            }
+            to {
+                transform: scaleX(2) translateY(-10px);
+            }
+        }
+        
+        /* ------------------------------------------- */
+        /* NỘI DUNG */
+        /* ------------------------------------------- */
+        .content {
+            padding: 40px 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="trangchu.html" class="icon-link" title="Trang Chủ">
+            <i class="fas fa-home"></i>
+        </a>
+        
+        <a href="taikhoan.html" class="icon-link" title="Tài Khoản">
+            <i class="fas fa-user-circle"></i>
+        </a>
+        
+        <a href="giohang.html" class="icon-link" title="Giỏ Hàng">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
+    </header>
+
+    <div class="wave-container">
+        <div class="wave second-wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="content">
+        <h1>Chào mừng đến với trang web của bạn</h1>
+        <p>Đây là phần nội dung chính, nằm phía dưới hiệu ứng sóng biển động.</p>
+        <p>Bạn có thể nhấp vào các biểu tượng ở góc trên bên phải để chuyển trang.</p>
+    </div>
+
+</body>
+</html>

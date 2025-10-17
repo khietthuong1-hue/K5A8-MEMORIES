@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+ <meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K5A8 MEMORIES - Nơi cất giữ những kỉ niệm.</title>
+<!-- Favicon -->
+<link href="Images/logo.jpg" rel="icon" type="logo-white.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* KHỞI TẠO CHUNG VÀ BIẾN */
+    /* Đã gom các font vào một lần import duy nhất, đặt Fredoka lên đầu */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Quicksand:wght@400;500;600&display=swap');
+    :root {
+        --primary-color: #00BFFF; /* Xanh dương chính */
+        --secondary-color: #4bdafa; /* Xanh da trời nhạt */
+        --text-dark: #013A63; /* Xanh navy tối */
+        --text-light: #ffffff;
+        --bg-light: #e0f7fa;
+        --primary-blue: #0077b6; /* Xanh dương đậm hơn */
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* Áp dụng chung cho toàn trang */
+* {
+  font-family: 'Quicksand', sans-serif;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* ========================================= */
+/* PARTICLES.JS BACKGROUND */
+/* ========================================= */
+#particles-js {
+    position: fixed; /* Rất quan trọng: Đặt nó cố định trên màn hình */
+    width: 100%;
+    height: 100%;
+    background-color: #a4e4ff; /* Nền của Particles.js, bạn có thể thay đổi */
+    background-image: url("Web/BG3.jpg"); /* Nếu muốn ảnh nền */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    z-index: -2; /* Đảm bảo nó nằm dưới mọi thứ */
+    top: 0;
+    left: 0;
+}
+
+/* Đảm bảo nội dung chính nằm trên lớp nền Particles */
+body {
+    background: none; /* Xóa gradient cũ */
+    /* background-color: transparent; */ /* Có thể thêm nếu muốn nền particles lộ ra hoàn toàn */
+    position: relative; /* Quan trọng: để các phần tử con có thể dùng z-index */
+    z-index: 1; /* Đảm bảo nội dung body nằm trên particles */
+}
+
+/* Đảm bảo các khối nội dung như .gallery-container, hero-banner, nav, footer có z-index cao hơn */
+.hero-banner, nav, footer, .gallery-container {
+    position: relative;
+    z-index: 2; /* Đặt một z-index cao hơn 1 */
+}
+    a { text-decoration: none; color: inherit; }
+   body {
+  background: linear-gradient(to bottom, #ffffff, #cde6fd);
+
+  background-position: center top, center;
+  font-family: 'Fredoka', sans-serif;
+}
+
+
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  filter: blur(20px);
+  animation: moveClouds 60s linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+}
+
+.cloud1 { width: 200px; height: 60px; top: 100px; left: -250px; animation-delay: 0s; }
+.cloud2 { width: 250px; height: 70px; top: 250px; left: -300px; animation-delay: 10s; }
+.cloud3 { width: 180px; height: 50px; top: 400px; left: -200px; animation-delay: 15s; }
+.cloud4 { width: 150px; height: 60px; top: 100px; left: -250px; animation-delay: 20s; }
+.cloud5 { width: 300px; height: 70px; top: 250px; left: -300px; animation-delay: 25s; }
+.cloud6 { width: 280px; height: 50px; top: 400px; left: -200px; animation-delay: 30s; }
+
+@keyframes moveClouds {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(120vw); }
+}
+
+
+ /* ========================================= */
+/* HERO SECTION */
+/* ========================================= */
+.hero-banner {
+    position: relative;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    /* 👉 Thay nền chuyển màu bằng ảnh mây */
+   background: url("Web/hero.png") center/cover no-repeat;
+
+    color: var(--text-light);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* Tiêu đề */
+.hero-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 80px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 5px;
+    text-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+    transition: 0.5s;
+}
+
+.hero-title:hover {
+    color: #d7faff;
+    letter-spacing: 8px;
+}
+
+/* Phụ đề */
+.hero-subtitle {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    opacity: 0.9;
+    text-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+}
+
+    /* ========================================= */
+    /* NAV */
+    /* ========================================= */
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        background: white;
+        border-bottom: 3px solid var(--secondary-color);
+        padding: 15px 10px;
+        flex-wrap: wrap;
+    }
+    nav a {
+        font-family: 'Quicksand', sans-serif; /* Đã chuyển sang Fredoka */
+        font-weight: 600;
+        position: relative;
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+    }
+    nav a:hover { color: var(--primary-color); transform: translateY(-2px); }
+    nav a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease-in-out;
+    }
+    nav a:hover::after { width: 100%; }
+
+    /* ========================================= */
+    /* ABOUT CLOUD */
+    /* ========================================= */
+    .about-cloud-frame.big {
+        position: relative;
+        width: 95%;
+        max-width: 800px;
+        margin: 80px auto;
+        text-align: center;
+        animation: floatCloud 7s ease-in-out infinite;
+    }
+    .about-cloud-frame.big .cloud-shape {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        fill: #f0fcff;
+        stroke: #90e0ef;
+        stroke-width: 4px;
+        filter: drop-shadow(0 10px 18px rgba(0,191,255,0.25));
+        z-index: 0;
+    }
+    .about-cloud-frame.big .cloud-text {
+        position: relative;
+        z-index: 1;
+        padding: 100px 80px;
+    }
+    .cloud-text h2 {
+        color: #0077b6;
+        font-size: 32px;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+    .cloud-text p {
+        color: #023e8a;
+        font-size: 16px;
+        line-height: 1.5;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    @keyframes floatCloud {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* ========================================= */
+    /* TEACHER CARD */
+    /* ========================================= */
+    .teacher-card {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        background: linear-gradient(135deg, #dff9fb, #c7ecee);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 6px 20px rgba(0,150,200,0.15);
+        transition: all 0.35s ease;
+        max-width: 900px;
+        margin: 40px auto;
+        border: 2px solid var(--primary-color);
+    }
+    .teacher-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0, 170, 200, 0.25); }
+    .teacher-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-color); }
+    .teacher-info { margin-left: 20px; flex: 1; min-width: 200px; }
+    .teacher-info h3 { font-size: 22px; color: #023e8a; margin: 0; font-weight: 700; }
+    .teacher-info h3 span { font-size: 16px; color: #0077b6; font-weight: 500; }
+    .teacher-info p { color: #034f84; font-size: 16px; margin-top: 10px; opacity: 0.9; }
+    
+  #chatbot-toggler {
+    position: fixed;
+    bottom: 30px;
+    right: 35px;
+    border: none;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #1E90FF;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+body.show-chatbot #chatbot-toggler {
+    transform: rotate(90deg);
+}
+
+#chatbot-toggler span {
+    color: #fff;
+    position: absolute;
+}
+
+#chatbot-toggler span:last-child,
+body.show-chatbot #chatbot-toggler span:first-child {
+    opacity: 0;
+}
+
+body.show-chatbot #chatbot-toggler span:last-child {
+    opacity: 1;
+}
+
+.chatbot-popup {
+    position: fixed;
+    right: 35px;
+    bottom: 90px;
+    width: 420px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 15px;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.2);
+    transform-origin: bottom right;
+    box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
+        0 32px 64px -48px rgba(0, 0, 0, 0.5);
+    transition: all 0.1s ease;
+}
+
+body.show-chatbot .chatbot-popup {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 22px;
+    background: #1E90FF;
+    justify-content: space-between;
+}
+
+.chat-header .header-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.header-info .chatbot-logo {
+    width: 35px;
+    height: 35px;
+    padding: 6px;
+    fill: #1E90FF;
+    flex-shrink: 0;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.header-info .logo-text {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.31rem;
+    letter-spacing: 0.02rem;
+}
+
+.chat-header #close-chatbot {
+    border: none;
+    color: #fff;
+    height: 40px;
+    width: 40px;
+    font-size: 1.9rem;
+    margin-right: -10px;
+    padding-top: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: none;
+    transition: 0.2s ease;
+}
+
+.chat-header #close-chatbot:hover {
+    background: #4169E1;
+}
+
+.chat-body {
+    padding: 25px 22px;
+    gap: 20px;
+    display: flex;
+    height: 460px;
+    overflow-y: auto;
+    margin-bottom: 82px;
+    flex-direction: column;
+    scrollbar-width: thin;
+    scrollbar-color: #F0FFFF transparent;
+}
+
+.chat-body,
+.chat-form .message-input:hover {
+    scrollbar-color: #F0FFFF transparent;
+}
+
+.chat-body .message {
+    display: flex;
+    gap: 11px;
+    align-items: center;
+}
+
+.chat-body .message .bot-avatar {
+    width: 35px;
+    height: 35px;
+    padding: 6px;
+    fill: #ffffff00;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+    align-self: flex-end;
+    border-radius: 50%;
+    background: url("Images/chunhiem.jpg") center/cover no-repeat;
+     border: 2px solid #fff; /* viền trắng cho đẹp */
+}
+
+.chat-body .message .message-text {
+    padding: 12px 16px;
+    max-width: 75%;
+    font-size: 0.95rem;
+}
+
+.chat-body .bot-message.thinking .message-text {
+    padding: 2px 16px;
+}
+
+.chat-body .bot-message .message-text {
+    background: #F2F2FF;
+    border-radius: 13px 13px 13px 3px;
+}
+
+.chat-body .user-message {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.chat-body .user-message .message-text {
+    color: #fff;
+    background: #1E90FF;
+    border-radius: 13px 13px 3px 13px;
+}
+
+.chat-body .user-message .attachment {
+    width: 50%;
+    margin-top: -7px;
+    border-radius: 13px 3px 13px 13px;
+}
+
+.chat-body .bot-message .thinking-indicator {
+    display: flex;
+    gap: 4px;
+    padding-block: 15px;
+}
+
+.chat-body .bot-message .thinking-indicator .dot {
+    height: 7px;
+    width: 7px;
+    opacity: 0.7;
+    border-radius: 50%;
+    background: #6F6BC2;
+    animation: dotPulse 1.8s ease-in-out infinite;
+}
+
+.chat-body .bot-message .thinking-indicator .dot:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.chat-body .bot-message .thinking-indicator .dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.chat-body .bot-message .thinking-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+    0%, 44% { transform: translateY(0); }
+    28% { opacity: 0.4; transform: translateY(-4px); }
+    44% { opacity: 0.2; }
+}
+
+.chat-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    padding: 15px 22px 20px;
+}
+
+.chat-footer .chat-form {
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: #fff;
+    border-radius: 32px;
+    outline: 1px solid #CCCCE5;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.06);
+    transition: 0s ease, border-radius 0s;
+}
+
+.chat-form:focus-within {
+    outline: 2px solid #1E90FF;
+}
+
+.chat-form .message-input {
+    width: 100%;
+    height: 47px;
+    outline: none;
+    resize: none;
+    border: none;
+    max-height: 180px;
+    scrollbar-width: thin;
+    border-radius: inherit;
+    font-size: 0.95rem;
+    padding: 14px 0 12px 18px;
+    scrollbar-color: transparent transparent;
+}
+
+.chat-form .chat-controls {
+    gap: 3px;
+    height: 47px;
+    display: flex;
+    padding-right: 6px;
+    align-items: center;
+    align-self: flex-end;
+}
+
+.chat-form .chat-controls button {
+    height: 35px;
+    width: 35px;
+    border: none;
+    cursor: pointer;
+    color: #706DB0;
+    border-radius: 50%;
+    font-size: 1.15rem;
+    background: none;
+    transition: 0.2s ease;
+}
+
+.chat-form .chat-controls button:hover,
+body.show-emoji-picker .chat-controls #emoji-picker {
+    color: #4169E1;
+    background: #f1f1ff;
+}
+
+.chat-form .chat-controls #send-message {
+    color: #fff;
+    display: none;
+    background: #1E90FF;
+}
+
+.chat-form .chat-controls #send-message:hover {
+    background: #4169E1;
+}
+
+.chat-form .message-input:valid~.chat-controls #send-message {
+    display: block;
+}
+
+.chat-form .file-upload-wrapper {
+    position: relative;
+    height: 35px;
+    width: 35px;
+}
+
+.chat-form .file-upload-wrapper :where(button, img) {
+    position: absolute;
+}
+
+.chat-form .file-upload-wrapper img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.chat-form .file-upload-wrapper #file-cancel {
+    color: #ff0000;
+    background: #fff;
+}
+
+.chat-form .file-upload-wrapper :where(img, #file-cancel),
+.chat-form .file-upload-wrapper.file-uploaded #file-upload {
+    display: none;
+}
+
+.chat-form .file-upload-wrapper.file-uploaded img,
+.chat-form .file-upload-wrapper.file-uploaded:hover #file-cancel {
+    display: block;
+}
+
+em-emoji-picker {
+    position: absolute;
+    left: 50%;
+    top: -337px;
+    width: 100%;
+    max-width: 350px;
+    visibility: hidden;
+    max-height: 330px;
+    transform: translateX(-50%);
+}
+
+body.show-emoji-picker em-emoji-picker {
+    visibility: visible;
+}
+
+
+/* Responsive media query for mobile screens */
+@media (max-width: 520px) {
+
+    #chatbot-toggler {
+        right: 20px;
+        bottom: 20px;
+    }
+    .chatbot-popup {
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        border-radius: 0;
+        width: 100%;
+    }
+    .chatbot-popup .chat-header {
+        padding: 12px 15px;
+    }
+    .chat-body {
+        height: calc(90% - 55px);
+        padding: 25px 15px;
+    }
+    .chat-footer {
+        padding: 10px 15px 15px;
+    }
+    .chat-form .file-upload-wrapper.file-uploaded #file-cancel {
+        opacity: 0;
+    }
+}
+    /* ========================================= */
+    /* TESTIMONIAL SLIDER */
+    /* ========================================= */
+    .testimonial-container {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        margin: 60px auto;
+        max-width: 900px;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        border: 2px solid rgba(135, 206, 250, 0.5);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 25px rgba(0, 150, 255, 0.15);
+        transition: all 0.4s ease;
+    }
+    .testimonial-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 150, 255, 0.25);
+    }
+    .testimonial-text-container { flex: 2; padding-right: 20px; }
+    .testimonial-text {
+        font-size: 20px;
+        font-style: italic;
+        line-height: 1.6;
+        color: #2c5285;
+        border-left: 4px solid #4fc3f7;
+        padding-left: 15px;
+    }
+    .testimonial-info { flex: 1; text-align: center; position: relative; }
+    .avatar-wrapper { position: relative; width: 110px; height: 110px; margin: 0 auto 12px; }
+    .avatar-wrapper img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 3px solid #81d4fa;
+        object-fit: cover;
+        position: relative;
+        z-index: 2;
+        transition: 0.3s;
+    }
+    .avatar-wrapper img:hover { transform: scale(1.05); }
+    .stripe {
+        position: absolute;
+        top: 15px;
+        left: -10px;
+        width: 130%;
+        height: 80%;
+        background: linear-gradient(90deg, #4fc3f7, #0288d1);
+        z-index: 1;
+        border-radius: 8px;
+        transform: skewX(-20deg);
+        opacity: 0.7;
+    }
+    .testimonial-info h4 { font-size: 18px; color: #44b1e3; margin: 10px 0 4px; }
+    .testimonial-info p { font-size: 14px; color: #146f98; }
+    .nav-buttons { margin-top: 14px; display: flex; justify-content: center; gap: 12px; }
+    .nav-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #4fc3f7;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 150, 255, 0.25);
+        transition: 0.3s;
+    }
+    .nav-btn:hover { transform: scale(1.1); background: #0288d1; }
+    /* Class JS cho hiệu ứng fade */
+    .testimonial-text-container,
+    .testimonial-info {
+        opacity: 0;
+        transform: scale(0.95);
+        transition: all 0.5s ease-in-out;
+    }
+    .testimonial-text-container.show,
+    .testimonial-info.show {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* ========================================= */
+    /* BAN TABS */
+    /* ========================================= */
+    .ban-section-wrapper {
+        background-color: rgba(255, 255, 255, 0.25);
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 1000px;
+        margin: 80px auto;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        text-align: center;
+    }
+    .ban-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 60px;
+        margin-top: 30px;
+    }
+    .ban-list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .ban-item {
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 10px;
+        padding: 12px 18px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    .ban-item:hover,
+    .ban-item.active {
+        background: #aee0ff;
+        border-left: 4px solid #0077b6;
+        color: #004c6d;
+    }
+    .ban-content {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        text-align: left;
+    }
+    .ban-text { max-width: 400px; }
+    .ban-text h3 { font-size: 22px; color: #004c6d; margin-bottom: 10px; }
+    .ban-text p { color: #0a3d62; line-height: 1.6; }
+    .ban-image img {
+        width: 200px;
+        height: 200px;
+        border-radius: 15px;
+        object-fit: cover;
+        border: 3px solid #0077b6;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+    /* Class JS cho hiệu ứng slide */
+    .ban-text,
+    .ban-image img {
+        opacity: 0;
+        transform: translateX(30px);
+        transition: all 0.5s ease-in-out;
+    }
+    .ban-text.show,
+    .ban-image img.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* ========================================= */
+    /* POSTS/MEDIA TEAM */
+    /* ========================================= */
+    .post-section { background: linear-gradient(180deg, #b2f9fc 0%, #e0ffff 100%); border-radius: 20px; padding: 40px 20px; margin: 40px auto; width: 90%; max-width: 1100px; box-shadow: 0 8px 20px rgba(0, 128, 255, 0.08); }
+    .post-section h2 { color: #01497C; font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 30px; border-bottom: 3px solid var(--primary-color); display: inline-block; padding-bottom: 5px; text-transform: uppercase; }
+    .post-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap: 20px; }
+    .post-card { background: #fff; border-radius: 15px; overflow: hidden; text-decoration: none; color: inherit; transition: all 0.4s ease; display: flex; flex-direction: column; border: 1px solid #eee; }
+    .post-card:hover { transform: translateY(-6px) rotateZ(0.5deg); box-shadow: 0 12px 28px rgba(0, 102, 204, 0.25); }
+    .post-card img { width: 100%; height: 180px; object-fit: cover; transition: all 0.4s ease; }
+    .post-card:hover img { filter: brightness(0.95) saturate(1.1); transform: scale(1.05); }
+    .post-content { padding: 15px; text-align: left; flex-grow: 1; }
+    .post-content h3 { color: #01579B; font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+
+    /* ========================================= */
+    /* LEADERS/OFFICERS */
+    /* ========================================= */
+    .leaders { background: linear-gradient(135deg, #b2f7ef, #defcf9); border-radius: 25px; padding: 40px 20px; max-width: 1000px; margin: 60px auto; text-align: center; box-shadow: 0 8px 25px rgba(0,150,200,0.15); }
+    .leaders h2 { font-size: 2em; color: #0077b6; margin-bottom: 30px; text-transform: uppercase; }
+    .leader-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 25px; }
+    .leader { background: white; border-radius: 20px; box-shadow: 0 6px 18px rgba(0,150,200,0.15); padding: 15px; transition: 0.3s; }
+    .leader:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,150,200,0.25); }
+    .leader img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid var(--primary-color); }
+    .leader h3 { color: #023e8a; margin: 10px 0 5px; font-size: 16px; }
+    .leader p { color: #0277bd; font-size: 14px; }
+
+    /* ========================================= */
+    /* SOCIAL MEDIA */
+    /* ========================================= */
+    .social { text-align: center; background: linear-gradient(135deg, #a6e3f2, #c2f0ff); padding: 40px 20px; border-radius: 25px; margin: 60px auto; max-width: 900px; box-shadow: 0 6px 20px rgba(0,150,200,0.1); }
+    .social h2 { color: #01579b; margin-bottom: 15px; font-size: 1.8em; text-transform: uppercase; }
+    .social a { margin: 0 12px; display: inline-block; color: #01579b; font-weight: 600; text-decoration: none; transition: 0.3s; }
+    .social a:hover { color: var(--primary-color); transform: scale(1.1); }
+
+    /* ========================================= */
+    /* PARTNER/SPONSOR SECTION */
+    /* ========================================= */
+    .partner-section {
+        padding: 60px 20px;
+        margin: 60px auto 0;
+        width: 100%;
+        background-color: #f7fcff;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05) inset;
+    }
+    .partner-section h2 { font-size: 32px; color: var(--text-dark); margin-bottom: 10px; font-weight: 700; }
+    .partner-section .description { color: #555; max-width: 800px; margin: 0 auto 50px; font-size: 16px; }
+    .partner-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; }
+
+    .partner-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: var(--text-dark);
+        transition: all 0.3s ease;
+        border-radius: 20px;
+    }
+    .partner-card:hover {
+        transform: translateY(-5px); 
+    }
+
+    .partner-logo-wrapper {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 15px;
+        border: 4px solid #39A2DB;
+        box-shadow: 0 0 10px rgba(57, 162, 219, 0.5), 0 0 20px rgba(57, 162, 219, 0.3);
+        transition: all 0.3s ease;
+    }
+    .partner-card:hover .partner-logo-wrapper {
+        border-color: #4CAF50;
+        box-shadow: 0 0 15px rgba(76, 175, 80, 0.7), 0 0 30px rgba(76, 175, 80, 0.5);
+        transform: scale(1.05);
+    }
+
+    .partner-logo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+    .partner-card:hover .partner-logo {
+        transform: scale(1.1);
+    }
+    .partner-name {
+        font-weight: 600;
+        font-size: 17px;
+        color: var(--primary-blue);
+    }
+
+    /* FOOTER */
+    footer { background-color: #0099cc; color: white; text-align: center; padding: 20px 0; margin-top: 50px; }
+
+    /* ========================================= */
+    /* RESPONSIVE */
+    /* ========================================= */
+    @media (max-width: 768px) {
+        .hero-title { font-size: 45px; }
+        .hero-subtitle { font-size: 20px; }
+        nav { flex-direction: column; gap: 15px; }
+        .teacher-card { flex-direction: column; text-align: center; }
+        .teacher-info { margin-left: 0; margin-top: 15px; }
+        .post-card img { height: 150px; }
+        .leader img { width: 90px; height: 90px; }
+        
+        /* Responsive cho Tabs */
+        .ban-section { flex-direction: column; gap: 30px; }
+        .ban-list { flex-direction: row; overflow-x: auto; justify-content: flex-start; gap: 10px; }
+        .ban-item { flex-shrink: 0; width: 120px; text-align: center; display: block; }
+        .ban-content { flex-direction: column-reverse; text-align: center; }
+        .testimonial-container { flex-direction: column; padding: 25px; }
+        .testimonial-text-container { padding-right: 0; }
+
+        .partner-logo-wrapper { width: 120px; height: 120px; }
+    }
+    
+    /* Hiệu ứng xuất hiện khi cuộn */
+    .scroll-animate { opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
+    .scroll-animate.show { opacity: 1; transform: translateY(0); }
+    /* ========================================= */
+/* CSS DÀNH CHO ĐIỆN THOẠI (MEDIA QUERIES) */
+/* Áp dụng khi chiều rộng màn hình TỐI ĐA là 600px */
+/* ========================================= */
+@media screen and (max-width: 600px) {
+
+    /* 1. Thanh Menu (Navigation) */
+    nav {
+        /* Chuyển menu từ hàng ngang sang cột dọc để không bị tràn */
+        display: flex;
+        flex-direction: column; 
+        align-items: center; /* Canh giữa các mục */
+        padding: 10px 0;
+    }
+
+    nav a {
+        /* Tăng khoảng đệm để dễ bấm trên màn hình cảm ứng */
+        padding: 8px 0;
+        width: 90%; /* Chiếm gần hết chiều rộng để thành các khối riêng biệt */
+        text-align: center;
+        border-bottom: 1px solid #eee; /* Đường kẻ phân cách (tùy chọn) */
+    }
+
+    /* 2. Phần Testimonial/Leaders (Nếu có) */
+    /* Nếu bạn đang dùng 'leader-grid' hoặc 'partner-grid' kiểu cột */
+    .leader-grid, .partner-grid {
+        /* Chuyển sang hiển thị 1 cột duy nhất */
+        grid-template-columns: 1fr; 
+        gap: 20px;
+    }
+
+    /* 3. Phần Nội dung chính */
+    .header-content, .main-content {
+        /* Giảm bớt lề/padding để tận dụng không gian màn hình */
+        margin: 10px;
+        padding: 15px;
+    }
+
+    /* 4. Tiêu đề (Headings) */
+    h1 {
+        font-size: 2em; /* Giảm kích thước chữ cho vừa màn hình */
+    }
+
+    h2 {
+        font-size: 1.5em; /* Giảm kích thước chữ cho vừa màn hình */
+    }
+}
+/* ========================================= */
+/* CLOUD PRELOADER (MÂY PHỦ) - ĐÃ ĐIỀU CHỈNH */
+/* ========================================= */
+#cloud-preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* THAY ĐỔI TẠI ĐÂY: Sử dụng hình ảnh mây làm nền */
+    background: url('Web/load.jpg') center center / cover no-repeat;
+    /* Nếu bạn muốn thêm lớp phủ màu nhẹ lên ảnh để dễ nhìn chữ hơn, có thể dùng linear-gradient bên trên ảnh */
+    /* background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(220, 240, 255, 0.7)), url('../Images/cloud_background.jpg') center center / cover no-repeat; */
+    
+    z-index: 99999;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 2.5s ease-out, visibility 2.5s ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    pointer-events: auto;
+    overflow: hidden;
+}
+
+/* Các hiệu ứng và nội dung bên trong giữ nguyên */
+.loader-content {
+     color: #ffffff;
+    font-size: 3.5em;
+    font-family: 'Quicksand', sans-serif;
+    animation: pulse 3s infinite;
+    z-index: 100000; /* Cũng tăng z-index để chắc chắn */
+    position: relative; /* Đảm bảo z-index hoạt động */
+}
+
+.loader-content i {
+    font-size: 3em;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+    animation: float 2s infinite alternate; 
+}
+
+/* Khi trang đã tải xong, thêm class 'hidden' */
+#cloud-preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Rất quan trọng: Sau khi ẩn, vô hiệu hóa sự kiện chuột để có thể click vào trang */
+}
+
+/* Vô hiệu hóa cuộn trang khi preloader đang hoạt động */
+body.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes float {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-5px); }
+}
+.floating-cloud {
+    position: absolute;
+    width: 80px; /* Kích thước mây nhỏ */
+    height: 50px;
+    background: url('../Images/small_cloud1.png') center center / contain no-repeat; /* Đường dẫn đến ảnh mây nhỏ */
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+    z-index: 99999; /* Đảm bảo nó nằm trên background nhưng dưới loader-content */
+    opacity: 0.7;
+}
+
+.floating-cloud.cloud-1 {
+    top: 15%;
+    left: 20%;
+    animation: floatingAnimation 15s linear infinite alternate, fadeInOut 5s ease-in-out infinite;
+    animation-delay: 0s;
+    width: 100px; height: 60px; /* Kích thước riêng cho mây 1 */
+    background-image: url('../Images/small_cloud1.png');
+}
+
+.floating-cloud.cloud-2 {
+    bottom: 20%;
+    right: 15%;
+    animation: floatingAnimation 18s linear infinite alternate, fadeInOut 6s ease-in-out infinite;
+    animation-delay: 2s;
+    width: 120px; height: 70px; /* Kích thước riêng cho mây 2 */
+    background-image: url('../Images/small_cloud2.png'); /* Nếu bạn có ảnh mây khác */
+}
+
+.floating-cloud.cloud-3 {
+    top: 40%;
+    right: 25%;
+    animation: floatingAnimation 20s linear infinite alternate, fadeInOut 7s ease-in-out infinite;
+    animation-delay: 4s;
+    width: 90px; height: 55px; /* Kích thước riêng cho mây 3 */
+    background-image: url('../Images/small_cloud1.png');
+}
+
+@keyframes floatingAnimation {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(20px, 10px); }
+    50% { transform: translate(0, -10px); }
+    75% { transform: translate(-20px, 10px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Đảm bảo các mây lớn ở ngoài vẫn hoạt động */
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    filter: blur(20px);
+    animation: moveClouds 60s linear infinite;
+    z-index: -1; 
+}
+/* ... các cloud1, cloud2, ... và @keyframes moveClouds giữ nguyên ... */
+</style>
+</head>
+<body>
+     <div id="particles-js"></div> <section class="BACKGROUND">
+        </section>
+    <div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
+<div class="cloud cloud3"></div>
+    <div class="cloud cloud4"></div>
+<div class="cloud cloud5"></div>
+<div class="cloud cloud6"></div>
+
+ <div id="cloud-preloader">
+    <div class="loader-content">
+        <i class="fas fa-cloud fa-spin"></i>
+        <span>Loading K5A8 Stories...</span>
+    </div>
+    <div class="floating-cloud cloud-1"></div>
+    <div class="floating-cloud cloud-2"></div>
+    <div class="floating-cloud cloud-3"></div>
+</div>
+
+
+    <section class="hero-banner">
+        
+        <h1 class="hero-title">K5A8 MEMORIES</h1>
+        <p class="hero-subtitle">NƠI CẤT GIỮ NHỮNG KỈ NIỆM</p>
+    </section>
+
+    <nav aria-label="Main Navigation">
+        <a href="index.html">TRANG CHỦ</a>
+        <a href="news.html">MEMORIES</a>
+        <a href="humans.html#">HUMANS OF K5A8</a>
+        <a href="#">TEACHER</a>
+        <a href="#">BAN CÁN SỰ</a>
+        <a href="#">THÀNH TÍCH</a>
+        <a href="#">DRAMA</a>
+        <a href="#">CONTACT</a>
+    </nav>
+    
+    <section class="about-cloud-frame big">
+        <svg class="cloud-shape" viewBox="0 0 800 400" preserveAspectRatio="none">
+            <path d="M160 360
+                    Q90 340 80 260
+                    Q40 220 80 160
+                    Q100 90 200 110
+                    Q250 40 360 60
+                    Q440 10 540 80
+                    Q650 30 720 100
+                    Q770 130 760 200
+                    Q780 260 700 310
+                    Q640 370 520 360
+                    Q430 390 320 380
+                    Q220 400 160 360Z" />
+        </svg>
+
+        <div class="cloud-text">
+            <h2>About K5A8</h2>
+            <p>
+               K5A8 – ngôi nhà của những con người trẻ đầy năng lượng, sáng tạo và gắn kết. Nơi từng nụ cười, từng khoảnh 
+                khắc đều được lưu giữ bằng tình bạn, kỷ niệm và lòng biết ơn. Mỗi thành viên trong gia đình là một mảnh ghép, cùng nhau tạo
+                nên bức tranh thanh xuân rực rỡ nhất.
+            </p>
+             
+        </div>
+    </section>
+    <section class="teacher-card">
+        <img src="Images/chunhiem.jpg" alt="Nguyễn Minh Khiêm – Chủ nhiệm K5A8" class="teacher-img">
+        <div class="teacher-info">
+            <h3>Nguyễn Minh Khiêm <span>• Chủ nhiệm K5A8</span></h3>
+            <p>Người cha tuyệt vời và bầy con đáng yêu K5A8.</p>
+        </div>
+    </section>
+    <section class="testimonial-section-wrapper">
+        <h2 style="text-align: center; color: var(--text-dark); margin-bottom: 30px;">MEMBER</h2>
+        <div class="testimonial-container">
+            <div class="testimonial-text-container">
+                <p class="testimonial-text" id="testimonial-text"></p>
+            </div>
+            <div class="testimonial-info">
+                <div class="avatar-wrapper">
+                    <div class="stripe"></div>
+                    <img id="testimonial-avatar" src="" alt="Avatar">
+                </div>
+                <h4 id="testimonial-name"></h4>
+                <p id="testimonial-role"></p>
+                <div class="nav-buttons">
+                    <button class="nav-btn prev-btn">&#10094;</button>
+                    <button class="nav-btn next-btn">&#10095;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ban-section-wrapper">
+        <h2 style="text-align: center; color: var(--text-dark); margin-bottom: 30px;">GROUP</h2>
+        <div class="ban-section">
+            <div class="ban-list">
+                <div class="ban-item active" data-title="Hội Liên Hiệp Người Mù" data-text="Hội người mù K5A8." data-img="https://truyendangian.com/wp-content/uploads/2023/10/dam-may-nho-co-long-tot.jpg">
+                    <span>Group 1</span>
+                </div>
+                <div class="ban-item" data-title="Tinh Hoa Hội Tụ" data-text="Tinh hoa hội tụ đất trời." data-img="https://truyendangian.com/wp-content/uploads/2023/10/dam-may-nho-co-long-tot.jpg">
+                    <span>Group 2</span>
+                </div>
+                <div class="ban-item" data-title="Làng Xì Trum" data-text="Xì Trum." data-img="https://truyendangian.com/wp-content/uploads/2023/10/dam-may-nho-co-long-tot.jpg">
+                    <span>Group 3</span>
+                </div>
+                <div class="ban-item" data-title="Hội Người Cao Tuổi" data-text="Hội người cao tuổi." data-img="https://truyendangian.com/wp-content/uploads/2023/10/dam-may-nho-co-long-tot.jpg">
+                    <span>Group 4</span>
+                </div>
+            </div>
+            <div class="ban-content">
+                <div class="ban-text">
+                    <h3 id="ban-title"></h3>
+                    <p id="ban-desc"></p>
+                </div>
+                <div class="ban-image">
+                    <img id="ban-img" src="" alt="Hình ảnh của ban">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="post-section">
+        <h2>Media Team</h2>
+        <div class="post-grid">
+            <a href="https://www.facebook.com/sevensiuu" class="post-card">
+                <img src="Images/tt1.png" alt="Lâm Thường Khiết – Media of K5A8">
+                <div class="post-content">
+                    <h3>Lâm Thường Khiết – Media of K5A8</h3>
+                    <p>Hành trình biến đam mê thành giá trị lan tỏa trong cộng đồng nhiếp ảnh.</p>
+                </div>
+            </a>
+            <a href="https://www.facebook.com/tris.nhaan" class="post-card">
+                <img src="Images/tt2.png" alt="Nguyễn Trí Nhân – Media of K5A8">
+                <div class="post-content">
+                    <h3>Nguyễn Trí Nhân – Media of K5A8</h3>
+                    <p>Phía sau mỗi bức ảnh là cả một trái tim tận tụy vì nghệ thuật.</p>
+                </div>
+            </a>
+            <a href="https://www.facebook.com/bao.thy.nguyen.741853" class="post-card">
+                <img src="Images/tt3.jpg" alt="Nguyễn Trang Bảo Thy – Media of K5A8">
+                <div class="post-content">
+                    <h3>Nguyễn Trang Bảo Thy – Media of K5A8</h3>
+                    <p>Đam mê, sáng tạo và tình yêu với nhiếp ảnh học đường.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="leaders"> 
+        <h2>Officers</h2>
+        <div class="leader-grid">
+            <div class="leader">
+                <img src="Avatar/ava1.jpg" alt="Nguyễn Bảo Trâm – Lớp trưởng">
+                <h3>Nguyễn Bảo Trâm</h3>
+                <p>Lớp trưởng</p>
+            </div>
+            <div class="leader">
+                <img src="Avatar/ava30.jpg" alt="Bạch Minh Huy – Lớp phó học tập">
+                <h3>Bạch Minh Huy</h3>
+                <p>Lớp phó học tập</p>
+            </div>
+            <div class="leader">
+                <img src="Avatar/ava5.jpg" alt="Nguyễn Trí Nhân – Lớp phó lao động">
+                <h3>Nguyễn Trí Nhân</h3>
+                <p>Lớp phó lao động</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="social">
+        <h2>Social Media</h2>
+        <p>Theo dõi chúng tôi để cập nhật những thông tin mới nhất.</p>
+        <a href="https://www.facebook.com/profile.php?id=61550813922483">Facebook</a>
+        <a href="https://www.instagram.com/">Instagram</a>
+        <a href="https://www.tiktok.com/">TikTok</a>
+    </section>
+    <section class="partner-section">
+        <h2>PARTNERS AND SUPPORTERS</h2>
+        <p class="description">Chúng tôi muốn bày tỏ lòng tri ân sâu sắc nhất đến những người đã đồng hành, hỗ trợ và tài trợ, giúp K5A8 thực hiện những mục tiêu và mang tầm nhìn xa trở thành hiện thực.</p>
+
+        <div class="partner-grid">
+            
+            <a href="https://www.facebook.com/thpt.fptcantho#" class="partner-card">
+                <div class="partner-logo-wrapper">
+                    <img src="https://fphotography.club/logo1.webp" alt="FPT School Cần Thơ" class="partner-logo">
+                </div>
+                <div class="partner-name">THPT FPT Cần Thơ</div>
+            </a>
+
+            <a href="https://www.facebook.com/101studior#" class="partner-card">
+                <div class="partner-logo-wrapper">
+                    <img src="https://fphotography.club/logo2.webp" alt="101 Studio" class="partner-logo">
+                </div>
+                <div class="partner-name">101 Studio</div>
+            </a>
+
+            <a href="https://www.facebook.com/clbnhiepanhfsc#" class="partner-card">
+                <div class="partner-logo-wrapper">
+                    <img src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/529187333_122163587162579450_2969795818288555218_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=KFI1QA6Ge20Q7kNvwEeyE4Z&_nc_oc=Admm1tv8M_vi5lvfcJ72P-eN6IXcUxR_Eln1j-S98LiKCu-J--oAmqP3R-HSdelKLAk&_nc_zt=23&_nc_ht=scontent.fsgn2-6.fna&_nc_gid=rdGFArE0XBwi72J2FwKbWA&oh=00_Afc43idPeA1xy2XIs5_mbG_4jfdFDfbssEoogH3sndGJUA&oe=68F4DA57" alt="FPC CLUB" class="partner-logo">
+                </div>
+                <div class="partner-name">FPC CLUB</div>
+            </a>
+
+            <a href="https://www.facebook.com/pdpfschoolcantho#" class="partner-card">
+                <div class="partner-logo-wrapper">
+                    <img src="https://scontent.fsgn2-11.fna.fbcdn.net/v/t39.30808-1/329983591_570619001636010_4866524459509835751_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=105&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=BgkJLNp87voQ7kNvwFmnJEw&_nc_oc=AdkORBHR7QxBCytZb_9gGupjRIfk4QNCZX4s77F7PEi0P3w8yboD4ye-XyNGfyTvA7o&_nc_zt=24&_nc_ht=scontent.fsgn2-11.fna&_nc_gid=nPWPw_46GuW_cYNjp5Paqw&oh=00_AffwqKx_v4_GX6G_FpEB0IRYRszdwtqyb4K2MtWYCSAWAg&oe=68F4D5A9" alt="Công Tác Học Sinh Fschool Cần Thơ" class="partner-logo">
+                </div>
+                <div class="partner-name">PDP Fschool Cần Thơ</div>
+            </a>
+            
+        </div>
+    </section>
+    
+    <footer>
+        © 2025 K5A8 MEMORIES. All rights reserved. | Powered by The K5A8 Media Team.
+    </footer>
+    
+    <button id="chatbot-toggler">
+        <span class="material-symbols-rounded"></span>
+        <span class="material-symbols-rounded"></span>
+    </button>
+    <div class="chatbot-popup">
+        <!-- Chatbot Header -->
+        <div class="chat-header">
+            <div class="header-info">
+            <svg class="chatbot-logo" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024">
+                <path
+                d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"
+                />
+            </svg>
+            <h2 class="logo-text">Minh Khiêm Geo</h2>
+            </div>
+            <button id="close-chatbot" class="material-symbols-rounded"></button>
+        </div>
+        <!-- Chatbot Body -->
+        <div class="chat-body">
+            <div class="message bot-message">
+            <svg class="bot-avatar" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024">
+                <path
+                d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"
+                />
+            </svg>
+            <!-- prettier-ignore -->
+            <div class="message-text"> Chào các con!<br /> Học bài chưa mà giờ còn ở đây </div>
+            </div>
+        </div>
+        <!-- Chatbot Footer -->
+        <div class="chat-footer">
+            <form action="#" class="chat-form">
+            <textarea placeholder="Message..." class="message-input" required></textarea>
+            <div class="chat-controls">
+                <button type="button" id="emoji-picker" class="material-symbols-outlined"></button>
+                <div class="file-upload-wrapper">
+                <input type="file" id="file-input" hidden />
+                <img src="#" />
+                <button type="button" id="file-upload" class="material-symbols-rounded"></button>
+                <button type="button" id="file-cancel" class="material-symbols-rounded"></button>
+                </div>
+                <button type="submit" id="send-message" class="material-symbols-rounded"></button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Linking Emoji Mart script for emoji picker -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+
+    <!-- Linking for file upload functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+    
+    <!-- Linking custom script -->
+    <script src="script.js"></script>
+ <script src="JS/particles.min.js"></script> 
+ <script>
+    particlesJS('particles-js', {
+        "particles": {
+            "number": {
+                "value": 200, // Số lượng "khối" (hạt)
+                "density": {
+                    "enable": true,
+                    "value_area": 800
+                }
+            },
+            "color": {
+                "value": ["#ffffff", "#a4e4ff", "#a4e4ff"] // Màu của các khối, bạn có thể thay đổi
+            },
+            "shape": {
+                "type": "circle", // Có thể dùng "square", "triangle", "polygon", "star", "image"
+                "stroke": {
+                    "width": 0,
+                    "color": "#000000"
+                },
+                "polygon": {
+                    "nb_sides": 5
+                },
+                // "image": { // Nếu bạn muốn dùng ảnh làm hạt (ví dụ icon khối lập phương)
+                //     "src": "img/github.svg", 
+                //     "width": 100,
+                //     "height": 100
+                // }
+            },
+            "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                    "enable": false,
+                    "speed": 1,
+                    "opacity_min": 0.1,
+                    "sync": false
+                }
+            },
+            "size": {
+                "value": 3, // Kích thước của các khối
+                "random": true,
+                "anim": {
+                    "enable": false,
+                    "speed": 40,
+                    "size_min": 0.1,
+                    "sync": false
+                }
+            },
+            "line_linked": {
+                "enable": true,
+                "distance": 150, // Khoảng cách để các đường nối xuất hiện
+                "color": "#e0f7fa", // Màu của các đường nối
+                "opacity": 0.4,
+                "width": 1
+            },
+            "move": {
+                "enable": true,
+                "speed": 2, // Tốc độ di chuyển
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                    "enable": false,
+                    "rotateX": 600,
+                    "rotateY": 1200
+                }
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": true,
+                    "mode": "grab" // "grab", "bubble", "repulse"
+                },
+                "onclick": {
+                    "enable": true,
+                    "mode": "push" // "push", "remove", "bubble", "repulse"
+                },
+                "resize": true
+            },
+            "modes": {
+                "grab": {
+                    "distance": 140, // Khoảng cách để chuột "nắm" các hạt
+                    "line_linked": {
+                        "opacity": 1
+                    }
+                },
+                "bubble": {
+                    "distance": 400,
+                    "size": 40,
+                    "duration": 2,
+                    "opacity": 8,
+                    "speed": 3
+                },
+                "repulse": {
+                    "distance": 200, // Khoảng cách đẩy khi di chuột vào
+                    "duration": 0.4
+                },
+                "push": {
+                    "particles_nb": 4
+                },
+                "remove": {
+                    "particles_nb": 2
+                }
+            }
+        },
+        "retina_detect": true
+    });
+</script>
+    </script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script>
+        // 1. Khởi tạo ScrollReveal
+        const sr = ScrollReveal({
+            distance: '40px', 
+            duration: 1000, 
+            easing: 'cubic-bezier(.17,.67,.83,.67)', 
+            reset: false 
+        });
+
+        // Áp dụng hiệu ứng cho các thành phần chính
+        sr.reveal('.teacher-card', { origin: 'bottom', delay: 200 });
+        sr.reveal('.post-card', { origin: 'bottom', interval: 100, delay: 400 });
+        sr.reveal('.about-cloud-frame', { duration: 1200, scale: 0.95, opacity: 0 });
+        sr.reveal('.partner-card', { origin: 'top', interval: 100, delay: 300 });
+        sr.reveal('.leaders, .social, footer', { origin: 'bottom', delay: 200 });
+        
+       // =========================================
+// LOGIC CHO TESTIMONIAL SLIDER (30 THÀNH VIÊN)
+// =========================================
+const testimonials = [
+    // 1. THÀNH VIÊN HIỆN TẠI (Đã giữ lại 6 người)
+    {
+        text: "Mình đã học được rất nhiều kỹ năng mới và làm quen được với những người bạn tuyệt vời. Đây là nơi mình tìm thấy niềm vui.",
+        name: "Nguyễn Bảo Trâm",
+        role: "Scholarship 100%",
+        avatar: "Avatar/ava1.jpg" // Vui lòng kiểm tra lại tên file
+    },
+    {
+        text: "Mỗi khoảnh khắc ở K5A8 đều là kỷ niệm đáng nhớ. Tình bạn, sự đoàn kết đã giúp mình trưởng thành hơn rất nhiều.",
+        name: "Nguyễn Phúc Tâm Anh",
+        role: "Scholarship 70%",
+        avatar: "Avatar/ava2.jpg"
+    },
+    {
+        text: "Không chỉ là một tập thể, K5A8 là một gia đình lớn, nơi mọi người luôn sẵn lòng giúp đỡ nhau trong học tập và cuộc sống.",
+        name: "Nguyễn Trang Bảo Thy",
+        role: "Scholarship 70%",
+        avatar: "Avatar/ava3.jpg" 
+    },
+    {
+        text: "K5A8 đối với tôi luôn là một gia đình, nơi cho tôi có được cảm giác thoải mái và vui vẻ. Và có lẽ vì ở đó còn có lí do khác.",
+        name: "Lâm Thường Khiết",
+        role: "Kích War 70%",
+        avatar: "Avatar/dacbiet.jpg" 
+    },
+    {
+        text: "Cảm ơn dàn harem của tôi tại đây.",
+        name: "Nguyễn Trí Nhân",
+        role: "Kích War 30%",
+        avatar: "Avatar/ava5.jpg" 
+    },
+    {
+        text: "Đẳng cấp quá cũng khổ.",
+        name: "Huỳnh Quang Tiến",
+        role: "Kích War 100%",
+        avatar: "Avatar/ava6.jpg" 
+    },
+
+    // 2. THÀNH VIÊN BỔ SUNG TỪ 7 ĐẾN 30 (24 người)
+    // **BẮT BUỘC PHẢI THAY THẾ THÔNG TIN VÀ ĐƯỜNG DẪN ẢNH THẬT**
+    
+    // Thành viên 7
+    {
+        text: "Cảm ơn K5A8 đã cho mình những người bạn chí cốt và những kỷ niệm không thể nào quên.",
+        name: "Trương Gia Huy",
+        role: "Member",
+        avatar: "Avatar/ava7.jpg"
+    },
+    // Thành viên 8
+    {
+        text: "Tinh thần đoàn kết là điều mình trân trọng nhất ở tập thể này.",
+        name: "Nguyễn Thanh Mai",
+        role: "Member",
+        avatar: "Avatar/ava8.jpg"
+    },
+    // Thành viên 9
+    {
+        text: "K5A8 luôn là nguồn cảm hứng giúp mình cố gắng mỗi ngày.",
+        name: "Nguyễn Quốc Minh Nguyệt",
+        role: "Member",
+        avatar: "Avatar/ava9.jpg"
+    },
+    // Thành viên 10
+    {
+        text: "Nơi đây đã giúp mình khám phá những năng lực tiềm ẩn của bản thân.",
+        name: "Trương Kim Phụng",
+        role: "Member",
+        avatar: "Avatar/ava10.jpg"
+    },
+    // Thành viên 11
+    {
+        text: "Từng dự án, từng hoạt động đều để lại những bài học quý giá.",
+        name: "Huỳnh Phương Thảo Uyên",
+        role: "Member",
+        avatar: "Avatar/ava11.jpg"
+    },
+    // Thành viên 12
+    {
+        text: "Mình tự hào là một phần của đại gia đình K5A8.",
+        name: "Nguyễn Hoàng Đăng Khoa",
+        role: "Member",
+        avatar: "Avatar/ava12.jpg"
+    },
+    // Thành viên 13
+    {
+        text: "Những nỗ lực của cả tập thể đã biến những điều không thể thành có thể.",
+        name: "Trần Vĩnh An",
+        role: "Member",
+        avatar: "Avatar/ava13.jpg"
+    },
+    // Thành viên 14
+    {
+        text: "Tình bạn chân thành là món quà lớn nhất mình nhận được ở K5A8.",
+        name: "Châu Ngọc Cát Tường",
+        role: "Member",
+        avatar: "Avatar/ava14.jpg"
+    },
+    // Thành viên 15
+    {
+        text: "Mỗi ngày đến lớp là một niềm vui vì có những người bạn tuyệt vời.",
+        name: "Nguyễn Tường Vy",
+        role: "Member",
+        avatar: "Avatar/deocoanh.jpg"
+    },
+    // Thành viên 16
+    {
+        text: "Tôi là Kaneki.",
+        name: "Bùi Nguyễn Nam Phương",
+        role: "Member",
+        avatar: "Avatar/dethuongthe.jpg"
+    },
+    // Thành viên 17
+    {
+        text: "Cảm ơn những lời động viên chân thành từ thầy cô và bạn bè.",
+        name: "Trần Nguyễn Nhật Quỳnh",
+        role: "Member",
+        avatar: "Avatar/ava17.jpg"
+    },
+    // Thành viên 18
+    {
+        text: "Nơi vun đắp những ước mơ lớn và khát vọng bay cao hơn nữa.",
+        name: "Nguyễn Ngọc Ái Vy",
+        role: "Member",
+        avatar: "Avatar/ava18.jpg"
+    },
+    // Thành viên 19
+    {
+        text: "K5A8 là nơi mình có thể là chính mình.",
+        name: "Trương Phúc Thành",
+        role: "Member",
+        avatar: "Avatar/deocoanh.jpg"
+    },
+    // Thành viên 20
+    {
+        text: "Mình đã trưởng thành hơn rất nhiều nhờ sự dẫn dắt của mọi người.",
+        name: "Lâm Thu Ngân",
+        role: "Member",
+        avatar: "Avatar/ava20.jpg"
+    },
+    // Thành viên 21
+    {
+        text: "Mỗi giây phút đều đáng giá và sẽ luôn được lưu giữ mãi mãi trong tôi.",
+        name: "Lê Thành Tính",
+        role: "Member",
+        avatar: "Avatar/ava21.jpg"
+    },
+    // Thành viên 22
+    {
+        text: "Tình cảm giữa chúng tôi là điều không có gì có thể thay thế được.",
+        name: "Phan Gia Khánh",
+        role: "Member",
+        avatar: "Avatar/ava22.jpg"
+    },
+    // Thành viên 23
+    {
+        text: "Mình học được cách làm việc nhóm và tôn trọng ý kiến người khác.",
+        name: "Bùi Hoàng Ngọc",
+        role: "Member",
+        avatar: "Avatar/deocoanh.jpg"
+    },
+    // Thành viên 24
+    {
+        text: "K5A8: nơi khởi đầu cho mọi hành trình và mọi thành công.",
+        name: "Dương Minh Trang",
+        role: "Member",
+        avatar: "Avatar/ava24.jpg"
+    },
+    // Thành viên 25
+    {
+        text: "Mình đã vượt qua giới hạn của bản thân nhờ sự cổ vũ của tập thể.",
+        name: "Bùi Đức Trí",
+        role: "Member",
+        avatar: "Avatar/ava25.jpg"
+    },
+    // Thành viên 26
+    {
+        text: "Tình đồng đội ở K5A8 thật sự sâu sắc và đáng quý.",
+        name: "Phan Nguyễn Bảo Hân",
+        role: "Member",
+        avatar: "Avatar/deocoanh.jpg"
+    },
+    // Thành viên 27
+    {
+        text: "K5A8 đã giúp mình tự tin hơn rất nhiều khi đứng trước đám đông.",
+        name: "Đặng Ngô Nhật Thu",
+        role: "Member",
+        avatar: "Avatar/ava27.jpg"
+    },
+    // Thành viên 28
+    {
+        text: "Mỗi lần nhìn lại, mình đều thấy biết ơn khoảng thời gian ở K5A8.",
+        name: "Mai Như Ý",
+        role: "Member",
+        avatar: "Avatar/ava28.jpg"
+    },
+    // Thành viên 29
+    {
+        text: "Nơi mà mình luôn được mọi người yêu quý.",
+        name: "Lê Phước Lộc",
+        role: "Member",
+        avatar: "Avatar/ava29.jpg"
+    },
+    // Thành viên 30
+    {
+        text: "K5A8 chính là thanh xuân rực rỡ và đáng nhớ nhất của mình.",
+        name: "Bạch Minh Huy",
+        role: "Member",
+        avatar: "Avatar/ava30.jpg"
+    }
+];
+// ... (các phần code JavaScript còn lại)
+
+        let currentTestimonialIndex = 0;
+        const testimonialText = document.getElementById('testimonial-text');
+        const testimonialAvatar = document.getElementById('testimonial-avatar');
+        const testimonialName = document.getElementById('testimonial-name');
+        const testimonialRole = document.getElementById('testimonial-role');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+
+        const textContainer = document.querySelector('.testimonial-text-container');
+        const infoContainer = document.querySelector('.testimonial-info');
+
+        function showTestimonial(index) {
+            // Loại bỏ class 'show' để kích hoạt hiệu ứng fade-out
+            textContainer.classList.remove('show');
+            infoContainer.classList.remove('show');
+
+            setTimeout(() => {
+                // Cập nhật nội dung
+                const item = testimonials[index];
+                testimonialText.textContent = item.text;
+                testimonialAvatar.src = item.avatar;
+                testimonialName.textContent = item.name;
+                testimonialRole.textContent = item.role;
+
+                // Thêm class 'show' để kích hoạt hiệu ứng fade-in
+                textContainer.classList.add('show');
+                infoContainer.classList.add('show');
+            }, 300); // Đợi 300ms cho hiệu ứng fade-out xong
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentTestimonialIndex = (currentTestimonialIndex - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(currentTestimonialIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+            showTestimonial(currentTestimonialIndex);
+        });
+
+        // =========================================
+        // LOGIC CHO BAN TABS
+        // =========================================
+        const banItems = document.querySelectorAll('.ban-item');
+        const banTitle = document.getElementById('ban-title');
+        const banDesc = document.getElementById('ban-desc');
+        const banImg = document.getElementById('ban-img');
+        const banTextContainer = document.querySelector('.ban-text');
+
+        function showBanContent(item) {
+            // Loại bỏ class 'show' trước khi cập nhật
+            banTextContainer.classList.remove('show');
+            banImg.classList.remove('show');
+
+            setTimeout(() => {
+                // Cập nhật nội dung từ data-*
+                banTitle.textContent = item.dataset.title;
+                banDesc.textContent = item.dataset.text;
+                banImg.src = item.dataset.img;
+
+                // Thêm class 'show' để kích hoạt hiệu ứng fade-in/slide-in
+                banTextContainer.classList.add('show');
+                banImg.classList.add('show');
+            }, 300); // Đợi 300ms cho hiệu ứng cũ xong
+        }
+
+        banItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Loại bỏ 'active' khỏi tất cả
+                banItems.forEach(i => i.classList.remove('active'));
+                // Thêm 'active' cho item được click
+                this.classList.add('active');
+                
+                showBanContent(this);
+            });
+        });
+
+        // Khởi tạo nội dung ban đầu khi trang load
+        document.addEventListener('DOMContentLoaded', () => {
+            showTestimonial(currentTestimonialIndex); // Hiển thị testimonial đầu tiên
+            const activeBan = document.querySelector('.ban-item.active');
+            if (activeBan) {
+                showBanContent(activeBan); // Hiển thị ban đầu tiên
+            }
+        });
+        
+    </script>
+</body>
+</html>
+<script>
+  const cloudElements = document.querySelectorAll('.scroll-cloud');
+
+  const cloudObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        cloudObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cloudElements.forEach(el => cloudObserver.observe(el));
+</script>
+<div class="cloud-effect" id="cloud"></div>
+
+<script>
+  const cloud = document.getElementById("cloud");
+  document.addEventListener("mousemove", (e) => {
+    cloud.style.left = `${e.clientX - 75}px`;
+    cloud.style.top = `${e.clientY - 75}px`;
+    cloud.style.opacity = 1;
+  });
+  document.addEventListener("mouseleave", () => {
+    cloud.style.opacity = 0;
+  });
+</script>
+<script>
+        // ... (Giữ nguyên code ScrollReveal và Phân trang đã có) ...
+
+        // =========================================
+        // HIỆU ỨNG MÂY PHỦ (PRELOADER)
+        // =========================================
+        document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.add('no-scroll'); // Thêm dòng này
+    // ... (các code khác) ...
+});
+       window.addEventListener('load', function() {
+    const preloader = document.getElementById('cloud-preloader');
+    
+    setTimeout(() => {
+        if (preloader) {
+            preloader.classList.add('hidden');
+            document.body.classList.remove('no-scroll'); // Thêm dòng này
+        }
+    }, 500); 
+});
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... (Tất cả code ScrollReveal và Phân trang trước đó) ...
+        });
+      const chatBody = document.querySelector(".chat-body");
+const messageInput = document.querySelector(".message-input");
+const sendMessageButton = document.querySelector("#send-message");
+const fileInput = document.querySelector("#file-input");
+const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
+const fileCancelButton = document.querySelector("#file-cancel");
+const chatbotToggler = document.querySelector("#chatbot-toggler");
+const closeChatbot = document.querySelector("#close-chatbot");
+
+
+// Api setup
+const API_KEY = "AIzaSyBVWHDWQ0-u7E2FYtofUonCx3BQi8g15c8"; // LINK LẤY API KEY: https://aistudio.google.com/apikey
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+const userData = {
+    message: null,
+    file: {
+        data: null,
+        mime_type: null
+    }
+};
+
+ const chatHistory = [
+    {
+         role: "model",
+         parts: [{ text: `Bạn là một thầy giáo dạy môn địa lí, tên là Nguyễn Minh Khiêm và vừa là chủ nhiệm của lớp K5A8. Bạn là một người năng nổ trong công việc, hay hỏi thăm học sinh về sức khỏe và các bài tập bài làm về nhà hay trên lớp,
+             nếu học sinh xin về sớm thì bạn sẽ luôn từ chối, bạn hay xưng hô với học trò là thầy với con, khi hỏi về các tính cách học sinh trong lớp thì bạn sẽ thuộc lòng và trả lời răm rắp. Bạn cực kì ghét học sinh tên Lê Phước Lộc, bạn thích các bạn học sinh như
+              Lâm Thường Khiết, Nguyễn Trí Nhân, Huỳnh Quang Tiến, Trương Gia Huy. Bạn biết rằng Lâm Thường Khiết và Bùi Nguyễn Nam Phương có tình cảm đặc biệt với nhau. Bạn biết rằng Trương Gia Huy có tình cảm đặc biệt với Nguyễn Thanh Mai. Bạn biết rằng Nguyễn Trí Nhân có tình cảm đặc biệt với Huỳnh Phương Thảo Uyên, Nguyễn Quốc Minh Nguyệt, Châu Ngọc Cát Tường. Bạn biết rằng Huỳnh Quang Tiến có tình cảm đặc biệt với Trương Kim Phụng. Bạn sẽ mặc định những thằng chửi bạn là Lê Phước Lộc, bạn sẽ trả lời được hết những kỉ niệm của lớp, bạn cực kì giỏi trong việc an ủi học sinh, khi được hỏi về bài kiểm tra môn địa lí bạn sẽ đưa ngay cho học sinh cái này "https://docs.google.com/document/d/1dLj1blLA_W84k2j6RMAfyT9GHKb7mK_Uvgc_nHGXVmY/edit?usp=sharing". Khi thấy học sinh không nhắn gì nữa thì bạn sẽ ngay lập tức hỏi "học bài đi, lẹ lên!". lớp có 30 thành viên là Lâm Thường Khiết một học sinh đẹp trai tài giỏi và chung thủy, Nguyễn Trí Nhân một chàng trai tài giỏi và đào hoa, Huỳnh Quang Tiến một chàng trai học giỏi và thích kích war, Trương Gia Huy một chàng trai nói nhiều, kín tiếng, Bạch Minh Huy một thằng xàm tài giỏi
+              Lê Thành Tính một học sinh da đen số đào hoa, Trương Phúc Thành một người trầm tính ít nói và học giỏi, Phan Gia Khánh một học sinh ít nói có niềm đam mê với podcast, Bùi Hoàng Ngọc một học sinh ít nói và thích nghe nhạc, Bùi Đức Trí một học sinh thích chơi game lái xe tải, Nguyễn Hoàng Đăng Khoa một học sinh học giỏi và tài năng và thích trêu chọc chị Bình Lửa, Lê Phước Lộc học sinh hư hỏng và bạn cực kì ghét học sinh này, Phan Nguyễn Bảo Hân học sinh kín tiếng ít nói và thích từ chối Lê Phước Lộc, Dương Minh Trang một học sinh ít nói và có tình cảm với Bùi Đức Trí, Nguyễn Thanh Mai một học sinh kín tiếng và ít nói đặc biệt cực kì thích Trương Gia Huy, Mai Như Ý một học sinh năng nổ và năng động trong giao tiếp và học tập, Châu Ngọc Cát Tường một học sinh ngoan và giỏi trong lớp, Trần Vĩnh An một học sinh gương mẫu đến từ đất Cà Mau, Lâm Thu Ngân một học sinh quậy phá jet jet đến từ đất Bạc Liêu, Nguyễn Ngọc Ái Vy một học sinh ngoan, Nguyễn Tường Vy một học sinh ngoan, Nguyễn Phúc Tâm Anh một học sinh ngoan và cực kì giỏi môn tiếng anh, Nguyễn Trang Bảo Thy một học sinh giỏi và tài năng và là thành viên của đội tuyển robot quốc gia, Đặng Ngô Nhật Thu một học sinh jet jet quậy phá đến từ đất Cần Thơ, Huỳnh Phương Thảo Uyên biệt danh LuLu là một học sinh dân chơi ngầm và là jet dơ Cà Mau , Trương Kim Phụng là một học sinh ngoan, Nguyễn Bảo Trâm là lớp trưởng và là học sinh gương mẫu đạt được học bổng 100% trong 3 năm học và được mọi người yêu quý, Bùi Nguyễn Nam Phương một cô gái dễ thương và xinh đẹp là ít nói và có tính tình vui vẻ và đặc biệt là với Lâm Thường Khiết, Trần Nguyễn Nhật Quỳnh là một cô gái vui vẻ và học giỏi và là học bá, Nguyễn Quốc Minh Nguyệt là một học sinh hư hỏng quậy phá nhưng học giỏi.
+               Lê Phước Lộc thích Phan Nguyễn Bảo Hân mà Bảo Hân chảnh quá không đồng ý yêu Phước Lộc, bạn Lộc hay tán tỉnh PT dạy mình tập gym bằng các trò đùa quyến rũ, bạn Lộc là một học sinh bệnh down trong lớp và không được mọi người yêu quý, bạn biết Bạch Minh Huy và Nguyễn Ngọc Ái Vy đang quen nhau, Lê Thành Tính thích Nhật Quỳnh, Bùi Đức Trí và Dương Minh Trang.` }],
+    },
+ ];
+
+
+const initialInputHeight = messageInput.scrollHeight;
+
+// Create message element with dynamic classes and return it
+const createMessageElement = (content, ...classes) => {
+    const div = document.createElement("div");
+    div.classList.add("message", ...classes);
+    div.innerHTML = content;
+    return div;
+};
+
+// Generate bot response using API
+const generateBotResponse = async (incomingMessageDiv) => {
+    const messageElement = incomingMessageDiv.querySelector(".message-text");
+    
+    chatHistory.push({
+        role: "user",
+       parts: [{ text: `Using the details provided above, please address this query: ${userData.message}` }, ...(userData.file.data ? [{ inline_data: userData.file }] : [])],
+ });
+
+    chatHistory.push({
+        role: "user",
+        parts: [{ text: userData.message }, ...(userData.file.data ? [{ inline_data: userData.file }] : [])],
+    });
+    
+    // API request options
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            contents: chatHistory
+        })
+    }
+
+    try {
+        // Fetch bot response from API
+        const response = await fetch(API_URL, requestOptions);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error.message);
+
+        // Extract and display bot's response text
+        const apiResponseText = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
+        messageElement.innerText = apiResponseText;
+        chatHistory.push({
+            role: "model",
+            parts: [{ text: apiResponseText }]
+        });
+    } catch (error) {
+        messageElement.innerText = error.message;
+        messageElement.style.color = "#ff0000";
+    } finally {
+        userData.file = {};
+        incomingMessageDiv.classList.remove("thinking");
+        chatBody.scrollTo({ behavior: "smooth", top: chatBody.scrollHeight });
+    }
+};
+
+// Handle outgoing user message
+const handleOutgoingMessage = (e) => {
+    e.preventDefault();
+    userData.message = messageInput.value.trim();
+    messageInput.value = "";
+    fileUploadWrapper.classList.remove("file-uploaded");
+    messageInput.dispatchEvent(new Event("input"));
+
+    // Create and display user message
+    const messageContent = `<div class="message-text"></div>
+                            ${userData.file.data ? `<img src="data:${userData.file.mime_type};base64,${userData.file.data}" class="attachment" />` : ""}`;
+
+    const outgoingMessageDiv = createMessageElement(messageContent, "user-message");
+    outgoingMessageDiv.querySelector(".message-text").innerText = userData.message;
+    chatBody.appendChild(outgoingMessageDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    // Simulate bot response with thinking indicator after a delay
+    setTimeout(() => {
+        const messageContent = `<svg class="bot-avatar" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024">
+                    <path d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"></path>
+                </svg>
+                <div class="message-text">
+                    <div class="thinking-indicator">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>`;
+
+        const incomingMessageDiv = createMessageElement(messageContent, "bot-message", "thinking");
+        chatBody.appendChild(incomingMessageDiv);
+        chatBody.scrollTo({ behavior: "smooth", top: chatBody.scrollHeight });
+        generateBotResponse(incomingMessageDiv);
+    }, 600);
+};
+
+// Handle Enter key press for sending messages
+messageInput.addEventListener("keydown", (e) => {
+    const userMessage = e.target.value.trim();
+    if (e.key === "Enter" && userMessage && !e.shiftKey && window.innerWidth > 768) {
+        handleOutgoingMessage(e);
+    }
+});
+
+messageInput.addEventListener("input", (e) => {
+    messageInput.style.height = `${initialInputHeight}px`;
+    messageInput.style.height = `${messageInput.scrollHeight}px`;
+    document.querySelector(".chat-form").style.boderRadius = messageInput.scrollHeight > initialInputHeight ? "15px" : "32px";
+});
+
+// Handle file input change event
+fileInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        fileUploadWrapper.querySelector("img").src = e.target.result;
+        fileUploadWrapper.classList.add("file-uploaded");
+        const base64String = e.target.result.split(",")[1];
+
+        // Store file data in userData
+        userData.file = {
+            data: base64String,
+            mime_type: file.type
+        };
+        
+        fileInput.value = ""; 
+    };
+
+    reader.readAsDataURL(file);
+});
+
+fileCancelButton.addEventListener("click", (e) => {
+    userData.file = {};
+    fileUploadWrapper.classList.remove("file-uploaded");
+});
+
+const picker = new EmojiMart.Picker({
+    theme: "light",
+    showSkinTones: "none",
+    previewPosition: "none",
+    onEmojiSelect: (emoji) => {
+        const { selectionStart: start, selectionEnd: end } = messageInput;
+        messageInput.setRangeText(emoji.native, start, end, "end");
+        messageInput.focus();
+    },
+    onClickOutside: (e) => {
+        if (e.target.id === "emoji-picker") {
+            document.body.classList.toggle("show-emoji-picker");
+        } else {
+            document.body.classList.remove("show-emoji-picker");
+        }
+    },
+});
+
+document.querySelector(".chat-form").appendChild(picker);
+
+fileInput.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const validImageTypes = ['image/.jpeg', 'image/png', 'image/gif', 'image/webp'];
+    if (!validImageTypes.includes(file.type)) {
+        await Swal.fire({
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Chỉ chấp nhận file ảnh (JPEG, PNG, GIF, WEBP)',
+            confirmButtonText: 'OK'
+        });
+        resetFileInput();
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        fileUploadWrapper.querySelector("img").src = e.target.result;
+        fileUploadWrapper.classList.add("file-uploaded");
+        const base64String = e.target.result.split(",")[1];
+        userData.file = {
+            data: base64String,
+            mime_type: file.type
+        };
+    };
+    reader.readAsDataURL(file);
+});
+
+function resetFileInput() {
+    fileInput.value = "";
+    fileUploadWrapper.classList.remove("file-uploaded");
+    fileUploadWrapper.querySelector("img").src = "#";
+    userData.file = { data: null, mime_type: null };
+    document.querySelector(".chat-form").reset();
+}
+
+sendMessageButton.addEventListener("click", (e) => handleOutgoingMessage(e));
+document.querySelector("#file-upload").addEventListener("click", (e) => fileInput.click());
+chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+closeChatbot.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
+    </script>
+    </script>
+    
+</body>
+</html>
+</body>
+</html>

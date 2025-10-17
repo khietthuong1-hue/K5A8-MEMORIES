@@ -1,0 +1,536 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>K5A8 MEMORIES - Hành Trình 3 Năm</title>
+  <link rel="icon" href="Images/logo.jpg" type="image/png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Quicksand:wght@400;500;600&display=swap');
+    :root {
+      --primary-color: #00BFFF;
+      --secondary-color: #4bdafa;
+      --text-dark: #013A63;
+      --text-light: #ffffff;
+      --bg-light: #e0f7fa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: url("Web/BG.png") center/cover no-repeat fixed;
+      color: var(--text-dark);
+    }
+
+    /* HERO SECTION */
+    .hero-banner {
+      height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(6px);
+      color: var(--text-dark);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .hero-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 80px;
+      font-weight: 700;
+      letter-spacing: 5px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .hero-subtitle {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 26px;
+      letter-spacing: 2px;
+      opacity: 0.85;
+    }
+
+    /* NAVIGATION */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 3px solid var(--secondary-color);
+      padding: 15px 0;
+    }
+
+    nav a {
+      font-weight: 600;
+      color: var(--text-dark);
+      position: relative;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--primary-color);
+      transition: width 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* GRID LAYOUT */
+    .news-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 60px auto;
+      text-align: center;
+    }
+
+    .news-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: #01497C;
+      margin-bottom: 40px;
+      display: inline-block;
+      border-bottom: 4px solid var(--primary-color);
+      padding-bottom: 5px;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .news-card {
+      background: rgba(255,255,255,0.85);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 150, 200, 0.15);
+      overflow: hidden;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 150, 200, 0.25);
+    }
+
+    .news-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .news-content {
+      padding: 20px;
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .news-content h3 {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 20px;
+      color: #01579B;
+      margin-bottom: 10px;
+    }
+
+    .news-date {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .news-content p {
+      font-size: 15px;
+      color: #034f84;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .read-more {
+      background: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .read-more:hover {
+      background: #0077b6;
+    }
+
+    footer {
+      background-color: rgba(0,153,204,0.9);
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 14px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero-banner">
+    <h1 class="hero-title">K5A8 MEMORIES</h1>
+    <p class="hero-subtitle">Hành Trình 3 Năm</p>
+  </div>
+
+  <nav>
+    <a href="index.html">TRANG CHỦ</a>
+    <a href="news.html">MEMORIES</a>
+    <a href="humans.html">HUMANS OF K5A8</a>
+    <a href="#">TEACHER</a>
+    <a href="#">BAN CÁN SỰ</a>
+    <a href="#">THÀNH TÍCH</a>
+    <a href="#">DRAMA</a>
+    <a href="#">CONTACT</a>
+  </nav>
+    <div class="news-grid">
+
+      <div class="news-container">
+    <h2 class="news-title">Hành Trình 3 Năm</h2>
+
+    <div class="news-grid" id="newsGrid">
+
+        <div class="news-card"><img src="Images/mm1.jpg"><div class="news-content"><h3>Lần đầu tiên gặp nhau</h3><p class="news-date">12/8/2023</p><p>Không khí ấm áp và đầy cảm xúc trong ngày đặc biệt của đại gia đình K5A8.</p><a href="baiviet1.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm2.jpg"><div class="news-content"><h3>Ngày Phụ Nữ Việt Nam</h3><p class="news-date">20/10/2023</p><p>Món quà đặc biệt dành tặng cho các quý cô K5A8, tràn ngập niềm vui và nụ cười.</p><a href="baiviet2.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/khamlon.jpg"><div class="news-content"><h3>Tham Quan Khám Lớn và Đền Hùng</h3><p class="news-date">22/10/2023</p><p>Chuyến đi đầu tiên cùng nhau.</p><a href="khamlon.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm3.jpg"><div class="news-content"><h3>Ngày Nhà Giáo Việt Nam</h3><p class="news-date">20/11/2023</p><p>Những khoảnh khắc xúc động dành tặng cho thầy Nguyễn Minh Khiêm thân yêu.</p><a href="baiviet3.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/phientoagiadinh.jpg"><div class="news-content"><h3>Phiên Tòa Giả Định</h3><p class="news-date">23/11/2023</p><p>Hóa thân thành những người thực thi công lí cùng K5A8.</p><a href="phientoagiadinh.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm4.jpg"><div class="news-content"><h3>Giáng Sinh Ấm Áp</h3><p class="news-date">24/12/2023</p><p>Tháng 12 lạnh giá nhưng tình cảm bạn bè khiến trái tim K5A8 luôn ấm áp.</p><a href="baiviet4.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm5.jpg"><div class="news-content"><h3>Gian Hàng Tết</h3><p class="news-date">29/1/2024</p><p>Không khí rộn ràng của mùa xuân tràn ngập trong gian hàng nhỏ mang tên K5A8.</p><a href="baiviet5.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm6.jpg"><div class="news-content"><h3>Ngày Quốc tế Phụ nữ</h3><p class="news-date">8/3/2024</p><p>Kỷ niệm 8/3 đầu tiên, lớp chúng mình lại có dịp lan tỏa sự yêu thương và trân trọng đến phái đẹp.</p><a href="baiviet6.html#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/quocphong.jpg"><div class="news-content"><h3>Quốc Phòng đầu tiên</h3><p class="news-date">31/3/2024</p><p>Khoác lên mình màu áo xanh, K5A8 lăn lộn vì tổ quốc.</p><a href="quocphong.html#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mmdacbiet.jpg"><div class="news-content"><h3>Liên Hoan Cuối Năm Học</h3><p class="news-date">22/5/2024</p><p>Những giây phút bên nhau cuối cùng của năm học, gói trọn niềm vui và sự gắn kết không thể nào quên.</p><a href="baiviet7.html#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm7.jpg"><div class="news-content"><h3>Kết thúc năm học đầu tiên</h3><p class="news-date">24/5/2024</p><p>Ngày 24/5/2024 đánh dấu một cột mốc đặc biệt - khép lại năm học đầu tiên đầy trải nghiệm và kỷ niệm đáng nhớ.</p><a href="baiviet8.html#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm8.jpg"><div class="news-content"><h3>Ngày Đầu Tiên Của Năm Học Thứ Hai</h3><p class="news-date">12/8/2024</p><p>Mùa hè đi qua và chúng ta lại gặp nhau trong một năm học có nhiều thay đổi.</p><a href="baiviet9.html#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm9.jpg"><div class="news-content"><h3>Lần Đầu Được Chơi Team Building</h3><p class="news-date">30/8/2024</p><p>Hành trình vui chơi thú vị cùng nhau của K5A8.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm10.jpg"><div class="news-content"><h3>Khai Giảng Năm Thứ Hai</h3><p class="news-date">5/9/2024</p><p>Thanh âm khai giảng ngày 5/9/2024 vang lên như một lời nhắc quen thuộc, nhưng ý nghĩa lại khác hẳn so với năm đầu tiên..</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm11.jpg"><div class="news-content"><h3>Ngày Quân Sự Tại Hòa An </h3><p class="news-date">15/9/2024</p><p>Khoác lên mình màu xanh Tổ quốc, tập thể K5A8 chính thức bước vào những ngày quân sự tại Hòa An, một trải nghiệm rất khác so với những ngày học thường nhật.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm12.jpg"><div class="news-content"><h3>Ngày Quốc Tế Nam Giới</h3><p class="news-date">19/11/2024</p><p>Những nụ cười rạng rỡ trong khung hình của tuổi học trò.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm13.jpg"><div class="news-content"><h3>Ngày Nhà Giáo Việt Nam</h3><p class="news-date">20/11/2024</p><p>Những khoảnh khắc cùng thầy Khiêm, ghế bàn, và những buổi học thân quen.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm14.jpg"><div class="news-content"><h3>Ngày Hội Địa Lí Đa Quốc Gia</h3><p class="news-date">11/12/2024</p><p>Ngày K5A8 phá đảo khối xã hội.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm15.jpg"><div class="news-content"><h3>Hội Chợ Xuân Vị Tết Quê Em</h3><p class="news-date">12/1/2025</p><p>Ngày K5A8 cùng nhau khám phá đặc sản tết của nhiều vùng miền xa xôi trên đất nước.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm16.jpg"><div class="news-content"><h3>Ăn Liên Hoan - Ăn Tất Niên</h3><p class="news-date">13/1/2025</p><p>Khoảnh khắc vui vẻ cùng nhau trước khi bước vào kì nghỉ tết.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm17.jpg"><div class="news-content"><h3>Thi Võ Nhạc</h3><p class="news-date">1/4/2025</p><p>Nơi mà tài năng nghệ thuật và tinh thần võ đạo của K5A8 được bộc lộ.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm18.jpg"><div class="news-content"><h3>Ăn Liên Hoan Cuối Năm</h3><p class="news-date">21/5/2025</p><p>Buổi ăn cuối cùng nhau trước khi bước vào kì nghỉ hè và khoảnh khắc bất ngờ dành cho thầy Khiêm.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm19.jpg"><div class="news-content"><h3>Tổng Kết, Lễ Chúc Mừng Thành Tích</h3><p class="news-date">22/5/2025</p><p>Khoảnh khắc đáng nhớ khi K5A8 cùng nhau bước lên sân khấu.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm20.jpg"><div class="news-content"><h3>Nhập Học Năm Cuối cấp</h3><p class="news-date">18/8/2025</p><p>Lần thứ ba cũng như là lần cuối cùng chúng ta có cảm giác này.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm21.jpg"><div class="news-content"><h3>Team Building</h3><p class="news-date">28/8/2025</p><p>Khoảnh khắc K5A8 cùng nhau hợp sức giải đố các trò chơi và vui đùa trong nắng sớm.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm22.jpg"><div class="news-content"><h3>Khai Giảng Lần Cuối</h3><p class="news-date">5/9/2025</p><p>Lần cuối cùng nhau, mặc dù có rất nhiều thay đổi nhưng cảm giác đầy tình yêu thương và ấm áp dành cho nhau vẫn vẹn nguyên như ngày đầu.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm23.jpg"><div class="news-content"><h3>Xem Phim Mưa Đỏ</h3><p class="news-date">10/9/2025</p><p>Cùng K5A8 lật lại những trang sử hào hùng của dân tộc.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm24.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">20/5/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm25.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">1/6/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm26.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">20/12/2023</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm27.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">29/5/2024</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm28.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">15/7/2024</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm29.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">5/10/2024</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm30.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">10/11/2024</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm31.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">15/3/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm32.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">25/4/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm33.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">10/5/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm34.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">19/5/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm35.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">12/8/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+
+    </div>
+
+    <div class="pagination" id="pagination">
+        </div>
+
+=======
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>K5A8 MEMORIES - Hành Trình 3 Năm</title>
+  <link rel="icon" href="Images/logo.jpg" type="image/png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Quicksand:wght@400;500;600&display=swap');
+    :root {
+      --primary-color: #00BFFF;
+      --secondary-color: #4bdafa;
+      --text-dark: #013A63;
+      --text-light: #ffffff;
+      --bg-light: #e0f7fa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: url("Web/BG.png") center/cover no-repeat fixed;
+      color: var(--text-dark);
+    }
+
+    /* HERO SECTION */
+    .hero-banner {
+      height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(6px);
+      color: var(--text-dark);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .hero-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 80px;
+      font-weight: 700;
+      letter-spacing: 5px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .hero-subtitle {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 26px;
+      letter-spacing: 2px;
+      opacity: 0.85;
+    }
+
+    /* NAVIGATION */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 3px solid var(--secondary-color);
+      padding: 15px 0;
+    }
+
+    nav a {
+      font-weight: 600;
+      color: var(--text-dark);
+      position: relative;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--primary-color);
+      transition: width 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* GRID LAYOUT */
+    .news-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 60px auto;
+      text-align: center;
+    }
+
+    .news-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: #01497C;
+      margin-bottom: 40px;
+      display: inline-block;
+      border-bottom: 4px solid var(--primary-color);
+      padding-bottom: 5px;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .news-card {
+      background: rgba(255,255,255,0.85);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 150, 200, 0.15);
+      overflow: hidden;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 150, 200, 0.25);
+    }
+
+    .news-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .news-content {
+      padding: 20px;
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .news-content h3 {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 20px;
+      color: #01579B;
+      margin-bottom: 10px;
+    }
+
+    .news-date {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .news-content p {
+      font-size: 15px;
+      color: #034f84;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .read-more {
+      background: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .read-more:hover {
+      background: #0077b6;
+    }
+
+    footer {
+      background-color: rgba(0,153,204,0.9);
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 14px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero-banner">
+    <h1 class="hero-title">K5A8 MEMORIES</h1>
+    <p class="hero-subtitle">Hành Trình 3 Năm</p>
+  </div>
+
+  <nav>
+    <a href="index.html">TRANG CHỦ</a>
+    <a href="news.html">MEMORIES</a>
+    <a href="humans.html">HUMANS OF K5A8</a>
+    <a href="#">TEACHER</a>
+    <a href="#">BAN CÁN SỰ</a>
+    <a href="#">THÀNH TÍCH</a>
+    <a href="#">DRAMA</a>
+    <a href="#">CONTACT</a>
+  </nav>
+    <div class="news-grid">
+
+      <div class="news-container">
+    <h2 class="news-title">Hành Trình 3 Năm</h2>
+
+    <div class="news-grid" id="newsGrid">
+
+        <div class="news-card"><img src="Images/mm1.jpg"><div class="news-content"><h3>Lần đầu tiên gặp nhau</h3><p class="news-date">12/8/2023</p><p>Không khí ấm áp và đầy cảm xúc trong ngày đặc biệt của đại gia đình K5A8.</p><a href="baiviet1.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm2.jpg"><div class="news-content"><h3>Ngày Phụ Nữ Việt Nam</h3><p class="news-date">20/10/2023</p><p>Món quà đặc biệt dành tặng cho các quý cô K5A8, tràn ngập niềm vui và nụ cười.</p><a href="baiviet2.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/khamlon.jpg"><div class="news-content"><h3>Tham Quan Khám Lớn và Đền Hùng</h3><p class="news-date">22/10/2023</p><p>Chuyến đi đầu tiên cùng nhau.</p><a href="khamlon.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm3.jpg"><div class="news-content"><h3>Ngày Nhà Giáo Việt Nam</h3><p class="news-date">20/11/2023</p><p>Những khoảnh khắc xúc động dành tặng cho thầy Nguyễn Minh Khiêm thân yêu.</p><a href="baiviet3.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/phientoagiadinh.jpg"><div class="news-content"><h3>Phiên Tòa Giả Định</h3><p class="news-date">23/11/2023</p><p>Hóa thân thành những người thực thi công lí cùng K5A8.</p><a href="phientoagiadinh.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm4.jpg"><div class="news-content"><h3>Giáng Sinh Ấm Áp</h3><p class="news-date">24/12/2023</p><p>Tháng 12 lạnh giá nhưng tình cảm bạn bè khiến trái tim K5A8 luôn ấm áp.</p><a href="baiviet4.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm5.jpg"><div class="news-content"><h3>Gian Hàng Tết</h3><p class="news-date">29/1/2024</p><p>Không khí rộn ràng của mùa xuân tràn ngập trong gian hàng nhỏ mang tên K5A8.</p><a href="baiviet5.html" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm6.jpg"><div class="news-content"><h3>Ngày Quốc tế Phụ nữ</h3><p class="news-date">8/3/2024</p><p>Kỷ niệm 8/3 đầu tiên, lớp chúng mình lại có dịp lan tỏa sự yêu thương và trân trọng đến phái đẹp.</p><a href="baiviet6.html#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/quocphong.jpg"><div class="news-content"><h3>Quốc Phòng đầu tiên</h3><p class="news-date">31/3/2024</p><p>Khoác lên mình màu áo xanh, K5A8 lăn lộn vì tổ quốc.</p><a href="quocphong.html#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mmdacbiet.jpg"><div class="news-content"><h3>Liên Hoan Cuối Năm Học</h3><p class="news-date">22/5/2024</p><p>Những giây phút bên nhau cuối cùng của năm học, gói trọn niềm vui và sự gắn kết không thể nào quên.</p><a href="baiviet7.html#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm7.jpg"><div class="news-content"><h3>Kết thúc năm học đầu tiên</h3><p class="news-date">24/5/2024</p><p>Ngày 24/5/2024 đánh dấu một cột mốc đặc biệt - khép lại năm học đầu tiên đầy trải nghiệm và kỷ niệm đáng nhớ.</p><a href="baiviet8.html#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm8.jpg"><div class="news-content"><h3>Ngày Đầu Tiên Của Năm Học Thứ Hai</h3><p class="news-date">12/8/2024</p><p>Mùa hè đi qua và chúng ta lại gặp nhau trong một năm học có nhiều thay đổi.</p><a href="baiviet9.html#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm9.jpg"><div class="news-content"><h3>Lần Đầu Được Chơi Team Building</h3><p class="news-date">30/8/2024</p><p>Hành trình vui chơi thú vị cùng nhau của K5A8.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm10.jpg"><div class="news-content"><h3>Khai Giảng Năm Thứ Hai</h3><p class="news-date">5/9/2024</p><p>Thanh âm khai giảng ngày 5/9/2024 vang lên như một lời nhắc quen thuộc, nhưng ý nghĩa lại khác hẳn so với năm đầu tiên..</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm11.jpg"><div class="news-content"><h3>Ngày Quân Sự Tại Hòa An </h3><p class="news-date">15/9/2024</p><p>Khoác lên mình màu xanh Tổ quốc, tập thể K5A8 chính thức bước vào những ngày quân sự tại Hòa An, một trải nghiệm rất khác so với những ngày học thường nhật.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm12.jpg"><div class="news-content"><h3>Ngày Quốc Tế Nam Giới</h3><p class="news-date">19/11/2024</p><p>Những nụ cười rạng rỡ trong khung hình của tuổi học trò.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm13.jpg"><div class="news-content"><h3>Ngày Nhà Giáo Việt Nam</h3><p class="news-date">20/11/2024</p><p>Những khoảnh khắc cùng thầy Khiêm, ghế bàn, và những buổi học thân quen.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm14.jpg"><div class="news-content"><h3>Ngày Hội Địa Lí Đa Quốc Gia</h3><p class="news-date">11/12/2024</p><p>Ngày K5A8 phá đảo khối xã hội.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm15.jpg"><div class="news-content"><h3>Hội Chợ Xuân Vị Tết Quê Em</h3><p class="news-date">12/1/2025</p><p>Ngày K5A8 cùng nhau khám phá đặc sản tết của nhiều vùng miền xa xôi trên đất nước.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm16.jpg"><div class="news-content"><h3>Ăn Liên Hoan - Ăn Tất Niên</h3><p class="news-date">13/1/2025</p><p>Khoảnh khắc vui vẻ cùng nhau trước khi bước vào kì nghỉ tết.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm17.jpg"><div class="news-content"><h3>Thi Võ Nhạc</h3><p class="news-date">1/4/2025</p><p>Nơi mà tài năng nghệ thuật và tinh thần võ đạo của K5A8 được bộc lộ.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm18.jpg"><div class="news-content"><h3>Ăn Liên Hoan Cuối Năm</h3><p class="news-date">21/5/2025</p><p>Buổi ăn cuối cùng nhau trước khi bước vào kì nghỉ hè và khoảnh khắc bất ngờ dành cho thầy Khiêm.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm19.jpg"><div class="news-content"><h3>Tổng Kết, Lễ Chúc Mừng Thành Tích</h3><p class="news-date">22/5/2025</p><p>Khoảnh khắc đáng nhớ khi K5A8 cùng nhau bước lên sân khấu.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm20.jpg"><div class="news-content"><h3>Nhập Học Năm Cuối cấp</h3><p class="news-date">18/8/2025</p><p>Lần thứ ba cũng như là lần cuối cùng chúng ta có cảm giác này.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm21.jpg"><div class="news-content"><h3>Team Building</h3><p class="news-date">28/8/2025</p><p>Khoảnh khắc K5A8 cùng nhau hợp sức giải đố các trò chơi và vui đùa trong nắng sớm.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm22.jpg"><div class="news-content"><h3>Khai Giảng Lần Cuối</h3><p class="news-date">5/9/2025</p><p>Lần cuối cùng nhau, mặc dù có rất nhiều thay đổi nhưng cảm giác đầy tình yêu thương và ấm áp dành cho nhau vẫn vẹn nguyên như ngày đầu.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm23.jpg"><div class="news-content"><h3>Xem Phim Mưa Đỏ</h3><p class="news-date">10/9/2025</p><p>Cùng K5A8 lật lại những trang sử hào hùng của dân tộc.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm24.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">20/5/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm25.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">1/6/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm26.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">20/12/2023</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm27.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">29/5/2024</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm28.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">15/7/2024</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm29.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">5/10/2024</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm30.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">10/11/2024</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm31.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">15/3/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm32.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">25/4/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm33.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">10/5/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm34.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">19/5/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+        <div class="news-card"><img src="Images/mm35.jpg"><div class="news-content"><h3>Coming Soon</h3><p class="news-date">12/8/2025</p><p>Coming Soon.</p><a href="#" class="read-more">Đọc thêm</a></div></div>
+
+    </div>
+
+    <div class="pagination" id="pagination">
+        </div>
+
+>>>>>>> cbd61963a115676b7212a4d643611a52b8c450f9
+</div>

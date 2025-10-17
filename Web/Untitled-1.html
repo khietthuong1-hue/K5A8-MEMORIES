@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Hiệu Ứng Animation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* --- CÀI ĐẶT CHUNG --- */
+        :root {
+            --primary: #00c4b3;
+            --primary-dark: #093d3d;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #062929;
+            color: white;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- DEMO 1: TESTIMONIAL SLIDER --- */
+        .testimonial-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin: auto;
+        }
+
+        .testimonial-text-container {
+            flex: 2;
+        }
+
+        .testimonial-text {
+            font-size: 20px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .testimonial-info {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 12px;
+        }
+
+        .avatar-wrapper img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid white;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stripe {
+            position: absolute;
+            top: 15px;
+            left: -10px;
+            width: 130%;
+            height: 80%;
+            background: linear-gradient(90deg, #00c4b3, #00e3cf);
+            z-index: 1;
+            border-radius: 8px;
+            transform: skewX(-20deg);
+        }
+
+        .testimonial-info h4 {
+            font-size: 18px;
+            color: var(--primary);
+            margin: 10px 0 4px;
+        }
+
+        .testimonial-info p {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .nav-buttons {
+            margin-top: 14px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hiệu ứng chuyển động cho Testimonial */
+        .testimonial-text-container,
+        .testimonial-info {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .testimonial-text-container.show,
+        .testimonial-info.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* --- DEMO 2: CÁC BAN --- */
+        .ban-section {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+
+        .ban-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .ban-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .ban-item:hover,
+        .ban-item.active {
+            background: rgba(0, 174, 239, 0.2);
+            border-left: 4px solid #00aef0;
+        }
+
+        .ban-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .ban-text {
+             flex: 1;
+        }
+
+        .ban-text h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .ban-text p {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .ban-image img {
+            width: 250px;
+            height: 250px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        /* Hiệu ứng chuyển động cho Các Ban */
+        .ban-text,
+        .ban-image img {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .ban-text.show,
+        .ban-image img.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .testimonial-container, .ban-section {
+                flex-direction: column;
+                grid-template-columns: 1fr;
+            }
+             .ban-list {
+                flex-direction: row;
+                overflow-x: auto;
+             }
+             .ban-content {
+                flex-direction: column-reverse;
+                text-align: center;
+             }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="section">
+        <h2>Demo 1: Testimonial Slider</h2>
+        <div class="testimonial-container">
+            <div class="testimonial-text-container">
+                <p class="testimonial-text" id="testimonial-text"></p>
+            </div>
+            <div class="testimonial-info">
+                <div class="avatar-wrapper">
+                    <div class="stripe"></div>
+                    <img id="testimonial-avatar" src="" alt="Avatar">
+                </div>
+                <h4 id="testimonial-name"></h4>
+                <p id="testimonial-role"></p>
+                <div class="nav-buttons">
+                    <button class="nav-btn prev-btn">&#10094;</button>
+                    <button class="nav-btn next-btn">&#10095;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Demo 2: Các Ban (Tabs)</h2>
+        <div class="ban-section">
+            <div class="ban-list">
+                <div class="ban-item active" data-title="Truyền Thông" data-text="Quản lí và đăng tải bài viết lên các nền tảng số của CLB." data-img="https://via.placeholder.com/250/00aef0/FFFFFF?text=Media">
+                    <span>Truyền Thông</span>
+                </div>
+                <div class="ban-item" data-title="Sản Xuất & Hậu Kỳ" data-text="Chịu trách nhiệm quay dựng, hậu kỳ các sản phẩm media." data-img="https://via.placeholder.com/250/f0652f/FFFFFF?text=Production">
+                    <span>Sản Xuất & Hậu Kỳ</span>
+                </div>
+                <div class="ban-item" data-title="Hậu Cần" data-text="Đảm nhận công tác chuẩn bị, hỗ trợ các hoạt động của CLB." data-img="https://via.placeholder.com/250/2fa44f/FFFFFF?text=Logistics">
+                    <span>Hậu Cần</span>
+                </div>
+            </div>
+            <div class="ban-content">
+                <div class="ban-text">
+                    <h3 id="ban-title"></h3>
+                    <p id="ban-desc"></p>
+                </div>
+                <div class="ban-image">
+                    <img id="ban-img" src="" alt="Hình ảnh của ban">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- LOGIC CHO TESTIMONIAL SLIDER ---
+            const testimonials = [
+                {
+                    text: "“Đây là nơi nuôi dưỡng cảm hứng sáng tạo, là “gia đình” của những người yêu nhiếp ảnh.”",
+                    avatar: "https://via.placeholder.com/110/0abab5/FFFFFF?text=User+1",
+                    name: "Nguyễn Văn A",
+                    role: "Founder"
+                },
+                {
+                    text: "“Mình đã học được rất nhiều kỹ năng mới và làm quen được với những người bạn tuyệt vời.”",
+                    avatar: "https://via.placeholder.com/110/ff6b6b/FFFFFF?text=User+2",
+                    name: "Trần Thị B",
+                    role: "Thành viên"
+                },
+                {
+                    text: "“Môi trường năng động, chuyên nghiệp và luôn tràn đầy nhiệt huyết.”",
+                    avatar: "https://via.placeholder.com/110/3498db/FFFFFF?text=User+3",
+                    name: "Lê Văn C",
+                    role: "Cố vấn"
+                }
+            ];
+
+            let testimonialIndex = 0;
+            const textEl = document.getElementById("testimonial-text");
+            const avatarEl = document.getElementById("testimonial-avatar");
+            const nameEl = document.getElementById("testimonial-name");
+            const roleEl = document.getElementById("testimonial-role");
+            const textContainer = document.querySelector(".testimonial-text-container");
+            const infoContainer = document.querySelector(".testimonial-info");
+
+            function showTestimonial(i) {
+                textContainer.classList.remove("show");
+                infoContainer.classList.remove("show");
+
+                setTimeout(() => {
+                    const current = testimonials[i];
+                    textEl.textContent = current.text;
+                    avatarEl.src = current.avatar;
+                    nameEl.textContent = current.name;
+                    roleEl.textContent = current.role;
+
+                    textContainer.classList.add("show");
+                    infoContainer.classList.add("show");
+                }, 250); // Thời gian chờ bằng một nửa transition
+            }
+
+            document.querySelector(".prev-btn").addEventListener("click", () => {
+                testimonialIndex = (testimonialIndex - 1 + testimonials.length) % testimonials.length;
+                showTestimonial(testimonialIndex);
+            });
+
+            document.querySelector(".next-btn").addEventListener("click", () => {
+                testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+                showTestimonial(testimonialIndex);
+            });
+
+            // --- LOGIC CHO CÁC BAN (TABS) ---
+            const banItems = document.querySelectorAll(".ban-item");
+            const banTitle = document.getElementById("ban-title");
+            const banDesc = document.getElementById("ban-desc");
+            const banImg = document.getElementById("ban-img");
+            const banText = document.querySelector(".ban-text");
+            const banImage = document.querySelector(".ban-image img");
+
+            function showBanContent(item) {
+                 banText.classList.remove("show");
+                 banImage.classList.remove("show");
+
+                 setTimeout(() => {
+                    banTitle.textContent = item.dataset.title;
+                    banDesc.textContent = item.dataset.text;
+                    banImg.src = item.dataset.img;
+
+                    banText.classList.add("show");
+                    banImage.classList.add("show");
+                 }, 250);
+            }
+
+            banItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    banItems.forEach(i => i.classList.remove("active"));
+                    item.classList.add("active");
+                    showBanContent(item);
+                });
+            });
+
+            // --- KHỞI TẠO NỘI DUNG BAN ĐẦU ---
+            showTestimonial(testimonialIndex);
+            showBanContent(document.querySelector(".ban-item.active"));
+        });
+    </script>
+
+</body>
+</html>

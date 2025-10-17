@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K5A8 MEMORIES - Nơi cất giữ những kỉ niệm.</title>
+    <link href="Images/logo.jpg" rel="icon" type="image/x-icon"/> <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* KHỞI TẠO CHUNG VÀ BIẾN */
+        /* Đã gom các font vào một lần import duy nhất, đặt Fredoka lên đầu */
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Quicksand:wght@400;500;600&family=Fredoka:wght@400;500;600;700&display=swap');
+        :root {
+            --primary-color: #00BFFF; /* Xanh dương chính */
+            --secondary-color: #4bdafa; /* Xanh da trời nhạt */
+            --text-dark: #013A63; /* Xanh navy tối */
+            --text-light: #ffffff;
+            --bg-light: #e0f7fa;
+            --primary-blue: #0077b6; /* Xanh dương đậm hơn */
+        }
+
+        * {
+            font-family: 'Quicksand', 'Fredoka', sans-serif;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: none;
+            position: relative;
+            z-index: 1;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* ========================================= */
+        /* PARTICLES.JS BACKGROUND */
+        /* ========================================= */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #a4e4ff;
+            background-image: url("Web/BG3.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+            z-index: -2;
+            top: 0;
+            left: 0;
+        }
+
+        /* Đảm bảo nội dung chính nằm trên lớp nền Particles */
+        .hero-banner, nav, footer, .gallery-container, section {
+            position: relative;
+            z-index: 2; /* Đặt một z-index cao hơn 1 */
+        }
+
+        /* CLOUD EFFECT */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            filter: blur(20px);
+            animation: moveClouds 60s linear infinite;
+            z-index: -1;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: "";
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+
+        .cloud1 { width: 200px; height: 60px; top: 100px; left: -250px; animation-delay: 0s; }
+        .cloud2 { width: 250px; height: 70px; top: 250px; left: -300px; animation-delay: 10s; }
+        .cloud3 { width: 180px; height: 50px; top: 400px; left: -200px; animation-delay: 15s; }
+        .cloud4 { width: 150px; height: 60px; top: 100px; left: -250px; animation-delay: 20s; }
+        .cloud5 { width: 300px; height: 70px; top: 250px; left: -300px; animation-delay: 25s; }
+        .cloud6 { width: 280px; height: 50px; top: 400px; left: -200px; animation-delay: 30s; }
+
+        @keyframes moveClouds {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(120vw); }
+        }
+
+        /* ========================================= */
+        /* HERO SECTION */
+        /* ========================================= */
+        .hero-banner {
+            position: relative;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url("Web/hero.png") center/cover no-repeat;
+            color: var(--text-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 80px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 5px;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+            transition: 0.5s;
+        }
+
+        .hero-title:hover {
+            color: #d7faff;
+            letter-spacing: 8px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 28px;
+            letter-spacing: 2px;
+            opacity: 0.9;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+        }
+
+        /* ========================================= */
+        /* NAV */
+        /* ========================================= */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            background: white;
+            border-bottom: 3px solid var(--secondary-color);
+            padding: 15px 10px;
+            flex-wrap: wrap;
+        }
+        nav a {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            color: var(--text-dark); /* Thêm màu để dễ nhìn hơn */
+        }
+        nav a:hover { color: var(--primary-color); transform: translateY(-2px); }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease-in-out;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* ========================================= */
+        /* ABOUT CLOUD */
+        /* ========================================= */
+        .about-cloud-frame.big {
+            position: relative;
+            width: 95%;
+            max-width: 800px;
+            margin: 80px auto;
+            text-align: center;
+            animation: floatCloud 7s ease-in-out infinite;
+        }
+        .about-cloud-frame.big .cloud-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            fill: #f0fcff;
+            stroke: #90e0ef;
+            stroke-width: 4px;
+            filter: drop-shadow(0 10px 18px rgba(0,191,255,0.25));
+            z-index: 0;
+        }
+        .about-cloud-frame.big .cloud-text {
+            position: relative;
+            z-index: 1;
+            padding: 100px 80px;
+        }
+        .cloud-text h2 {
+            color: #0077b6;
+            font-size: 32px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .cloud-text p {
+            color: #023e8a;
+            font-size: 16px;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        @keyframes floatCloud {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ========================================= */
+        /* TEACHER CARD */
+        /* ========================================= */
+        .teacher-card {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            background: linear-gradient(135deg, #dff9fb, #c7ecee);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0,150,200,0.15);
+            transition: all 0.35s ease;
+            max-width: 900px;
+            margin: 40px auto;
+            border: 2px solid var(--primary-color);
+        }
+        .teacher-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0, 170, 200, 0.25); }
+        .teacher-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-color); }
+        .teacher-info { margin-left: 20px; flex: 1; min-width: 200px; }
+        .teacher-info h3 { font-size: 22px; color: #023e8a; margin: 0; font-weight: 700; }
+        .teacher-info h3 span { font-size: 16px; color: #0077b6; font-weight: 500; }
+        .teacher-info p { color: #034f84; font-size: 16px; margin-top: 10px; opacity: 0.9; }
+        
+        /* ========================================= */
+        /* CHATBOT POPUP STYLING */
+        /* ========================================= */
+        .open-chat-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .open-chat-btn:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 999;
+            transform: translateY(100%); /* Ban đầu ẩn đi */
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+
+        .chat-container.show {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: grab;
+        }
+
+        .close-btn {
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .chat-box {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+
+        .bot-message {
+            background-color: #e2e6ea;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .user-message {
+            background-color: #d1ecf1;
+            align-self: flex-end;
+            text-align: right;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px 15px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            border: 1px solid #ced4da;
+            border-radius: 20px;
+            padding: 8px 12px;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        .chat-input button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            background-color: #218838;
+        }
+
+        /* ========================================= */
+        /* TYPING INDICATOR (HIỆU ỨNG ĐANG GÕ) */
+        /* ========================================= */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80px;
+            background-color: #e2e6ea;
+        }
+
+        .typing-indicator .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #888;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: bounce 1s infinite ease-in-out;
+        }
+
+        .typing-indicator .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+        }
+
+        /* ========================================= */
+        /* TESTIMONIAL SLIDER */
+        /* ========================================= */
+        .testimonial-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin: 60px auto;
+            max-width: 900px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            border: 2px solid rgba(135, 206, 250, 0.5);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 25px rgba(0, 150, 255, 0.15);
+            transition: all 0.4s ease;
+        }
+        .testimonial-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 150, 255, 0.25);
+        }
+        .testimonial-text-container { flex: 2; padding-right: 20px; }
+        .testimonial-text {
+            font-size: 20px;
+            font-style: italic;
+            line-height: 1.6;
+            color: #2c5285;
+            border-left: 4px solid #4fc3f7;
+            padding-left: 15px;
+        }
+        .testimonial-info { flex: 1; text-align: center; position: relative; }
+        .avatar-wrapper { position: relative; width: 110px; height: 110px; margin: 0 auto 12px; }
+        .avatar-wrapper img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid #81d4fa;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            transition: 0.3s;
+        }
+        .avatar-wrapper img:hover { transform: scale(1.05); }
+        .stripe {
+            position: absolute;
+            top: 15px;
+            left: -10px;
+            width: 130%;
+            height: 80%;
+            background: linear-gradient(90deg, #4fc3f7, #0288d1);
+            z-index: 1;
+            border-radius: 8px;
+            transform: skewX(-20deg);
+            opacity: 0.7;
+        }
+        .testimonial-info h4 { font-size: 18px; color: #44b1e3; margin: 10px 0 4px; }
+        .testimonial-info p { font-size: 14px; color: #146f98; }
+        .nav-buttons { margin-top: 14px; display: flex; justify-content: center; gap: 12px; }
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #4fc3f7;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 150, 255, 0.25);
+            transition: 0.3s;
+        }
+        .nav-btn:hover { transform: scale(1.1); background: #0288d1; }
+        /* Class JS cho hiệu ứng fade */
+        .testimonial-text-container,
+        .testimonial-info {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s ease-in-out;
+        }
+        .testimonial-text-container.show,
+        .testimonial-info.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ========================================= */
+        /* BAN TABS */
+        /* ========================================= */
+        .ban-section-wrapper {
+            background-color: rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1000px;
+            margin: 80px auto;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        .ban-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin-top: 30px;
+        }
+        .ban-list {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .ban-item {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap; /* Ngăn không cho chữ bị xuống dòng */
+        }
+        .ban-item:hover,
+        .ban-item.active {
+            background: #aee0ff;
+            border-left: 4px solid #0077b6;
+            color: #004c6d;
+        }
+        .ban-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            text-align: left;
+        }
+        .ban-text { max-width: 400px; }
+        .ban-text h3 { font-size: 22px; color: #004c6d; margin-bottom: 10px; }
+        .ban-text p { color: #0a3d62; line-height: 1.6; }
+        .ban-image img {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 3px solid #0077b6;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        /* Class JS cho hiệu ứng slide */
+        .ban-text,
+        .ban-image img {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.5s ease-in-out;
+        }
+        .ban-text.show,
+        .ban-image img.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ========================================= */
+        /* POSTS/MEDIA TEAM */
+        /* ========================================= */
+        .post-section { background: linear-gradient(180deg, #b2f9fc 0%, #e0ffff 100%); border-radius: 20px; padding: 40px 20px; margin: 40px auto; width: 90%; max-width: 1100px; box-shadow: 0 8px 20px rgba(0, 128, 255, 0.08); }
+        .post-section h2 { color: #01497C; font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 30px; border-bottom: 3px solid var(--primary-color); display: inline-block; padding-bottom: 5px; text-transform: uppercase; }
+        .post-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap: 20px; }
+        .post-card { background: #fff; border-radius: 15px; overflow: hidden; text-decoration: none; color: inherit; transition: all 0.4s ease; display: flex; flex-direction: column; border: 1px solid #eee; }
+        .post-card:hover { transform: translateY(-6px) rotateZ(0.5deg); box-shadow: 0 12px 28px rgba(0, 102, 204, 0.25); }
+        .post-card img { width: 100%; height: 180px; object-fit: cover; transition: all 0.4s ease; }
+        .post-card:hover img { filter: brightness(0.95) saturate(1.1); transform: scale(1.05); }
+        .post-content { padding: 15px; text-align: left; flex-grow: 1; }
+        .post-content h3 { color: #01579B; font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+
+        /* ========================================= */
+        /* LEADERS/OFFICERS */
+        /* ========================================= */
+        .leaders { background: linear-gradient(135deg, #b2f7ef, #defcf9); border-radius: 25px; padding: 40px 20px; max-width: 1000px; margin: 60px auto; text-align: center; box-shadow: 0 8px 25px rgba(0,150,200,0.15); }
+        .leaders h2 { font-size: 2em; color: #0077b6; margin-bottom: 30px; text-transform: uppercase; }
+        .leader-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 25px; }
+        .leader { background: white; border-radius: 20px; box-shadow: 0 6px 18px rgba(0,150,200,0.15); padding: 15px; transition: 0.3s; }
+        .leader:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,150,200,0.25); }
+        .leader img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid var(--primary-color); }
+        .leader h3 { color: #023e8a; margin: 10px 0 5px; font-size: 16px; }
+        .leader p { color: #0277bd; font-size: 14px; }
+
+        /* ========================================= */
+        /* SOCIAL MEDIA */
+        /* ========================================= */
+        .social { text-align: center; background: linear-gradient(135deg, #a6e3f2, #c2f0ff); padding: 40px 20px; border-radius: 25px; margin: 60px auto; max-width: 900px; box-shadow: 0 6px 20px rgba(0,150,200,0.1); }
+        .social h2 { color: #01579b; margin-bottom: 15px; font-size: 1.8em; text-transform: uppercase; }
+        .social a { margin: 0 12px; display: inline-block; color: #01579b; font-weight: 600; text-decoration: none; transition: 0.3s; }
+        .social a:hover { color: var(--primary-color); transform: scale(1.1); }
+
+        /* ========================================= */
+        /* PARTNER/SPONSOR SECTION */
+        /* ========================================= */
+        .partner-section {
+            padding: 60px 20px;
+            margin: 60px auto 0;
+            width: 100%;
+            background-color: #f7fcff;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05) inset;
+        }
+        .partner-section h2 { font-size: 32px; color: var(--text-dark); margin-bottom: 10px; font-weight: 700; }
+        .partner-section .description { color: #555; max-width: 800px; margin: 0 auto 50px; font-size: 16px; }
+        .partner-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; }
+
+        .partner-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+        .partner-card:hover {
+            transform: translateY(-5px); 
+        }
+
+        .partner-logo-wrapper {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 15px;
+            border: 4px solid #39A2DB;
+            box-shadow: 0 0 10px rgba(57, 162, 219, 0.5), 0 0 20px rgba(57, 162, 219, 0.3);
+            transition: all 0.3s ease;
+        }
+        .partner-card:hover .partner-logo-wrapper {
+            border-color: #4CAF50;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.7), 0 0 30px rgba(76, 175, 80, 0.5);
+            transform: scale(1.05);
+        }
+
+        .partner-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .partner-card:hover .partner-logo {
+            transform: scale(1.1);
+        }
+        .partner-name {
+            font-weight: 600;
+            font-size: 17px;
+            color: var(--primary-blue);
+        }
+
+        /* FOOTER */
+        footer { background-color: #0099cc; color: white; text-align: center; padding: 20px 0; margin-top: 50px; }
+
+        /* ========================================= */
+        /* RESPONSIVE */
+        /* ========================================= */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 45px; }
+            .hero-subtitle { font-size: 20px; }
+            nav { flex-direction: column; gap: 15px; }
+            .teacher-card { flex-direction: column; text-align: center; }
+            .teacher-info { margin-left: 0; margin-top: 15px; }
+            .post-card img { height: 150px; }
+            .leader img { width: 90px; height: 90px; }
+            
+            /* Responsive cho Tabs */
+            .ban-section { flex-direction: column; gap: 30px; }
+            .ban-list { flex-direction: row; overflow-x: auto; justify-content: flex-start; gap: 10px; padding-bottom: 10px; /* Thêm padding cho scrollbar */ }
+            .ban-item { flex-shrink: 0; min-width: 120px; text-align: center; display: block; }
+            .ban-content { flex-direction: column-reverse; text-align: center; }
+            .testimonial-container { flex-direction: column; padding: 25px; }
+            .testimonial-text-container { padding-right: 0; }
+
+            .partner-logo-wrapper { width: 120px; height: 120px; }
+        }
+        
+        @media screen and (max-width: 600px) {
+            nav {
+                display: flex;
+                flex-direction: column; 
+                align-items: center;
+                padding: 10px 0;
+            }
+
+            nav a {
+                padding: 8px 0;
+                width: 90%;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+
+            .leader-grid, .partner-grid {
+                grid-template-columns: 1fr; 
+                gap: 20px;
+            }
+
+            .header-content, .main-content {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.5em; }
+        }
+        /* ========================================= */
+        /* CLOUD PRELOADER (MÂY PHỦ) - ĐÃ ĐIỀU CHỈNH */
+        /* ========================================= */
+        #cloud-preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('Web/load.jpg') center center / cover no-repeat;
+            z-index: 99999;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 2.5s ease-out, visibility 2.5s ease-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            pointer-events: auto;
+            overflow: hidden;
+        }
+
+        .loader-content {
+            color: #ffffff;
+            font-size: 3.5em;
+            font-family: 'Quicksand', sans-serif;
+            animation: pulse 3s infinite;
+            z-index: 100000;
+            position: relative;
+        }
+
+        .loader-content i {
+            font-size: 3em;
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+            animation: float 2s infinite alternate; 
+        }
+
+        /* Khi trang đã tải xong, thêm class 'hidden' */
+        #cloud-preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Vô hiệu hóa cuộn trang khi preloader đang hoạt động */
+        body.no-scroll {
+            overflow: hidden;
+            height: 100vh;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-5px); }
+        }
+        .floating-cloud {
+            position: absolute;
+            width: 80px;
+            height: 50px;
+            /* LƯU Ý: Đường dẫn ở đây có thể sai, nếu bạn không có thư mục Images/small_cloud1.png */
+            background: url('Images/small_cloud1.png') center center / contain no-repeat; 
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+            z-index: 99999;
+            opacity: 0.7;
+        }
+        /* Cần chỉnh lại đường dẫn ảnh cho các class này, ví dụ: background-image: url('Images/small_cloud1.png'); */
+        .floating-cloud.cloud-1 {
+            top: 15%;
+            left: 20%;
+            animation: floatingAnimation 15s linear infinite alternate, fadeInOut 5s ease-in-out infinite;
+            animation-delay: 0s;
+            width: 100px; height: 60px;
+        }
+
+        .floating-cloud.cloud-2 {
+            bottom: 20%;
+            right: 15%;
+            animation: floatingAnimation 18s linear infinite alternate, fadeInOut 6s ease-in-out infinite;
+            animation-delay: 2s;
+            width: 120px; height: 70px;
+        }
+
+        .floating-cloud.cloud-3 {
+            top: 40%;
+            right: 25%;
+            animation: floatingAnimation 20s linear infinite alternate, fadeInOut 7s ease-in-out infinite;
+            animation-delay: 4s;
+            width: 90px; height: 55px;
+        }
+
+        @keyframes floatingAnimation {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(20px, 10px); }
+            50% { transform: translate(0, -10px); }
+            75% { transform: translate(-20px, 10px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div> 
+    <section class="BACKGROUND"></section>
+
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="cloud cloud4"></div>
+    <div class="cloud cloud5"></div>
+    <div class="cloud cloud6"></div>
+
+    <div id="cloud-preloader">
+        <div class="loader-content">
+            <i class="fas fa-cloud"></i> <span>Loading K5A8 Stories...</span>
+        </div>
+        <div class="floating-cloud cloud-1"></div>
+        <div class="floating-cloud cloud-2"></div>
+        <div class="floating-cloud cloud-3"></div>
+    </div>
+
+
+    <section class="hero-banner">
+        <h1 class="hero-title">K5A8 MEMORIES</h1>
+        <p class="hero-subtitle">NƠI CẤT GIỮ NHỮNG KỈ NIỆM</p>
+    </section>
+
+    <nav aria-label="Main Navigation">
+        <a href="index.html">TRANG CHỦ</a>
+        <a href="news.html">MEMORIES</a>
+        <a href="humans.html#">HUMANS OF K5A8</a>
+        <a href="#">TEACHER</a>
+        <a href="#">BAN CÁN SỰ</a>
+        <a href="#">THÀNH TÍCH</a>
+        <a href="#">DRAMA</a>
+        <a href="#">CONTACT</a>
+    </nav>
+    
+    <section class="about-cloud-frame big scroll-animate">
+        <svg class="cloud-shape" viewBox="0 0 800 400" preserveAspectRatio="none">
+            <path d="M160 360 Q90 340 80 260 Q40 220 80 160 Q100 90 200 110 Q250 40 360 60 Q440 10 540 80 Q650 30 720 100 Q770 130 760 200 Q780 260 700 310 Q640 370 520 360 Q430 390 320 380 Q220 400 160 360Z" />
+        </svg>
+        <div class="cloud-text">
+            <h2>About K5A8</h2>
+            <p>
+                K5A8 – ngôi nhà của những con người trẻ đầy năng lượng, sáng tạo và gắn kết. Nơi từng nụ cười, từng khoảnh 
+                khắc đều được lưu giữ bằng tình bạn, kỷ niệm và lòng biết ơn. Mỗi thành viên trong gia đình là một mảnh ghép, cùng nhau tạo
+                nên bức tranh thanh xuân rực rỡ nhất.
+            </p>
+        </div>
+    </section>
+
+    <section class="teacher-card scroll-animate">
+        <img src="Images/chunhiem.jpg" alt="Nguyễn Minh Khiêm – Chủ nhiệm K5A8" class="teacher-img">
+        <div class="teacher-info">
+            <h3>Nguyễn Minh Khiêm <span>• Chủ nhiệm K5A8</span></h3>
+            <p>Người cha tuyệt vời và bầy con đáng yêu K5A8.</p>
+        </div>
+    </section>
+    
+    <section class="testimonial-section-wrapper scroll-animate">
+        <h2 style="text-align: center; color: var(--text-dark); margin-bottom: 30px;">MEMBER</h2>
+        <div class="testimonial-container">
+            <div class="testimonial-text-container">
+                <p class="testimonial-text" id="testimonial-text"></p>
+            </div>
+            <div class="testimonial-info">
+                <div class="avatar-wrapper">
+                    <div class="stripe"></div>
+                    <img id="testimonial-avatar" src="" alt="Avatar">
+                </div>
+                <h4 id="testimonial-name"></h4>
+                <p id="testimonial-role"></p>
+                <div class="nav-buttons">
+                    <button class="nav-btn prev-btn">&#10094;</button>
+                    <button class="nav-btn next-btn">&#10095;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ban-section-wrapper scroll-animate">
+        <h2 style="text-align: center; color: var(--text-dark); margin-bottom: 30px;">GROUP</h2>
+        <div class="ban-section">
+            <div class="ban-list">
+                <div class="ban-item active" data-title="Hội Liên Hiệp Người Mù" data-text="Hội người mù K5A8." data-img="https://truyendangian.com/wp-content/uploads/2023/10/dam-may-nho-co-long-tot.jpg">
+                    <span>Group 1</span>
+                </div>
+                <div class="ban-item" data-title="Tinh Hoa Hội Tụ" data-text="Tinh hoa hội tụ đất trời." data-img="https://truyendangian.com/wp-content/uploads/2023/10/dam-may-nho-co-long-tot.jpg">
+                    <span>Group 2</span>
+                </div>
+                <div class="ban-item" data-title="Làng Xì Trum" data-text="Xì Trum." data-img="https://truyendangian.com/wp-content/uploads/2023/10/dam-may-nho-co-long-tot.jpg">
+                    <span>Group 3</span>
+                </div>
+                <div class="ban-item" data-title="Hội Người Cao Tuổi" data-text="Hội người cao tuổi." data-img="https://truyendangian.com/wp-content/uploads/2023/10/dam-may-nho-co-long-tot.jpg">
+                    <span>Group 4</span>
+                </div>
+            </div>
+            <div class="ban-content">
+                <div class="ban-text">
+                    <h3 id="ban-title"></h3>
+                    <p id="ban-desc"></p>
+                </div>
+                <div class="ban-image">
+                    <img id="ban-img" src="" alt="Hình ảnh của ban">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="post-section scroll-animate">
+        <h2>Media Team</h2>
+        <div class="post-grid">
+            <a href="https://www.facebook.com/sevensiuu" class="post-card">
+                <img src="Images/tt1.png" alt="Lâm Thường Khiết – Media of K5A8">
+                <div class="post-content">
+                    <h3>Lâm Thường Khiết – Media of K5A8</h3>
+                    <p>Hành trình biến đam mê thành giá trị lan tỏa trong cộng đồng nhiếp ảnh.</p>
+                </div>
+            </a>
+            <a href="https://www.facebook.com/tris.nhaan" class="post-card">
+                <img src="Images/tt2.png" alt="Nguyễn Trí Nhân – Media of K5A8">
+                <div class="post-content">
+                    <h3>Nguyễn Trí Nhân – Media of K5A8</h3>
+                    <p>Phía sau mỗi bức ảnh là cả một trái tim tận tụy vì nghệ thuật.</p>
+                </div>
+            </a>
+            <a href="https://www.facebook.com/bao.thy.nguyen.741853" class="post-card">
+                <img src="Images/tt3.jpg" alt="Nguyễn Trang Bảo Thy – Media of K5A8">
+                <div class="post-content">
+                    <h3>Nguyễn Trang Bảo Thy – Media of K5A8</h3>
+                    <p>Đam mê, sáng tạo và tình yêu với nhiếp ảnh học đường.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="leaders scroll-animate"> 
+        <h2>Officers</h2>
+        <div class="leader-grid">
+            <div class="leader">
+                <img src="Avatar/ava1.jpg" alt="Nguyễn Bảo Trâm – Lớp trưởng">
+                <h3>Nguyễn Bảo Trâm</h3>
+                <p>Lớp trưởng</p>
+            </div>
+            <div class="leader">
+                <img src="Avatar/ava30.jpg" alt="Bạch Minh Huy – Lớp phó học tập">
+                <h3>Bạch Minh Huy</h3>
+                <p>Lớp phó học tập</p>
+            </div>
+            <div class="leader">
+                <img src="Avatar/ava5.jpg" alt="Nguyễn Trí Nhân – Lớp phó lao động">
+                <h3>Nguyễn Trí Nhân</h3>
+                <p>Lớp phó lao động</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="social scroll-animate">
+        <h2>Social Media</h2>
+        <p>Theo dõi chúng tôi để cập nhật những thông tin mới nhất.</p>
+        <a href="https://www.facebook.com/profile.php?id=61550813922483">Facebook</a>
+        <a href="https://www.instagram.com/">Instagram</a>
+        <a href="https://www.tiktok.com/">TikTok</a>
+    </section>
+    
+    <section class="partner-section scroll-animate">
+        <h2>PARTNERS AND SUPPORTERS</h2>
+        <p class="description">Chúng tôi muốn bày tỏ lòng tri ân sâu sắc nhất đến những người đã đồng hành, hỗ trợ và tài trợ, giúp K5A8 thực hiện những mục tiêu và mang tầm nhìn xa trở thành hiện thực.</p>
+
+        <div class="partner-grid">
+            
+            <a href="https://www.facebook.com/thpt.fptcantho#" class="partner-card">
+                <div class="partner-logo-wrapper">
+                    <img src="https://www.fphotography.club/logo1.webp" alt="FPT School Cần Thơ" class="partner-logo">
+                </div>
+                <div class="partner-name">THPT FPT Cần Thơ</div>
+            </a>
+
+            <a href="https://www.facebook.com/101studior#" class="partner-card">
+                <div class="partner-logo-wrapper">
+                    <img src="Images/partners/101_studio.jpg" alt="101 Studio" class="partner-logo">
+                </div>
+                <div class="partner-name">101 Studio</div>
+            </a>
+
+            <a href="https://www.facebook.com/clbnhiepanhfsc#" class="partner-card">
+                <div class="partner-logo-wrapper">
+                    <img src="Images/partners/fpc_club.jpg" alt="FPC CLUB" class="partner-logo">
+                </div>
+                <div class="partner-name">FPC CLUB</div>
+            </a>
+
+            <a href="https://www.facebook.com/pdpfschoolcantho#" class="partner-card">
+                <div class="partner-logo-wrapper">
+                    <img src="Images/partners/pdp_fschool.jpg" alt="Công Tác Học Sinh Fschool Cần Thơ" class="partner-logo">
+                </div>
+                <div class="partner-name">PDP Fschool Cần Thơ</div>
+            </a>
+            
+        </div>
+    </section>
+    
+    <footer>
+        © 2025 K5A8 MEMORIES. All rights reserved. | Powered by The K5A8 Media Team.
+    </footer>
+    
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header" id="chat-header">
+            OpenRouter Chatbot K5A8 <span class="close-btn" id="close-chat">&times;</span>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="message bot-message">Chào bạn, tôi là bot hỗ trợ của K5A8. Bạn cần gì?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input-field" placeholder="Nhập tin nhắn...">
+            <button id="send-chat-btn">Gửi</button>
+        </div>
+    </div>
+    <button class="open-chat-btn" id="open-chat-btn">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <script src="JS/particles.min.js"></script> 
+    <script>
+        // Khởi tạo Particles.js (cần đảm bảo file particles.min.js tồn tại)
+        if (typeof particlesJS !== 'undefined') {
+             particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 200,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": ["#ffffff", "#a4e4ff", "#a4e4ff"]
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        },
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#e0f7fa",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        }
+    </script>
+    
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script>
+        // =========================================
+        // SCROLLREVEAL (HIỆU ỨNG CUỘN)
+        // =========================================
+        const sr = ScrollReveal({
+            distance: '40px', 
+            duration: 1000, 
+            easing: 'cubic-bezier(.17,.67,.83,.67)', 
+            reset: false 
+        });
+
+        sr.reveal('.teacher-card', { origin: 'bottom', delay: 200 });
+        sr.reveal('.post-card', { origin: 'bottom', interval: 100, delay: 400 });
+        sr.reveal('.about-cloud-frame', { duration: 1200, scale: 0.95, opacity: 0 });
+        sr.reveal('.partner-card', { origin: 'top', interval: 100, delay: 300 });
+        sr.reveal('.leaders, .social, footer', { origin: 'bottom', delay: 200 });
+        
+        // =========================================
+        // LOGIC CHO TESTIMONIAL SLIDER (30 THÀNH VIÊN)
+        // =========================================
+        const testimonials = [
+            {
+                text: "Mình đã học được rất nhiều kỹ năng mới và làm quen được với những người bạn tuyệt vời. Đây là nơi mình tìm thấy niềm vui.",
+                name: "Nguyễn Bảo Trâm",
+                role: "Scholarship 100%",
+                avatar: "Avatar/ava1.jpg"
+            },
+            {
+                text: "Mỗi khoảnh khắc ở K5A8 đều là kỷ niệm đáng nhớ. Tình bạn, sự đoàn kết đã giúp mình trưởng thành hơn rất nhiều.",
+                name: "Nguyễn Phúc Tâm Anh",
+                role: "Scholarship 70%",
+                avatar: "Avatar/ava2.jpg"
+            },
+            {
+                text: "Không chỉ là một tập thể, K5A8 là một gia đình lớn, nơi mọi người luôn sẵn lòng giúp đỡ nhau trong học tập và cuộc sống.",
+                name: "Nguyễn Trang Bảo Thy",
+                role: "Scholarship 70%",
+                avatar: "Avatar/ava3.jpg" 
+            },
+            {
+                text: "K5A8 đối với tôi luôn là một gia đình, nơi cho tôi có được cảm giác thoải mái và vui vẻ. Và có lẽ vì ở đó còn có lí do khác.",
+                name: "Lâm Thường Khiết",
+                role: "Kích War 70%",
+                avatar: "Avatar/dacbiet.jpg" 
+            },
+            {
+                text: "Cảm ơn dàn harem của tôi tại đây.",
+                name: "Nguyễn Trí Nhân",
+                role: "Kích War 30%",
+                avatar: "Avatar/ava5.jpg" 
+            },
+            {
+                text: "Đẳng cấp quá cũng khổ.",
+                name: "Huỳnh Quang Tiến",
+                role: "Kích War 100%",
+                avatar: "Avatar/ava6.jpg" 
+            },
+            { text: "Cảm ơn K5A8 đã cho mình những người bạn chí cốt và những kỷ niệm không thể nào quên.", name: "Trương Gia Huy", role: "Member", avatar: "Avatar/ava7.jpg" },
+            { text: "Tinh thần đoàn kết là điều mình trân trọng nhất ở tập thể này.", name: "Nguyễn Thanh Mai", role: "Member", avatar: "Avatar/ava8.jpg" },
+            { text: "K5A8 luôn là nguồn cảm hứng giúp mình cố gắng mỗi ngày.", name: "Nguyễn Quốc Minh Nguyệt", role: "Member", avatar: "Avatar/ava9.jpg" },
+            { text: "Nơi đây đã giúp mình khám phá những năng lực tiềm ẩn của bản thân.", name: "Trương Kim Phụng", role: "Member", avatar: "Avatar/ava10.jpg" },
+            { text: "Từng dự án, từng hoạt động đều để lại những bài học quý giá.", name: "Huỳnh Phương Thảo Uyên", role: "Member", avatar: "Avatar/ava11.jpg" },
+            { text: "Mình tự hào là một phần của đại gia đình K5A8.", name: "Nguyễn Hoàng Đăng Khoa", role: "Member", avatar: "Avatar/ava12.jpg" },
+            { text: "Những nỗ lực của cả tập thể đã biến những điều không thể thành có thể.", name: "Trần Vĩnh An", role: "Member", avatar: "Avatar/ava13.jpg" },
+            { text: "Tình bạn chân thành là món quà lớn nhất mình nhận được ở K5A8.", name: "Châu Ngọc Cát Tường", role: "Member", avatar: "Avatar/ava14.jpg" },
+            { text: "Mỗi ngày đến lớp là một niềm vui vì có những người bạn tuyệt vời.", name: "Nguyễn Tường Vy", role: "Member", avatar: "Avatar/deocoanh.jpg" },
+            { text: "Tôi là Kaneki.", name: "Bùi Nguyễn Nam Phương", role: "Member", avatar: "Avatar/dethuongthe.jpg" },
+            { text: "Cảm ơn những lời động viên chân thành từ thầy cô và bạn bè.", name: "Trần Nguyễn Nhật Quỳnh", role: "Member", avatar: "Avatar/ava17.jpg" },
+            { text: "Nơi vun đắp những ước mơ lớn và khát vọng bay cao hơn nữa.", name: "Nguyễn Ngọc Ái Vy", role: "Member", avatar: "Avatar/ava18.jpg" },
+            { text: "K5A8 là nơi mình có thể là chính mình.", name: "Trương Phúc Thành", role: "Member", avatar: "Avatar/deocoanh.jpg" },
+            { text: "Mình đã trưởng thành hơn rất nhiều nhờ sự dẫn dắt của mọi người.", name: "Lâm Thu Ngân", role: "Member", avatar: "Avatar/ava20.jpg" },
+            { text: "Mỗi giây phút đều đáng giá và sẽ luôn được lưu giữ mãi mãi trong tôi.", name: "Lê Thành Tính", role: "Member", avatar: "Avatar/ava21.jpg" },
+            { text: "Tình cảm giữa chúng tôi là điều không có gì có thể thay thế được.", name: "Phan Gia Khánh", role: "Member", avatar: "Avatar/ava22.jpg" },
+            { text: "Mình học được cách làm việc nhóm và tôn trọng ý kiến người khác.", name: "Bùi Hoàng Ngọc", role: "Member", avatar: "Avatar/deocoanh.jpg" },
+            { text: "K5A8: nơi khởi đầu cho mọi hành trình và mọi thành công.", name: "Dương Minh Trang", role: "Member", avatar: "Avatar/ava24.jpg" },
+            { text: "Mình đã vượt qua giới hạn của bản thân nhờ sự cổ vũ của tập thể.", name: "Bùi Đức Trí", role: "Member", avatar: "Avatar/ava25.jpg" },
+            { text: "Tình đồng đội ở K5A8 thật sự sâu sắc và đáng quý.", name: "Phan Nguyễn Bảo Hân", role: "Member", avatar: "Avatar/deocoanh.jpg" },
+            { text: "K5A8 đã giúp mình tự tin hơn rất nhiều khi đứng trước đám đông.", name: "Đặng Ngô Nhật Thu", role: "Member", avatar: "Avatar/ava27.jpg" },
+            { text: "Mỗi lần nhìn lại, mình đều thấy biết ơn khoảng thời gian ở K5A8.", name: "Mai Như Ý", role: "Member", avatar: "Avatar/ava28.jpg" },
+            { text: "Nơi mà mình luôn được mọi người yêu quý.", name: "Lê Phước Lộc", role: "Member", avatar: "Avatar/ava29.jpg" },
+            { text: "K5A8 chính là thanh xuân rực rỡ và đáng nhớ nhất của mình.", name: "Bạch Minh Huy", role: "Member", avatar: "Avatar/ava30.jpg" }
+        ];
+
+        let currentTestimonialIndex = 0;
+        const testimonialText = document.getElementById('testimonial-text');
+        const testimonialAvatar = document.getElementById('testimonial-avatar');
+        const testimonialName = document.getElementById('testimonial-name');
+        const testimonialRole = document.getElementById('testimonial-role');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+
+        const textContainer = document.querySelector('.testimonial-text-container');
+        const infoContainer = document.querySelector('.testimonial-info');
+
+        function showTestimonial(index) {
+            textContainer.classList.remove('show');
+            infoContainer.classList.remove('show');
+
+            setTimeout(() => {
+                const item = testimonials[index];
+                testimonialText.textContent = item.text;
+                testimonialAvatar.src = item.avatar;
+                testimonialName.textContent = item.name;
+                testimonialRole.textContent = item.role;
+
+                textContainer.classList.add('show');
+                infoContainer.classList.add('show');
+            }, 300);
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentTestimonialIndex = (currentTestimonialIndex - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(currentTestimonialIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+            showTestimonial(currentTestimonialIndex);
+        });
+
+        // =========================================
+        // LOGIC CHO BAN TABS
+        // =========================================
+        const banItems = document.querySelectorAll('.ban-item');
+        const banTitle = document.getElementById('ban-title');
+        const banDesc = document.getElementById('ban-desc');
+        const banImg = document.getElementById('ban-img');
+        const banTextContainer = document.querySelector('.ban-text');
+
+        function showBanContent(item) {
+            banTextContainer.classList.remove('show');
+            banImg.classList.remove('show');
+
+            setTimeout(() => {
+                banTitle.textContent = item.dataset.title;
+                banDesc.textContent = item.dataset.text;
+                banImg.src = item.dataset.img;
+
+                banTextContainer.classList.add('show');
+                banImg.classList.add('show');
+            }, 300);
+        }
+
+        banItems.forEach(item => {
+            item.addEventListener('click', function() {
+                banItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                showBanContent(this);
+            });
+        });
+
+        // =========================================
+        // PRELOADER LOGIC
+        // =========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vô hiệu hóa cuộn trang khi preloader đang hiển thị
+            document.body.classList.add('no-scroll');
+            
+            showTestimonial(currentTestimonialIndex); // Hiển thị testimonial đầu tiên
+            const activeBan = document.querySelector('.ban-item.active');
+            if (activeBan) {
+                showBanContent(activeBan); // Hiển thị ban đầu tiên
+            }
+        });
+
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('cloud-preloader');
+            
+            // Đợi thêm một chút để tải hết nội dung
+            setTimeout(() => {
+                if (preloader) {
+                    preloader.classList.add('hidden');
+                    document.body.classList.remove('no-scroll'); // Bật lại cuộn trang
+                }
+            }, 500); 
+        });
+
+        // =========================================
+        // CHATBOT LOGIC
+        // =========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatContainer = document.getElementById('chat-container');
+            const openChatBtn = document.getElementById('open-chat-btn');
+            const closeChatBtn = document.getElementById('close-chat');
+            const chatInput = document.getElementById('chat-input-field');
+            const sendChatBtn = document.getElementById('send-chat-btn');
+            const chatBox = document.getElementById('chat-box');
+
+            // =========================================================
+            // CẤU HÌNH OPENROUTER API - SỬA LỖI TẠI ĐÂY
+            // =========================================================
+            // BƯỚC 1: Thay thế bằng khóa API thật của bạn
+            const OPENROUTER_API_KEY = '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'; 
+            
+            // BƯỚC 2: Tự động lấy URL trang web để xác thực
+            const SITE_URL = window.location.origin;
+
+            const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
+            const OPENROUTER_MODEL = 'deepseek/deepseek-chat-v3.1:free';
+
+            let conversationHistory = [
+                { role: "system", content: "Bạn là một trợ lý thân thiện, hữu ích từ K5A8. Bạn trả lời các câu hỏi về K5A8, kỷ niệm, và cung cấp thông tin chung. Hãy trả lời bằng tiếng Việt, ngắn gọn và trọng tâm." }
+            ];
+
+            // Ẩn/hiện Chatbot
+            if (openChatBtn && chatContainer) {
+                openChatBtn.addEventListener('click', () => {
+                    chatContainer.classList.add('show');
+                    openChatBtn.style.display = 'none';
+                    chatInput.focus();
+                });
+
+                closeChatBtn.addEventListener('click', () => {
+                    chatContainer.classList.remove('show');
+                    openChatBtn.style.display = 'flex';
+                });
+
+                sendChatBtn.addEventListener('click', sendMessage);
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault(); // Ngăn hành vi mặc định của Enter (như xuống dòng)
+                        sendMessage();
+                    }
+                });
+
+                async function sendMessage() {
+                    const messageText = chatInput.value.trim();
+                    if (messageText === '') return;
+
+                    // 1. Hiển thị tin nhắn của người dùng
+                    const userMessageDiv = document.createElement('div');
+                    userMessageDiv.classList.add('message', 'user-message');
+                    userMessageDiv.textContent = messageText;
+                    chatBox.appendChild(userMessageDiv);
+
+                    chatInput.value = '';
+                    chatBox.scrollTop = chatBox.scrollHeight;
+
+                    // Thêm tin nhắn người dùng vào lịch sử hội thoại
+                    conversationHistory.push({ role: "user", content: messageText });
+
+                    // Hiển thị indicator "bot đang gõ..."
+                    const typingIndicator = document.createElement('div');
+                    typingIndicator.classList.add('message', 'bot-message', 'typing-indicator');
+                    typingIndicator.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+                    chatBox.appendChild(typingIndicator);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    chatInput.disabled = true;
+                    sendChatBtn.disabled = true;
+
+                    try {
+                        // 2. Gửi yêu cầu đến OpenRouter API
+                        const response = await fetch(OPENROUTER_API_ENDPOINT, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                                'HTTP-Referer': SITE_URL, 
+                                'X-Title': 'K5A8 Memories'
+                            },
+                            body: JSON.stringify({
+                                model: OPENROUTER_MODEL,
+                                messages: conversationHistory,
+                                stream: false 
+                            })
+                        });
+
+                        const data = await response.json();
+                        let botResponseContent;
+
+                        if (!response.ok) {
+                            // Xử lý lỗi từ API
+                            const errorMessage = data.error ? data.error.message : `Lỗi API: ${response.status} - ${response.statusText}`;
+                            throw new Error(errorMessage);
+                        }
+
+                        if (data.choices && data.choices.length > 0) {
+                            botResponseContent = data.choices[0].message.content;
+                            conversationHistory.push({ role: "assistant", content: botResponseContent });
+                        } else {
+                            botResponseContent = "Bot không thể tạo phản hồi. Vui lòng thử lại.";
+                        }
+
+                        // 3. Xóa indicator "đang gõ" và hiển thị phản hồi của bot
+                        chatBox.removeChild(typingIndicator);
+                        const botMessageDiv = document.createElement('div');
+                        botMessageDiv.classList.add('message', 'bot-message');
+                        botMessageDiv.textContent = botResponseContent;
+                        chatBox.appendChild(botMessageDiv);
+                        chatBox.scrollTop = chatBox.scrollHeight;
+
+                    } catch (error) {
+                        console.error('Lỗi khi tích hợp OpenRouter Chat:', error);
+                        if (typingIndicator.parentNode === chatBox) {
+                            chatBox.removeChild(typingIndicator);
+                        }
+                        const errorDiv = document.createElement('div');
+                        errorDiv.classList.add('message', 'bot-message');
+                        errorDiv.textContent = "Xin lỗi, bot đang gặp lỗi: " + error.message;
+                        chatBox.appendChild(errorDiv);
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    } finally {
+                        chatInput.disabled = false;
+                        sendChatBtn.disabled = false;
+                        chatInput.focus();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WIBU PHIM</title>
+    <style>
+        /* --- CÀI ĐẶT CƠ BẢN --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0a10; /* Nền tối giống ảnh */
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* --- THANH ĐIỀU HƯỚNG (NAVBAR) --- */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            background: rgba(11, 10, 16, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo { font-size: 24px; font-weight: bold; color: #ff4b6e; }
+        
+        .search-bar {
+            background: #1c1b22;
+            padding: 10px 20px;
+            border-radius: 20px;
+            width: 300px;
+            color: #ccc;
+        }
+
+        .nav-links { display: flex; gap: 20px; font-size: 14px; color: #aaa; }
+        .nav-links span:hover { color: #fff; cursor: pointer; }
+        
+        .login-btn {
+            background: #fff; color: #000;
+            padding: 8px 16px; border-radius: 20px;
+            font-weight: bold; cursor: pointer;
+        }
+
+        /* --- SECTION THẺ TÂM TRẠNG (CÓ HIỆU ỨNG 3D) --- */
+        .section { padding: 40px; }
+        .section-title { font-size: 20px; margin-bottom: 20px; font-weight: 600; }
+
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            /* Tạo không gian 3D cho các phần tử con */
+            perspective: 1000px; 
+        }
+
+        .mood-card {
+            padding: 25px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            /* Thiết lập chuyển động mượt mà cho hover */
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .mood-card h3 { font-size: 22px; margin-bottom: 5px; }
+        .mood-card p { font-size: 13px; opacity: 0.8; }
+
+        /* Các màu Gradient giống hình ảnh */
+        .bg-purple { background: linear-gradient(135deg, #4b134f, #c94b4b); }
+        .bg-pink { background: linear-gradient(135deg, #ff0844, #ffb199); }
+        .bg-blue { background: linear-gradient(135deg, #00c6fb, #005bea); }
+        .bg-green { background: linear-gradient(135deg, #43e97b, #38f9d7); color: #000;}
+        .bg-orange { background: linear-gradient(135deg, #f6d365, #fda085); color: #000; }
+
+        /* HIỆU ỨNG HOVER: Nổi lên và phát sáng */
+        .mood-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        /* HIỆU ỨNG 3D KHI CLICK (ACTIVE): Lõm xuống và nghiêng */
+        .mood-card:active {
+            /* Giảm scale và nghiêng trục X để tạo cảm giác bị ấn xuống */
+            transform: scale(0.92) rotateX(15deg);
+            transition: transform 0.1s; /* Chuyển động nhanh khi click */
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- SECTION DANH SÁCH PHIM --- */
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .movie-poster {
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .movie-poster img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .movie-poster:hover {
+            transform: scale(1.05); /* Phóng to nhẹ khi di chuột */
+            border: 2px solid #aaa;
+        }
+        .hero-slider {
+    position: relative;
+    width: 100%;
+    height: 85vh; /* Chiều cao chiếm 85% màn hình */
+    overflow: hidden;
+    background-color: #000;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Mặc định ẩn */
+    transition: opacity 1.5s ease-in-out; /* Hiệu ứng mờ dần trong 1.5 giây */
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+}
+
+.slide.active {
+    opacity: 1; /* Hiển thị slide có class active */
+    z-index: 1;
+}
+
+/* Nội dung chữ */
+.hero-content {
+    max-width: 600px;
+    color: white;
+    z-index: 2;
+}
+
+.movie-title { font-size: 3.5rem; margin-bottom: 5px; }
+.movie-sub { color: #aaa; margin-bottom: 15px; }
+
+.movie-meta { display: flex; gap: 10px; margin-bottom: 15px; font-size: 0.9rem; }
+.imdb { background: #f5c518; color: black; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+.status { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; }
+
+.movie-desc { line-height: 1.6; color: #ddd; margin-bottom: 25px; }
+
+/* Nút bấm */
+.hero-buttons { display: flex; gap: 15px; align-items: center; }
+/* Style cho nút Play có hiệu ứng 3D */
+.btn-play {
+    padding: 12px 25px;
+    border-radius: 30px;
+    border: none;
+    background: #ff4b6e;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(255, 75, 110, 0.4);
+}
+
+.btn-play:hover {
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* HIỆU ỨNG 3D KHI ẤN */
+.btn-play:active {
+    transform: translateY(2px) scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Giao diện Modal */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    margin: 5% auto;
+    width: 80%;
+    max-width: 900px;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Tỷ lệ 16:9 */
+    height: 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+}
+
+.close-modal {
+    position: absolute;
+    right: 15px; top: 5px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+}
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">WIBU PHIM</div>
+        <div class="search-bar">🔍 Tìm kiếm phim, diễn viên...</div>
+        <div class="nav-links">
+            <span>News</span>
+            <span>Thể loại</span>
+            <span>Phim lẻ</span>
+            <span>Phim bộ</span>
+        </div>
+        <div class="login-btn">👤 Thành viên</div>
+    </header>
+<div class="hero-slider">
+    <div class="slide active" style="background-image: linear-gradient(to right, rgba(0,0,0,0.8), transparent), url('Film/Thumb/nhanuyen.png');">
+        <div class="hero-content">
+            <h1 class="movie-title">Làm Vợ Bạn Có Bầu</h1>
+            <p class="movie-sub">Spring Fever</p>
+            <div class="movie-meta">
+                <span class="imdb">IMDb 7.9</span>
+                <span>2026</span>
+                <span>Phần 1</span>
+                <span class="status">Tập Hoàn tất (12/12)</span>
+            </div>
+            <div class="tags">
+                <span>Chính kịch</span>
+                <span>Hài Hước</span>
+            </div>
+            <p class="movie-desc">Câu chuyện kể về Trí Nhân, người sau khi trải qua những biến động tình cảm ở FPT, chuyển đến lớp 12A8 để bắt đầu cuộc sống mới với Thảo Uyên.</p>
+            <div class="hero-buttons">
+                <button class="btn-play">▶</button>
+                <button class="btn-icon">❤</button>
+                <button class="btn-icon">ℹ</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide" style="background-image: linear-gradient(to right, rgba(0,0,0,0.8), transparent), url('Film/Thumb/khanhnhan.png');">
+        <div class="hero-content">
+            <h1 class="movie-title">Hai Chàng Trai LGBT 2</h1>
+            <p class="movie-sub">The Great Adventure</p>
+            <div class="movie-meta">
+                <span class="imdb">IMDb 8.5</span>
+                <span>2026</span>
+                <span class="status">Sắp chiếu</span>
+            </div>
+            <p class="movie-desc">Một cuộc hành trình kỳ thú vào thế giới tương lai, nơi công nghệ và con người hòa làm một...</p>
+            <div class="hero-buttons">
+                <button class="btn-play">▶</button>
+                <button class="btn-icon">❤</button>
+                <button class="btn-icon">ℹ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="slide" style="background-image: linear-gradient(to right, rgba(0,0,0,0.8), transparent), url('Film/Thumb/tienmessi.jpg');">
+        <div class="hero-content">
+            <h1 class="movie-title">Tán Tỉnh Thần Tượng</h1>
+            <p class="movie-sub">Love Messi</p>
+            <div class="movie-meta">
+                <span class="imdb">IMDb 8.5</span>
+                <span>2026</span>
+                <span class="status">Sắp chiếu</span>
+            </div>
+            <p class="movie-desc">Messi chơi bóng cùng fan</p>
+            <div class="hero-buttons">
+                <button class="btn-play">▶</button>
+                <button class="btn-icon">❤</button>
+                <button class="btn-icon">ℹ</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="section">
+        <h2 class="section-title">Hai Chàng Trai LGBT 2</h2>
+        <div class="mood-grid">
+            <div class="mood-card bg-purple">
+                <h3>Nổ não</h3>
+                <p>Tâm thần phân liệt</p>
+            </div>
+            <div class="mood-card bg-pink">
+                <h3>Muốn khóc</h3>
+                <p>Rồi ai sẽ nhớ em :(</p>
+            </div>
+            <div class="mood-card bg-blue">
+                <h3>Cần động lực</h3>
+                <p>Cố lên bạn ơi!</p>
+            </div>
+            <div class="mood-card bg-green">
+                <h3>Var nhau</h3>
+                <p>Mày biết bố tao là ai ko?</p>
+            </div>
+            <div class="mood-card bg-orange">
+                <h3>Muốn chill</h3>
+                <p>Chill nhưng không nghiện</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Phim Thịnh Hành</h2>
+        <div class="movie-grid">
+            <div class="movie-poster"><img src="Film/Thumb/yourname.jpg" alt="Phim 1"></div>
+            <div class="movie-poster"><img src="https://via.placeholder.com/150x220/333/fff?text=Poster+2" alt="Phim 2"></div>
+            <div class="movie-poster"><img src="https://via.placeholder.com/150x220/444/fff?text=Poster+3" alt="Phim 3"></div>
+            <div class="movie-poster"><img src="https://via.placeholder.com/150x220/555/fff?text=Poster+4" alt="Phim 4"></div>
+            <div class="movie-poster"><img src="https://via.placeholder.com/150x220/666/fff?text=Poster+5" alt="Phim 5"></div>
+            <div class="movie-poster"><img src="https://via.placeholder.com/150x220/777/fff?text=Poster+6" alt="Phim 6"></div>
+        </div>
+    </div>
+    <script>
+        const slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+const slideInterval = 8000; // 8 giây
+
+function nextSlide() {
+    // Xóa class active ở slide hiện tại
+    slides[currentSlide].classList.remove('active');
+    
+    // Tính toán vị trí slide tiếp theo
+    currentSlide = (currentSlide + 1) % slides.length;
+    
+    // Thêm class active vào slide mới
+    slides[currentSlide].classList.add('active');
+}
+
+// Chạy vòng lặp tự động
+setInterval(nextSlide, slideInterval);
+    </script>
+    
+
+</body>
+</html>

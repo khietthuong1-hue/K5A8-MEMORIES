@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>K5A8 Shorts - Xu Hướng</title>
+    <link rel="icon" href="Images/logo.jpg">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- GIAO DIỆN TIKTOK STYLE --- */
+        :root { --primary: #fe2c55; --blue: #25f4ee; --dark: #000000; --text: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--dark); color: var(--text); font-family: 'Montserrat', sans-serif;
+            overflow: hidden; width: 100vw; height: 100vh;
+        }
+
+        /* --- TOP TABS (XU HƯỚNG / MỚI NHẤT) --- */
+        .top-tabs {
+            position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 20px; z-index: 100; font-weight: 600; font-size: 16px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        .top-tabs span { cursor: pointer; color: rgba(255,255,255,0.6); transition: 0.3s; position: relative;}
+        .top-tabs span.active { color: #fff; font-size: 18px; }
+        .top-tabs span.active::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); width: 20px; height: 3px; background: #fff; border-radius: 5px; }
+
+        /* --- VIDEO FEED --- */
+        #media-feed { width: 100%; height: calc(100vh - 50px); overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        #media-feed::-webkit-scrollbar { display: none; }
+
+        .media-item {
+            width: 100%; height: calc(100vh - 50px); scroll-snap-align: start; position: relative; background: #111;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+
+        video, img.main-media, iframe { width: 100%; height: 100%; object-fit: contain; z-index: 2; position: relative; border: none;} 
+        .blur-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(20px) brightness(0.5); z-index: 1; transform: scale(1.2); }
+        .overlay-layer { position: absolute; inset: 0; pointer-events: none; z-index: 5; background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 100%); }
+
+        .info-area { position: absolute; bottom: 25px; left: 15px; width: 75%; z-index: 10; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); pointer-events: auto; }
+        .user-tag-container { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; flex-wrap: wrap;}
+        .user-tag { font-weight: 700; font-size: 16px; color: white; cursor: pointer;}
+        .time-ago { font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 500; }
+        .caption { font-size: 14px; line-height: 1.4; margin-bottom: 10px; opacity: 0.9; }
+        .music-tag { font-size: 12px; display: flex; align-items: center; gap: 5px; }
+        .trending-badge { background: var(--primary); color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; text-transform: uppercase; font-weight: 700; vertical-align: middle;}
+
+        /* --- PROGRESS BAR --- */
+        .progress-container { position: absolute; bottom: 0px; left: 0; width: 100%; height: 12px; z-index: 20; cursor: pointer; pointer-events: auto; display: flex; align-items: flex-end; padding-bottom: 2px;}
+        .progress-track { width: 100%; height: 3px; background: rgba(255,255,255,0.3); transition: 0.2s; position: relative;}
+        .progress-container:hover .progress-track { height: 6px; }
+        .progress-filled { height: 100%; width: 0%; background: #fff; position: relative; }
+        .progress-filled::after { content: ''; position: absolute; right: -4px; top: 50%; transform: translateY(-50%) scale(0); width: 8px; height: 8px; background: #fff; border-radius: 50%; transition: 0.2s; }
+        .progress-container:hover .progress-filled::after { transform: translateY(-50%) scale(1); }
+
+        /* SIDEBAR ACTIONS */
+        .sidebar { position: absolute; bottom: 35px; right: 10px; z-index: 10; display: flex; flex-direction: column; gap: 15px; align-items: center; pointer-events: auto; }
+        .action-btn { cursor: pointer; text-align: center; transition: transform 0.2s; }
+        .action-btn:active { transform: scale(0.9); }
+        .avatar-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #fff; margin-bottom: 15px; overflow: hidden; background: #333; display: flex; justify-content: center; align-items: center; cursor: pointer;}
+        .icon-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.15); backdrop-filter: blur(5px); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 4px; color: white; transition: 0.3s; }
+        .count { font-size: 12px; font-weight: 600; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+        .liked .icon-circle { color: var(--primary); background: rgba(255,255,255,0.2); }
+        .btn-delete { color: #ff4757; display: none; }
+
+        /* --- BOTTOM NAV --- */
+        .nav-bot { position: fixed; bottom: 0; width: 100%; height: 50px; background: #000; border-top: 1px solid #222; display: flex; justify-content: space-around; align-items: center; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
+        .nav-bot i { font-size: 20px; color: #888; cursor: pointer; transition: 0.3s; padding: 10px;}
+        .nav-bot i:hover, .nav-bot i.active { color: #fff; }
+        .nav-add-btn { width: 45px; height: 30px; background: linear-gradient(45deg, var(--blue), var(--primary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; }
+        .nav-add-btn::after { content: ''; position: absolute; width: calc(100% - 6px); height: calc(100% - 6px); background: #fff; border-radius: 5px; }
+        .nav-add-btn i { position: relative; z-index: 2; font-size: 16px; color: #000; padding: 0;}
+
+        /* LOADING & POPUPS */
+        .loader { position: absolute; width: 40px; height: 40px; z-index: 3; top: 50%; left: 50%; margin: -20px; border: 4px solid rgba(255,255,255,0.2); border-top: 4px solid var(--blue); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        .center-play { position: absolute; font-size: 60px; color: rgba(255,255,255,0.5); z-index: 4; display: none; pointer-events: none; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .hidden-slide { display: none !important; }
+
+        .toast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 12px 25px; border-radius: 30px; font-weight: 700; font-size: 14px; z-index: 9999; box-shadow: 0 5px 20px rgba(0,0,0,0.3); transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; gap: 10px;}
+        .toast.show { top: 30px; }
+        .toast.error { background: var(--primary); color: #fff; }
+
+        .top-auth { position: fixed; top: 30px; right: 20px; z-index: 100; font-size: 13px; font-weight: 600; background: rgba(0,0,0,0.5); padding: 8px 18px; border-radius: 20px; backdrop-filter: blur(5px); cursor: pointer; border: 1px solid #333; transition: 0.3s;}
+
+        /* --- MODALS --- */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; display: flex; align-items: flex-end; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; backdrop-filter: blur(5px);}
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-sheet { background: #1a1a1a; width: 100%; max-width: 600px; border-radius: 20px 20px 0 0; padding: 20px; transform: translateY(100%); transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column; max-height: 85vh; box-shadow: 0 -10px 30px rgba(0,0,0,0.5);}
+        .modal-overlay.active .modal-sheet { transform: translateY(0); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 15px; font-weight: 700; font-size: 16px;}
+        .close-modal { font-size: 24px; cursor: pointer; color: #888; padding: 5px; }
+
+        /* Comments Form */
+        .comment-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 15px; }
+        .comment-item { display: flex; gap: 10px; font-size: 14px; }
+        .comment-item strong { color: #888; font-size: 12px; display: block; margin-bottom: 2px;}
+        .comment-input-area { display: flex; gap: 10px; }
+        .comment-input-area input { flex: 1; background: #000; border: 1px solid #333; color: white; padding: 12px 15px; border-radius: 20px; outline: none; }
+        .comment-input-area button { background: var(--primary); color: white; border: none; padding: 0 18px; border-radius: 20px; cursor: pointer; font-weight: 700; }
+
+        /* Profile Modal */
+        .profile-header { text-align: center; padding-bottom: 20px; border-bottom: 1px solid #333; }
+        .profile-avatar { width: 80px; height: 80px; border-radius: 50%; background: #333; margin: 0 auto 10px; display: flex; justify-content: center; align-items: center; font-size: 30px; border: 2px solid var(--blue); }
+        .profile-name { font-size: 20px; font-weight: 700; }
+        .profile-stats { color: #888; font-size: 13px; margin-top: 5px; }
+        .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 15px; flex: 1; overflow-y: auto; }
+        .grid-item { aspect-ratio: 9/16; background: #333; position: relative; cursor: pointer; overflow: hidden;}
+        .grid-item video, .grid-item img { width: 100%; height: 100%; object-fit: cover; }
+        .grid-item .views { position: absolute; bottom: 5px; left: 5px; font-size: 11px; font-weight: 600; text-shadow: 1px 1px 2px #000; display: flex; align-items: center; gap: 3px; }
+
+        /* Upload Form */
+        .inp-text { width: 100%; background: #000; border: 1px solid #333; color: white; padding: 15px; border-radius: 10px; font-family: inherit; margin-bottom: 15px; outline: none; }
+        .btn-submit { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 700; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="toast" class="toast"><i class="fas fa-check-circle"></i> <span id="toast-msg">Thành công!</span></div>
+
+    <div class="top-auth" id="auth-status" onclick="handleAuthClick()">
+        <i class="fab fa-google"></i> Đăng nhập
+    </div>
+
+    <div class="top-tabs">
+        <span id="tab-trending" class="active" onclick="switchTab('trending')">Xu hướng</span>
+        <span id="tab-new" onclick="switchTab('new')">Mới nhất</span>
+    </div>
+
+    <div id="media-feed">
+        <div style="height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; color: #888;">
+            <div class="loader" style="position:relative; margin:0 0 20px 0;"></div>
+            Đang phân tích thuật toán K5A8...
+        </div>
+    </div>
+
+    <div class="nav-bot">
+        <i class="fas fa-home active" onclick="window.location.href='index.html'"></i>
+        <i class="fas fa-users" onclick="window.location.href='humans.html'"></i>
+        <div class="nav-add-btn" onclick="openModal('upload-modal')"><i class="fas fa-plus"></i></div>
+        <i class="fas fa-star" onclick="window.location.href='thanhtich.html'"></i>
+        <i class="fas fa-user" onclick="openMyProfile()"></i>
+    </div>
+
+    <div class="modal-overlay" id="upload-modal" onclick="closeOutside(event, 'upload-modal')">
+        <div class="modal-sheet">
+            <div class="modal-header">
+                <span>Chia sẻ Video</span>
+                <i class="fas fa-times close-modal" onclick="closeModal('upload-modal')"></i>
+            </div>
+            <div style="color: #aaa; font-size: 13px; margin-bottom: 15px;">Dán link video (Tiktok, Facebook, Drive, hoặc link .mp4) vào ô bên dưới.</div>
+            <input type="url" id="video-url" class="inp-text" placeholder="Dán link video vào đây..." required>
+            <textarea class="inp-text" id="video-caption" rows="3" placeholder="Thêm mô tả cho video của bạn..."></textarea>
+            <button class="btn-submit" id="btn-upload" onclick="uploadVideoLink()">Đăng Video</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="comment-modal" onclick="closeOutside(event, 'comment-modal')">
+        <div class="modal-sheet" style="height: 65vh;">
+            <div class="modal-header">
+                <span id="comment-count-title">Bình luận</span>
+                <i class="fas fa-times close-modal" onclick="closeModal('comment-modal')"></i>
+            </div>
+            <div class="comment-list" id="comment-list"></div>
+            <form class="comment-input-area" id="comment-form">
+                <input type="text" id="comment-input" placeholder="Thêm bình luận..." required autocomplete="off">
+                <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="profile-modal" onclick="closeOutside(event, 'profile-modal')">
+        <div class="modal-sheet" style="height: 85vh;">
+            <div class="modal-header">
+                <span id="profile-header-title">Hồ sơ</span>
+                <i class="fas fa-times close-modal" onclick="closeModal('profile-modal')"></i>
+            </div>
+            <div class="profile-header">
+                <div class="profile-avatar"><i class="fas fa-user" style="color: #888;"></i></div>
+                <div class="profile-name" id="pro-name">User Name</div>
+                <div class="profile-stats"><strong id="pro-video-count" style="color:#fff;">0</strong> Videos đã đăng</div>
+            </div>
+            <div class="profile-grid" id="profile-grid">
+                </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getDatabase, ref as dbRef, push, get, onValue, set, remove, serverTimestamp, query } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBKUkvFuSBZcCQlVnuey56u7UukG1wM3Ig",
+            authDomain: "k5a8-fe4d3.firebaseapp.com",
+            databaseURL: "https://k5a8-fe4d3-default-rtdb.firebaseio.com",
+            projectId: "k5a8-fe4d3",
+            messagingSenderId: "488022889850",
+            appId: "1:488022889850:web:3aaca9ec88f339fce0f2c3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        const provider = new GoogleAuthProvider();
+
+        let currentUser = null;
+        let currentVideoIdForComment = null;
+        let currentTab = 'trending'; 
+        let globalMediaList = []; // Dùng để load Profile
+        const feed = document.getElementById('media-feed');
+
+        const LOCAL_CONFIG = { videosTotal: 103, folder: 'Videos', ext: '.mp4' };
+
+        // --- GLOBAL UI & TIME FORMAT ---
+        window.showToast = (msg, type = 'success') => {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.className = 'toast show';
+            if (type === 'error') toast.classList.add('error');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        };
+
+        // Hàm chuyển đổi Timestamp sang "Bao lâu trước"
+        function timeAgo(timestamp) {
+            if (!timestamp) return "Vừa xong";
+            const seconds = Math.floor((new Date() - timestamp) / 1000);
+            
+            let interval = seconds / 31536000;
+            if (interval > 1) return Math.floor(interval) + " năm trước";
+            interval = seconds / 2592000;
+            if (interval > 1) return Math.floor(interval) + " tháng trước";
+            interval = seconds / 86400;
+            if (interval > 1) return Math.floor(interval) + " ngày trước";
+            interval = seconds / 3600;
+            if (interval > 1) return Math.floor(interval) + " giờ trước";
+            interval = seconds / 60;
+            if (interval > 1) return Math.floor(interval) + " phút trước";
+            return "Vừa xong";
+        }
+
+        // --- AUTH ---
+        const authStatusBtn = document.getElementById('auth-status');
+        window.handleAuthClick = () => {
+            if (currentUser) {
+                if(confirm("Bạn có chắc chắn muốn đăng xuất?")) signOut(auth);
+            } else {
+                signInWithPopup(auth, provider).catch(err => showToast("Lỗi đăng nhập: " + err.message, 'error'));
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                authStatusBtn.innerHTML = `<i class="fas fa-user"></i> ${user.displayName.split(' ')[0]}`;
+                authStatusBtn.style.background = 'var(--primary)'; authStatusBtn.style.borderColor = 'var(--primary)';
+            } else {
+                authStatusBtn.innerHTML = `<i class="fab fa-google"></i> Đăng nhập`;
+                authStatusBtn.style.background = 'rgba(0,0,0,0.5)'; authStatusBtn.style.borderColor = '#333';
+            }
+            updateLikesUI();
+        });
+
+        // --- THUẬT TOÁN XU HƯỚNG & TẢI FEED ---
+        window.switchTab = (tab) => {
+            if (currentTab === tab) return;
+            currentTab = tab;
+            document.getElementById('tab-trending').classList.remove('active');
+            document.getElementById('tab-new').classList.remove('active');
+            document.getElementById(`tab-${tab}`).classList.add('active');
+            
+            feed.innerHTML = `<div style="height: 100vh; display: flex; justify-content: center; align-items: center; color: #888;"><div class="loader"></div></div>`;
+            loadFeed();
+        };
+
+        async function loadFeed() {
+            try {
+                // Tải dữ liệu 1 lần
+                const [shortsSnap, likesSnap, cmtsSnap] = await Promise.all([
+                    get(query(dbRef(db, 'shorts'))),
+                    get(dbRef(db, 'short_likes')),
+                    get(dbRef(db, 'short_comments'))
+                ]);
+
+                const allLikes = likesSnap.val() || {};
+                const allCmts = cmtsSnap.val() || {};
+                let mediaList = [];
+
+                // 1. Thêm video Firebase
+                if (shortsSnap.exists()) {
+                    shortsSnap.forEach((childSnap) => {
+                        const data = childSnap.val();
+                        mediaList.push({
+                            id: childSnap.key, src: data.url, type: 'video', caption: data.caption,
+                            author: data.authorName, authorId: data.uid, isFirebase: true, timestamp: data.timestamp || 0
+                        });
+                    });
+                }
+
+                // 2. Thêm video Local (Gán thời gian ảo)
+                const baseTime = Date.now() - (100 * 24 * 60 * 60 * 1000); // Cách đây 100 ngày
+                for (let i = 1; i <= LOCAL_CONFIG.videosTotal; i++) {
+                    mediaList.push({
+                        id: `local_v_${i}`, src: `${LOCAL_CONFIG.folder}/${i}${LOCAL_CONFIG.ext}`,
+                        type: 'video', caption: "Kỷ niệm lớp mình ❤️", author: "K5A8 Media", authorId: "local_k5a8", isFirebase: false, timestamp: baseTime + (i * 10000)
+                    });
+                }
+
+                // 3. TÍNH ĐIỂM VIRAL (Viral Score)
+                mediaList.forEach(v => {
+                    const likeCount = allLikes[v.id] ? Object.keys(allLikes[v.id]).length : 0;
+                    const cmtCount = allCmts[v.id] ? Object.keys(allCmts[v.id]).length : 0;
+                    
+                    let baseScore = (likeCount * 1) + (cmtCount * 3);
+                    let randomBoost = Math.floor(Math.random() * 5); 
+                    let recencyBoost = v.isFirebase ? 20 : 0; 
+                    
+                    v.viralScore = baseScore + randomBoost + recencyBoost;
+                });
+
+                globalMediaList = [...mediaList]; // Lưu lại cho chức năng Profile
+
+                // 4. SẮP XẾP THEO TAB
+                if (currentTab === 'trending') {
+                    mediaList.sort((a, b) => b.viralScore - a.viralScore);
+                } else {
+                    mediaList.sort((a, b) => b.timestamp - a.timestamp);
+                }
+
+                renderFeed(mediaList);
+            } catch (error) {
+                console.error(error);
+                showToast("Lỗi tải dữ liệu", "error");
+            }
+        }
+
+        function renderFeed(mediaList) {
+            feed.innerHTML = '';
+            mediaList.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'media-item';
+                div.setAttribute('data-id', item.id);
+                const isOwner = currentUser && currentUser.uid === item.authorId;
+                const isTrending = item.viralScore > 15 && currentTab === 'trending';
+
+                let mediaElement = '';
+                if (item.src.includes('.mp4') || !item.isFirebase) {
+                    mediaElement = `<video loop playsinline preload="metadata" onerror="this.closest('.media-item').classList.add('hidden-slide')"><source src="${item.src}" type="video/mp4"></video><i class="fas fa-play center-play"></i>`;
+                } else {
+                    mediaElement = `<iframe src="${item.src}" allowfullscreen></iframe>`;
+                }
+
+                // Format thời gian hiển thị
+                const displayTime = item.isFirebase ? timeAgo(item.timestamp) : 'Năm trước';
+
+                div.innerHTML = `
+                    <div class="loader"></div>
+                    ${mediaElement}
+                    <div class="overlay-layer"></div>
+                    
+                    <div class="info-area">
+                        <div class="user-tag-container">
+                            <span class="user-tag" onclick="openUserProfile('${item.authorId}', '${item.author}')">@${item.author.replace(/\s+/g, '')}</span>
+                            <span class="time-ago">· ${displayTime}</span>
+                            ${isTrending ? '<span class="trending-badge">🔥 Xu hướng</span>' : ''}
+                        </div>
+                        <p class="caption">${item.caption}</p>
+                        <div class="music-tag"><i class="fas fa-music"></i> Âm thanh gốc - ${item.author}</div>
+                    </div>
+
+                    <div class="progress-container" onclick="seekVideo(event, this)">
+                        <div class="progress-track"><div class="progress-filled"></div></div>
+                    </div>
+
+                    <div class="sidebar">
+                        <div class="avatar-circle" onclick="openUserProfile('${item.authorId}', '${item.author}')"><i class="fas fa-user"></i></div>
+                        <div class="action-btn btn-like" id="like-btn-${item.id}" onclick="handleLike('${item.id}')">
+                            <div class="icon-circle"><i class="fas fa-heart"></i></div>
+                            <span class="count" id="like-count-${item.id}">0</span>
+                        </div>
+                        <div class="action-btn" onclick="openComments('${item.id}')">
+                            <div class="icon-circle"><i class="fas fa-comment-dots"></i></div>
+                            <span class="count" id="cmt-count-${item.id}">0</span>
+                        </div>
+                        <div class="action-btn" onclick="shareVideo('${item.id}')">
+                            <div class="icon-circle"><i class="fas fa-share"></i></div>
+                            <span class="count">Share</span>
+                        </div>
+                        ${isOwner ? `
+                        <div class="action-btn btn-delete" style="display:block" onclick="deleteVideo('${item.id}')">
+                            <div class="icon-circle" style="background:rgba(255,0,0,0.2); color: #ff4757;"><i class="fas fa-trash"></i></div>
+                        </div>` : ''}
+                    </div>
+                `;
+
+                // Xử lý Double Tap 
+                const overlay = div.querySelector('.overlay-layer');
+                const video = div.querySelector('video');
+                const playIcon = div.querySelector('.center-play');
+                
+                let lastTap = 0;
+                overlay.addEventListener('click', (e) => {
+                    const currentTime = new Date().getTime();
+                    const tapLength = currentTime - lastTap;
+                    
+                    if (tapLength < 300 && tapLength > 0) {
+                        handleLike(item.id, true); createHeartEffect(e.clientX, e.clientY);
+                    } else {
+                        if (video) {
+                            if (video.paused) { video.play(); playIcon.style.display = 'none'; } 
+                            else { video.pause(); playIcon.style.display = 'block'; }
+                        }
+                    }
+                    lastTap = currentTime;
+                });
+
+                // Update Thanh Tua (Progress)
+                if(video) {
+                    const filled = div.querySelector('.progress-filled');
+                    video.addEventListener('timeupdate', () => {
+                        const percent = (video.currentTime / video.duration) * 100;
+                        filled.style.width = percent + '%';
+                    });
+                }
+
+                feed.appendChild(div);
+                listenToInteractions(item.id);
+            });
+            startObserver();
+        }
+
+        // --- OBSERVER ---
+        function startObserver() {
+            const options = { root: feed, threshold: 0.6 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target.querySelector('video');
+                    if (!video) return;
+
+                    if (entry.isIntersecting) {
+                        const playPromise = video.play();
+                        if (playPromise !== undefined) {
+                            playPromise.then(() => { entry.target.querySelector('.loader').style.display = 'none'; })
+                            .catch(() => { 
+                                entry.target.querySelector('.loader').style.display = 'none';
+                                entry.target.querySelector('.center-play').style.display = 'block';
+                            });
+                        }
+                    } else {
+                        video.pause(); video.currentTime = 0;
+                    }
+                });
+            }, options);
+            document.querySelectorAll('.media-item').forEach(v => observer.observe(v));
+        }
+
+        // --- TUA VIDEO ---
+        window.seekVideo = (e, container) => {
+            const mediaItem = container.closest('.media-item');
+            const video = mediaItem.querySelector('video');
+            if(!video) return;
+            const rect = container.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            video.currentTime = pos * video.duration;
+            video.play();
+            mediaItem.querySelector('.center-play').style.display = 'none';
+        }
+
+        // --- LIKES & COMMENTS ---
+        window.handleLike = (videoId, forceLike = false) => {
+            if (!currentUser) { showToast("Đăng nhập để thả tim nha!", 'error'); return; }
+            const likeRef = dbRef(db, `short_likes/${videoId}/${currentUser.uid}`);
+            const btn = document.getElementById(`like-btn-${videoId}`);
+            
+            if (btn.classList.contains('liked') && !forceLike) remove(likeRef);
+            else { set(likeRef, true); if(forceLike) btn.classList.add('liked'); }
+        };
+
+        function listenToInteractions(videoId) {
+            onValue(dbRef(db, `short_likes/${videoId}`), (snapshot) => {
+                const countEl = document.getElementById(`like-count-${videoId}`);
+                const btnEl = document.getElementById(`like-btn-${videoId}`);
+                if(!countEl || !btnEl) return;
+                if (snapshot.exists()) {
+                    const data = snapshot.val(); countEl.innerText = Object.keys(data).length;
+                    if (currentUser && data[currentUser.uid]) btnEl.classList.add('liked'); else btnEl.classList.remove('liked');
+                } else { countEl.innerText = "0"; btnEl.classList.remove('liked'); }
+            });
+            onValue(dbRef(db, `short_comments/${videoId}`), (snapshot) => {
+                const cmtEl = document.getElementById(`cmt-count-${videoId}`);
+                if(cmtEl) cmtEl.innerText = snapshot.exists() ? Object.keys(snapshot.val()).length : "0";
+            });
+        }
+
+        function updateLikesUI() { document.querySelectorAll('.media-item').forEach(div => listenToInteractions(div.getAttribute('data-id'))); }
+
+        window.openComments = (videoId) => {
+            currentVideoIdForComment = videoId;
+            openModal('comment-modal');
+            const list = document.getElementById('comment-list');
+            list.innerHTML = '<div style="text-align:center; color:#888;">Đang tải...</div>';
+
+            onValue(dbRef(db, `short_comments/${videoId}`), (snapshot) => {
+                list.innerHTML = '';
+                if(snapshot.exists()) {
+                    snapshot.forEach(snap => {
+                        const data = snapshot.val()[snap.key];
+                        list.innerHTML += `<div class="comment-item"><div class="icon-circle" style="width:30px; height:30px; font-size:12px; flex-shrink:0;"><i class="fas fa-user"></i></div><div><strong>${data.name}</strong><span>${data.text}</span></div></div>`;
+                    });
+                } else { list.innerHTML = '<div style="text-align:center; color:#555; font-size:13px; margin-top:20px;">Hãy là người đầu tiên bình luận!</div>'; }
+            });
+        };
+
+        document.getElementById('comment-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = document.getElementById('comment-input');
+            const text = input.value.trim();
+            if (!currentUser) { showToast("Đăng nhập để bình luận!", 'error'); return; }
+            if (!text || !currentVideoIdForComment) return;
+
+            push(dbRef(db, `short_comments/${currentVideoIdForComment}`), {
+                uid: currentUser.uid, name: currentUser.displayName, text: text, timestamp: serverTimestamp()
+            });
+            input.value = '';
+        });
+
+        // --- ĐĂNG VIDEO & PROFILE ---
+        window.uploadVideoLink = () => {
+            if (!currentUser) { showToast("Đăng nhập để chia sẻ video!", 'error'); return; }
+            const url = document.getElementById('video-url').value.trim();
+            const caption = document.getElementById('video-caption').value.trim() || "Video kỷ niệm K5A8";
+            if (!url) { showToast("Vui lòng dán link video!", 'error'); return; }
+
+            const btn = document.getElementById('btn-upload');
+            btn.disabled = true; btn.innerText = "Đang đăng...";
+
+            push(dbRef(db, 'shorts'), {
+                url: url, caption: caption, uid: currentUser.uid, authorName: currentUser.displayName, timestamp: serverTimestamp()
+            }).then(() => {
+                showToast("Video đã lên sóng!");
+                closeModal('upload-modal');
+                btn.disabled = false; btn.innerText = "Đăng Video";
+                document.getElementById('video-url').value = ""; document.getElementById('video-caption').value = "";
+                switchTab('new'); // Đăng xong thì tự động chuyển sang tab Mới Nhất để xem
+            });
+        };
+
+        window.deleteVideo = (id) => {
+            if(confirm("Xóa video này mãi mãi?")) {
+                remove(dbRef(db, `shorts/${id}`)).then(() => { showToast("Đã xóa."); loadFeed(); });
+            }
+        };
+
+        window.shareVideo = (id) => {
+            const url = window.location.href.split('#')[0] + "#" + id;
+            navigator.clipboard.writeText(url).then(() => showToast("Đã copy link video!"));
+        }
+
+        // PROFILE VIEW
+        window.openMyProfile = () => {
+            if(!currentUser) { showToast("Đăng nhập để xem hồ sơ!", 'error'); handleAuthClick(); return; }
+            openUserProfile(currentUser.uid, currentUser.displayName);
+        };
+
+        window.openUserProfile = (uid, authorName) => {
+            document.getElementById('pro-name').innerText = authorName;
+            openModal('profile-modal');
+            
+            const pGrid = document.getElementById('profile-grid');
+            pGrid.innerHTML = '';
+            
+            const userVideos = globalMediaList.filter(v => v.authorId === uid);
+            document.getElementById('pro-video-count').innerText = userVideos.length;
+
+            if(userVideos.length === 0) {
+                pGrid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px 10px; color:#666;">Chưa có video nào.</div>`;
+                return;
+            }
+
+            userVideos.forEach(v => {
+                const div = document.createElement('div');
+                div.className = 'grid-item';
+                div.onclick = () => {
+                    closeModal('profile-modal');
+                    const targetEl = document.querySelector(`.media-item[data-id="${v.id}"]`);
+                    if(targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+                };
+
+                if(v.src.includes('.mp4') || !v.isFirebase) {
+                    div.innerHTML = `<video src="${v.src}#t=0.1" preload="metadata"></video><div class="views"><i class="fas fa-play"></i> Xem</div>`;
+                } else {
+                    div.innerHTML = `<div style="width:100%; height:100%; background:#222; display:flex; align-items:center; justify-content:center; color:#555;"><i class="fas fa-link fa-2x"></i></div><div class="views"><i class="fas fa-play"></i> Xem</div>`;
+                }
+                pGrid.appendChild(div);
+            });
+        };
+
+        loadFeed();
+    </script>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function closeOutside(e, id) { if(e.target.id === id) closeModal(id); }
+
+        function createHeartEffect(x, y) {
+            const heart = document.createElement('i');
+            heart.className = 'fas fa-heart';
+            heart.style.position = 'fixed'; heart.style.left = x + 'px'; heart.style.top = y + 'px';
+            heart.style.color = 'var(--primary)'; heart.style.fontSize = '80px';
+            heart.style.transform = 'translate(-50%, -50%) scale(0)';
+            heart.style.transition = 'all 0.5s ease-out'; heart.style.zIndex = '1000'; heart.style.pointerEvents = 'none';
+            document.body.appendChild(heart);
+            requestAnimationFrame(() => {
+                heart.style.transform = 'translate(-50%, -150%) scale(1.2)'; heart.style.opacity = '0';
+            });
+            setTimeout(() => heart.remove(), 500);
+        }
+    </script>
+</body>
+</html>

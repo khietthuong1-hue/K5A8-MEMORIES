@@ -1,0 +1,28 @@
+{
+  "name": "k5a8",
+  "version": "1.0.3",
+  "description": "Ung dung ki yeu lop - luu tru nhung ki niem",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "Ban",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^29.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "k5a8.app",
+    "win": {
+      "target": "nsis",
+      "icon": "Images/iconapp.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "Images/iconapp.png"
+    }
+  }
+}

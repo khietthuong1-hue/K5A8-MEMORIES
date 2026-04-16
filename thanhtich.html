@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THÀNH TÍCH - K5A8 TIMES</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a1a">
+    <link href="Images/logo.jpg" rel="icon" type="image/jpg"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:wght@400;600&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <style>
+        :root { --bg-paper: #f9f7f1; --text-ink: #1a1a1a; --accent: #b91c1c; }
+        body { font-family: 'Lora', serif; background-color: var(--bg-paper); color: var(--text-ink); margin: 0; overflow-x: hidden; }
+
+        /* --- NAV & HEADER --- */
+        nav { position: sticky; top: 0; z-index: 1000; background: #fff; border-bottom: 1px solid #000; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
+        .nav-brand { font-family: 'Oswald', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; }
+        .menu-toggle { font-size: 24px; cursor: pointer; transition: 0.3s; }
+        .menu-toggle:hover { color: var(--accent); }
+
+        /* --- AUTH UI --- */
+        .auth-container { display: flex; align-items: center; gap: 15px; font-family: 'Oswald', sans-serif; }
+        .btn-auth { padding: 5px 15px; border: 1px solid var(--text-ink); background: transparent; cursor: pointer; font-weight: 500; text-transform: uppercase; transition: 0.3s; }
+        .btn-auth:hover { background: var(--text-ink); color: #fff; }
+        .btn-logout { border-color: var(--accent); color: var(--accent); display: none; }
+        .btn-logout:hover { background: var(--accent); color: #fff; }
+        #user-name-display { font-weight: 600; display: none; font-size: 14px; }
+
+        .header-section { text-align: center; padding: 40px 20px; border-bottom: 1px double #000; background: #fff; }
+        .header-title { font-family: 'Playfair Display', serif; font-size: 3rem; text-transform: uppercase; letter-spacing: 3px; margin: 0; }
+        .header-meta { font-family: 'Oswald'; color: #666; margin-top: 10px; font-size: 14px; letter-spacing: 2px; }
+
+        /* --- SLIDESHOW (SWIPER) --- */
+        .swiper-section { padding: 40px 0; background: var(--bg-paper); }
+        .swiper { width: 100%; padding-top: 20px; padding-bottom: 60px; }
+        
+        .swiper-slide {
+            background-position: center; background-size: cover;
+            width: 350px; height: auto; background: #fff;
+            border: 1px solid #ddd; padding: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column;
+        }
+        
+        .slide-img-wrapper { width: 100%; height: 250px; overflow: hidden; margin-bottom: 15px; border: 1px solid #eee; cursor: pointer; }
+        .slide-img-wrapper img { width: 100%; height: 100%; object-fit: cover; filter: sepia(20%); transition: 0.5s; }
+        .swiper-slide-active .slide-img-wrapper img { filter: sepia(0%); transform: scale(1.05); }
+
+        .slide-content { flex: 1; display: flex; flex-direction: column; }
+        .slide-tags { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px dotted #ccc; padding-bottom: 5px; }
+        .cat-tag { font-family: 'Oswald'; font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+        .date-tag { font-family: 'Lora'; font-size: 12px; color: #999; font-style: italic; }
+        
+        .slide-title { font-family: 'Playfair Display'; font-size: 1.3rem; line-height: 1.2; margin: 0 0 10px 0; font-weight: 700; color: var(--text-ink); cursor: pointer; transition: 0.3s; }
+        .slide-title:hover { color: var(--accent); }
+        .slide-desc { font-size: 13px; color: #555; line-height: 1.5; flex: 1; text-align: justify; margin-bottom: 15px; }
+
+        /* --- ACTION BUTTONS (IN SLIDE) --- */
+        .slide-actions { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #eee; }
+        .action-group { display: flex; gap: 15px; }
+        .btn-icon { background: none; border: none; cursor: pointer; color: #666; font-size: 16px; transition: 0.3s; display: flex; align-items: center; gap: 5px; font-family: 'Oswald', sans-serif; }
+        .btn-icon:hover { color: var(--text-ink); transform: scale(1.1); }
+        .btn-icon.liked { color: var(--accent); }
+        .btn-icon.liked i { font-weight: 900; }
+        
+        .btn-read { font-family: 'Oswald'; font-size: 12px; text-decoration: none; color: #000; border-bottom: 1px solid #000; padding-bottom: 2px; cursor: pointer; text-transform: uppercase; transition: 0.3s;}
+        .btn-read:hover { color: var(--accent); border-color: var(--accent); }
+
+        /* --- MODALS (DETAILS & COMMENTS) --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; opacity: 0; visibility: hidden; transition: 0.3s; display: flex; justify-content: center; align-items: center; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        
+        .modal-box { background: #fff; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; position: relative; padding: 30px; box-shadow: 0 0 30px rgba(0,0,0,0.5); border: 1px solid #333; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #666; transition: 0.3s; }
+        .close-modal:hover { color: var(--accent); transform: rotate(90deg); }
+
+        /* Detail Style */
+        #detail-img { width: 100%; max-height: 400px; object-fit: contain; margin-bottom: 20px; border: 1px solid #eee; }
+        #detail-title { font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 10px; }
+        #detail-content { font-size: 16px; line-height: 1.8; text-align: justify; }
+
+        /* Comment Style */
+        .comment-area { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; border-top: 1px solid #ddd; padding-top: 20px; }
+        .comment-list { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 10px; }
+        .comment-item { background: #f9f9f9; padding: 12px; border-left: 3px solid var(--text-ink); font-family: 'Lora'; }
+        .c-name { font-family: 'Oswald'; font-size: 13px; font-weight: 700; margin-bottom: 5px; color: var(--accent); }
+        .c-text { font-size: 14px; }
+        
+        .comment-form { display: flex; gap: 10px; margin-top: 10px; }
+        .comment-input { flex: 1; padding: 10px; border: 1px solid #ccc; font-family: 'Lora'; outline: none; transition: 0.3s;}
+        .comment-input:focus { border-color: var(--text-ink); }
+        .comment-btn { padding: 10px 20px; background: var(--text-ink); color: #fff; border: none; font-family: 'Oswald'; cursor: pointer; text-transform: uppercase; transition: 0.3s;}
+        .comment-btn:hover:not(:disabled) { background: var(--accent); }
+        .comment-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* Custom Scrollbar */
+        .comment-list::-webkit-scrollbar { width: 6px; }
+        .comment-list::-webkit-scrollbar-thumb { background: #ccc; }
+        
+        /* Toast Notification */
+        .toast { position: fixed; bottom: -50px; left: 50%; transform: translateX(-50%); background: var(--text-ink); color: #fff; padding: 10px 20px; border-radius: 5px; font-family: 'Lora'; font-size: 14px; transition: 0.5s; z-index: 4000; opacity: 0; }
+        .toast.show { bottom: 30px; opacity: 1; }
+
+        @media (max-width: 768px) {
+            .swiper-slide { width: 85%; }
+            .header-title { font-size: 2rem; }
+            .modal-box { padding: 20px; }
+            #detail-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="menu-toggle" title="Trở về trang chủ" onclick="window.location.href='index.html'"><i class="fas fa-home"></i></div>
+        <div class="nav-brand">THE K5A8 TIMES</div>
+        <div class="auth-container">
+            <span id="user-name-display"></span>
+            <button id="login-btn" class="btn-auth"><i class="fab fa-google"></i> Đăng nhập</button>
+            <button id="logout-btn" class="btn-auth btn-logout">Đăng xuất</button>
+        </div>
+    </nav>
+
+    <header class="header-section">
+        <h1 class="header-title">Phòng Triển Lãm Thành Tích</h1>
+        <div class="header-meta">Ấn Phẩm Đặc Biệt • Kỷ Niệm 2023 - 2025 • Lưu Hành Nội Bộ</div>
+    </header>
+
+    <main class="swiper-section">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper" id="slides-container">
+                </div>
+            <div class="swiper-pagination"></div>
+            <div style="color: var(--text-ink);" class="swiper-button-next"></div>
+            <div style="color: var(--text-ink);" class="swiper-button-prev"></div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="detail-modal" onclick="closeOnOutsideClick(event, 'detail-modal')">
+        <div class="modal-box">
+            <div class="close-modal" onclick="closeModal('detail-modal')"><i class="fas fa-times"></i></div>
+            <img id="detail-img" src="" alt="">
+            <div class="slide-tags" style="border:none; margin-bottom:0;">
+                <span id="detail-cat" class="cat-tag"></span>
+                <span id="detail-date" class="date-tag"></span>
+            </div>
+            <h2 id="detail-title"></h2>
+            <div id="detail-content"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="comment-modal" onclick="closeOnOutsideClick(event, 'comment-modal')">
+        <div class="modal-box" style="max-width: 500px;">
+            <div class="close-modal" onclick="closeModal('comment-modal')"><i class="fas fa-times"></i></div>
+            <h2 style="font-family: 'Playfair Display'; border-bottom: 1px solid #eee; padding-bottom: 10px;">Thảo luận</h2>
+            
+            <div class="comment-area">
+                <div class="comment-list" id="comment-list">
+                    <div style="text-align:center; color:#888; font-size:13px; margin-top:20px;">Đang tải bình luận...</div>
+                </div>
+                <form class="comment-form" id="comment-form">
+                    <input type="text" id="comment-input" class="comment-input" placeholder="Vui lòng đăng nhập..." disabled required autocomplete="off">
+                    <button type="submit" id="comment-btn" class="comment-btn" disabled>Gửi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Đã copy link bài viết!</div>
+
+    <footer style="text-align: center; padding: 20px; font-family: 'Oswald'; background: #fff; border-top: 1px solid #000;">
+        <p>© 2025 THE K5A8 TIMES. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <script>
+        // LỖI NẰM Ở ĐÂY ĐÃ ĐƯỢC SỬA (Thêm dấu phẩy giữa các Object)
+        const achievementsData = [
+            { id: "ach_1", img: "Images/mm1.jpg", cat: "Sự Kiện Lớn", date: "2023", title: "Giải Ấn Tượng - Phiên Tòa Giả Định", desc: "Giải thưởng 'ấn tượng' của K5A8 trong năm đầu gắn bó cùng nhau tại cuộc thi phiên tòa giả định lần thứ 2." },
+            { id: "ach_2", img: "Images/mm2.jpg", cat: "Sự Kiện Lớn", date: "2023", title: "Giải Nhì - Stempetition", desc: "Nhân - Trâm - Khoa - Tường đã xuất sắc đạt 'Giải nhì' cuộc thi Stempetition cấp trường. Những nhà khoa học tương lai của K5A8." },
+            { id: "ach_3", img: "Images/Tệp – 2025-12-04T00_30_12.jpg", cat: "Sự Kiện Lớn", date: "10/2023", title: "Giải Ba Khoa Học Kĩ Thuật Thành Phố", desc: "Sự nỗ lực của Trâm và Tường đã mang về vinh quang cho lớp." },
+            { id: "ach_4", img: "Images/Tệp – 2025-12-04T00_30_20.jpg", cat: "Sự Kiện Lớn", date: "20/11/2023", title: "Học Sinh Giỏi Cấp Trường", desc: "Bảo Trâm và Bảo Thy tiếp tục ghi tên mình vào bảng vàng." },
+            { id: "ach_5", img: "Images/phientoagiadinh.jpg", cat: "Học Tập", date: "11/2023", title: "Phiên Tòa Giả Định", desc: "Hóa thân thành những người thực thi công lý cùng tập thể K5A8." },
+            { id: "ach_6", img: "Images/Tệp – 2025-12-04T00_31_10.jpg", cat: "Đời Sống", date: "12/2023", title: "Người Hùng Biện Tài Năng", desc: "Góc tỏa sáng của Tường trong những phần thi lý luận." },
+            { id: "ach_7", img: "Images/Tệp – 2025-12-04T00_31_18.jpg", cat: "Sự Kiện Lớn", date: "01/2024", title: "World Scholar's Cup", desc: "Tâm Anh vươn mình ra biển lớn." },
+            { id: "ach_8", img: "Images/Tệp – 2025-12-04T00_31_14.jpg", cat: "Ngoại Khóa", date: "2024", title: "Giải Nhì - Stempetition (Lần 2)", desc: "Sự hợp tác hoàn hảo của Nhân và Huy." },
+            { id: "ach_9", img: "Images/mm19.jpg", cat: "Thể Thao", date: "2024", title: "Fschoolympic Rực Lửa", desc: "Tinh thần thể thao rực lửa của các vận động viên lớp mình trên sân đấu." },
+            { id: "ach_10", img: "Images/mm21.jpg", cat: "Văn Nghệ", date: "2025", title: "Thi Võ Nhạc", desc: "Nơi tài năng nghệ thuật và tinh thần võ đạo của lớp được bộc lộ mạnh mẽ nhất." },
+            { id: "ach_11", img: "Images/Tệp – 2025-12-04T00_31_07.jpg", cat: "Vinh Danh", date: "2025", title: "Giải Ba Liên Quân Trường", desc: "Team Khiết, Huy, Tiến, Thy làm cỏ mọi bản đồ." },
+            { id: "ach_12", img: "Images/IMG_2519.JPG", cat: "Vinh Danh", date: "2025", title: "Giải Nhì Sắc Màu Tiếng Việt", desc: "Khoa, Trâm, Thy" },
+            { id: "ach_13", img: "Images/IMG_2520.JPG", cat: "Vinh Danh", date: "2025", title: "Giải Nhì Khoa Học Kĩ Thuật", desc: "Trâm" },
+            { id: "ach_14", img: "Images/IMG_2522.JPG", cat: "Vinh Danh", date: "2025", title: "Giải Nhì Phiên Tòa Giả Định", desc: "Tập thể K5A8" },
+            { id: "ach_15", img: "Images/IMG_2523.JPG", cat: "Vinh Danh", date: "2025", title: "Giải Nhất The Talents MCs", desc: "Thy" },
+            { id: "ach_16", img: "Images/IMG_2524.JPG", cat: "Vinh Danh", date: "2025", title: "The Voice Artist", desc: "Thành, Vy, Tâm Anh" },
+            { id: "ach_17", img: "Images/Tệp – 2025-12-04T00_31_35.jpg", cat: "Vinh Danh", date: "2025", title: "Lễ Tổng Kết & Vinh Danh (6)", desc: "Khép lại một chặng đường." }
+        ];
+
+        // Tự động tạo thêm các slide "Coming Soon" cho đủ 25 bài
+        for(let i = 18; i <= 25; i++) {
+            achievementsData.push({
+                id: `ach_${i}`, img: "Images/logo.jpg", cat: "Tương Lai", date: "Coming Soon", 
+                title: `Sự Kiện K5A8 Số ${i}`, desc: "Kỷ niệm này đang được đội ngũ Media cập nhật. Hãy đón chờ nhé!"
+            });
+        }
+
+        // Render HTML
+        const container = document.getElementById('slides-container');
+        achievementsData.forEach(item => {
+            // Escaping để truyền tham số an toàn
+            const escapedImg = item.img.replace(/'/g, "\\'");
+            const escapedTitle = item.title.replace(/'/g, "\\'");
+            const escapedCat = item.cat.replace(/'/g, "\\'");
+            const escapedDate = item.date.replace(/'/g, "\\'");
+            const escapedDesc = item.desc.replace(/'/g, "\\'");
+
+            const slideHTML = `
+                <div class="swiper-slide">
+                    <div class="slide-img-wrapper" onclick="openDetail('${escapedImg}', '${escapedTitle}', '${escapedCat}', '${escapedDate}', '${escapedDesc}')">
+                        <img src="${item.img}" loading="lazy" alt="Image">
+                    </div>
+                    <div class="slide-content">
+                        <div class="slide-tags">
+                            <span class="cat-tag">${item.cat}</span>
+                            <span class="date-tag">${item.date}</span>
+                        </div>
+                        <h3 class="slide-title" onclick="openDetail('${escapedImg}', '${escapedTitle}', '${escapedCat}', '${escapedDate}', '${escapedDesc}')">${item.title}</h3>
+                        <p class="slide-desc">${item.desc.substring(0, 80)}...</p>
+                        
+                        <div class="slide-actions">
+                            <div class="action-group">
+                                <button class="btn-icon btn-like" title="Thích bài viết" onclick="handleLike('${item.id}')" id="btn-like-${item.id}">
+                                    <i class="far fa-heart" id="icon-like-${item.id}"></i> <span id="count-like-${item.id}" style="font-size:14px; margin-left:3px;">0</span>
+                                </button>
+                                <button class="btn-icon btn-comment" title="Bình luận" onclick="openComment('${item.id}')">
+                                    <i class="far fa-comment"></i>
+                                </button>
+                                <button class="btn-icon" title="Chia sẻ" onclick="sharePost('${item.id}')">
+                                    <i class="fas fa-share"></i>
+                                </button>
+                            </div>
+                            <a class="btn-read" onclick="openDetail('${escapedImg}', '${escapedTitle}', '${escapedCat}', '${escapedDate}', '${escapedDesc}')">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += slideHTML;
+        });
+
+        const swiper = new Swiper(".mySwiper", {
+            effect: "coverflow", grabCursor: true, centeredSlides: true,
+            slidesPerView: "auto",
+            coverflowEffect: { rotate: 20, stretch: 0, depth: 200, modifier: 1, slideShadows: false },
+            pagination: { el: ".swiper-pagination", clickable: true },
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            autoplay: { delay: 3500, disableOnInteraction: false }
+        });
+
+        // Hàm mở/đóng Modal
+        function openDetail(img, title, cat, date, desc) {
+            document.getElementById('detail-img').src = img;
+            document.getElementById('detail-title').innerText = title;
+            document.getElementById('detail-cat').innerText = cat;
+            document.getElementById('detail-date').innerText = date;
+            document.getElementById('detail-content').innerHTML = `<p>${desc}</p><br><p style="color:#888; font-style:italic;">(Phóng viên K5A8 đang thu thập thêm tư liệu cho sự kiện này...)</p>`;
+            document.getElementById('detail-modal').classList.add('active');
+            document.body.style.overflow = "hidden"; // Khóa cuộn trang nền
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            if(modalId === 'comment-modal') currentPostIdForComment = null;
+            document.body.style.overflow = "auto";
+        }
+
+        // Bấm ra vùng đen để đóng modal
+        function closeOnOutsideClick(event, modalId) {
+            if (event.target.id === modalId) {
+                closeModal(modalId);
+            }
+        }
+
+        // Chức năng copy link ảo
+        function sharePost(id) {
+            const tempInput = document.createElement("input");
+            tempInput.value = window.location.href.split('#')[0] + "#" + id;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            const toast = document.getElementById("toast");
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 2500);
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getDatabase, ref, push, onValue, set, remove, serverTimestamp, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBKUkvFuSBZcCQlVnuey56u7UukG1wM3Ig",
+            authDomain: "k5a8-fe4d3.firebaseapp.com",
+            databaseURL: "https://k5a8-fe4d3-default-rtdb.firebaseio.com",
+            projectId: "k5a8-fe4d3",
+            storageBucket: "k5a8-fe4d3.firebasestorage.app",
+            messagingSenderId: "488022889850",
+            appId: "1:488022889850:web:3aaca9ec88f339fce0f2c3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        const provider = new GoogleAuthProvider();
+
+        let currentUser = null;
+        window.currentPostIdForComment = null;
+
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userNameDisplay = document.getElementById('user-name-display');
+        
+        loginBtn.addEventListener('click', () => signInWithPopup(auth, provider).catch(console.error));
+        logoutBtn.addEventListener('click', () => signOut(auth).catch(console.error));
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                loginBtn.style.display = 'none'; logoutBtn.style.display = 'block';
+                userNameDisplay.style.display = 'block'; userNameDisplay.innerText = "Chào, " + user.displayName.split(" ")[0]; 
+            } else {
+                loginBtn.style.display = 'block'; logoutBtn.style.display = 'none'; userNameDisplay.style.display = 'none';
+            }
+            initAllLikes();
+        });
+
+        window.handleLike = function(postId) {
+            if (!currentUser) { alert("Vui lòng đăng nhập để thả tim bài viết!"); return; }
+            const likeRef = ref(db, `likes/${postId}/${currentUser.uid}`);
+            const btnLike = document.getElementById(`btn-like-${postId}`);
+            if (btnLike.classList.contains('liked')) { remove(likeRef); } else { set(likeRef, true); }
+        };
+
+        function initAllLikes() {
+            achievementsData.forEach((item) => {
+                const postId = item.id;
+                const likesRef = ref(db, `likes/${postId}`);
+                onValue(likesRef, (snapshot) => {
+                    const countSpan = document.getElementById(`count-like-${postId}`);
+                    const icon = document.getElementById(`icon-like-${postId}`);
+                    const btn = document.getElementById(`btn-like-${postId}`);
+                    
+                    if (snapshot.exists() && btn) {
+                        const data = snapshot.val();
+                        countSpan.innerText = Object.keys(data).length;
+                        if (currentUser && data[currentUser.uid]) {
+                            btn.classList.add('liked'); icon.classList.replace('far', 'fas');
+                        } else {
+                            btn.classList.remove('liked'); icon.classList.replace('fas', 'far');
+                        }
+                    } else if (btn) {
+                        countSpan.innerText = "0"; btn.classList.remove('liked'); icon.classList.replace('fas', 'far');
+                    }
+                });
+            });
+        }
+
+        const commentModal = document.getElementById('comment-modal');
+        const commentList = document.getElementById('comment-list');
+        const commentInput = document.getElementById('comment-input');
+        const commentBtn = document.getElementById('comment-btn');
+        const commentForm = document.getElementById('comment-form');
+
+        window.openComment = function(postId) {
+            currentPostIdForComment = postId;
+            commentModal.classList.add('active');
+            document.body.style.overflow = "hidden"; // Khóa cuộn trang
+            commentList.innerHTML = ''; 
+            
+            if (currentUser) {
+                commentInput.disabled = false; commentBtn.disabled = false;
+                commentInput.placeholder = "Viết bình luận...";
+                setTimeout(() => commentInput.focus(), 300);
+            } else {
+                commentInput.disabled = true; commentBtn.disabled = true;
+                commentInput.placeholder = "Vui lòng đăng nhập để bình luận...";
+                commentList.innerHTML = '<div style="text-align:center; color:#888; margin-top:20px;">Bạn cần đăng nhập để xem và gửi bình luận.</div>';
+                return;
+            }
+
+            const commentsRef = ref(db, `comments/${postId}`);
+            onChildAdded(commentsRef, (data) => {
+                const cData = data.val();
+                const div = document.createElement('div');
+                div.className = 'comment-item';
+                div.innerHTML = `<div class="c-name">${cData.name}</div><div class="c-text">${cData.text}</div>`;
+                commentList.appendChild(div);
+                commentList.scrollTop = commentList.scrollHeight;
+            });
+        };
+
+        commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = commentInput.value.trim();
+            if (!text || !currentUser || !currentPostIdForComment) return;
+            const commentsRef = ref(db, `comments/${currentPostIdForComment}`);
+            push(commentsRef, { uid: currentUser.uid, name: currentUser.displayName, text: text, timestamp: serverTimestamp() });
+            commentInput.value = '';
+        });
+
+        setTimeout(() => { initAllLikes(); }, 500);
+    </script>
+</body>
+</html>

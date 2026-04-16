@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gương Mặt K5A8 - Nguyễn Văn A</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3074/3074767.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 3D Model Viewer -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+    <style>
+        :root {
+            --dark: #0f0f1a;
+            --accent: #fe2c55; /* Màu điểm nhấn */
+            --text: #e0e0e0;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- HERO HEADER --- */
+        header {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0; z-index: -1;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000 100%);
+        }
+
+        /* Hiệu ứng hạt bụi bay lơ lửng */
+        .particles {
+            position: absolute; width: 100%; height: 100%;
+            background-image: url('https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog1.png');
+            opacity: 0.1; animation: drift 60s linear infinite;
+        }
+        @keyframes drift { from { background-position: 0 0; } to { background-position: 1000px 0; } }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 90%; max-width: 1200px;
+            gap: 50px; align-items: center;
+            z-index: 1;
+        }
+
+        /* Văn bản tiêu đề */
+        .hero-text h2 {
+            font-size: 1.2em; letter-spacing: 5px; color: var(--accent);
+            margin-bottom: 10px; text-transform: uppercase;
+        }
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5em; line-height: 1; margin: 0;
+            background: linear-gradient(to right, #fff, #aaa);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-text p {
+            font-size: 1.2em; color: #888; margin-top: 20px;
+            border-left: 3px solid var(--accent); padding-left: 20px;
+        }
+
+        /* Khung 3D nổi bật */
+        .model-showcase {
+            height: 600px;
+            background: radial-gradient(circle, rgba(254,44,85,0.1) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        model-viewer {
+            width: 100%; height: 100%;
+            --poster-color: transparent;
+        }
+
+        /* --- ARTICLE CONTENT --- */
+        .article-container {
+            max-width: 800px; margin: 0 auto;
+            padding: 80px 20px;
+            font-size: 1.1em; line-height: 1.8;
+            color: #ccc;
+        }
+
+        .drop-cap {
+            float: left; font-family: 'Playfair Display', serif;
+            font-size: 4em; line-height: 0.8; margin-right: 10px;
+            color: var(--accent);
+        }
+
+        blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em; font-style: italic;
+            color: #fff; text-align: center;
+            margin: 40px 0; padding: 20px;
+            border-top: 1px solid #333; border-bottom: 1px solid #333;
+        }
+
+        /* --- STATS CARD (Thẻ chỉ số) --- */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 20px; margin: 40px 0;
+        }
+        .stat-card {
+            background: var(--glass); padding: 20px;
+            text-align: center; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-num { font-size: 2em; font-weight: bold; color: var(--accent); display: block; }
+        .stat-label { font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- FOOTER NAV --- */
+        .footer-nav {
+            text-align: center; padding: 50px 0;
+            border-top: 1px solid #222;
+        }
+        .back-btn {
+            display: inline-block; padding: 15px 40px;
+            border: 1px solid #fff; color: #fff;
+            text-decoration: none; border-radius: 50px;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: #fff; color: #000; }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 3em; }
+            .model-showcase { height: 400px; }
+            .hero-text p { border-left: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & 3D Model -->
+    <header>
+        <div class="hero-bg"><div class="particles"></div></div>
+        
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2>Gương Mặt Tiêu Biểu K5A8</h2>
+                <h1>Lâm Thường Khiết</h1>
+                <p>
+                    "Chàng trai vàng trong làng ngủ gật", nhưng hễ tỉnh dậy là gánh team. 
+                    Người sở hữu nụ cười tỏa nắng và khả năng 'hack' điểm số thần sầu.
+                </p>
+                <div style="margin-top: 30px;">
+                    <i class="fas fa-star text-yellow-500"></i>
+                    <i class="fas fa-star text-yellow-500"></i>
+                    <i class="fas fa-star text-yellow-500"></i>
+                    <i class="fas fa-star text-yellow-500"></i>
+                    <i class="fas fa-star text-yellow-500"></i>
+                </div>
+            </div>
+
+            <div class="model-showcase">
+                <!-- ĐÃ SỬA: Dùng link online ổn định hơn -->
+                <!-- Khi nào bạn có file thật, hãy đổi lại thành: src="Models/ten_file_cua_ban.glb" -->
+                <model-viewer 
+                    src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+                    alt="Mô hình 3D Nhân vật"
+                    camera-controls 
+                    auto-rotate 
+                    shadow-intensity="2"
+                    camera-orbit="45deg 55deg 2.5m"
+                    interaction-prompt="auto"
+                >
+                </model-viewer>
+                <div style="text-align: center; font-size: 0.8em; color: #666; margin-top: -30px; position: relative;">
+                    <i class="fas fa-hand-pointer"></i> Xoay để xem chi tiết
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Nội dung bài báo -->
+    <article class="article-container">
+        <p>
+            <span class="drop-cap">L</span>Âm Thường Khiết không chỉ là một cái tên, mà là một huyền thoại của lớp K5A8. Sinh ra vào một ngày mưa bão, có lẽ vì thế mà tính cách của cậu ấy cũng thất thường như thời tiết: lúc thì trầm tư như triết gia, lúc lại "nhây" không ai bằng.
+        </p>
+
+        <p>
+            Trong suốt 3 năm học, A đã để lại vô vàn dấu ấn khó phai. Từ những lần trốn học đi net bị thầy giám thị bắt gặp, cho đến khoảnh khắc tỏa sáng rực rỡ trong đêm văn nghệ trường với màn Rap "diss" cả thế giới.
+        </p>
+
+        <blockquote>
+            "Thành công không phải là đích đến, mà là những lần trốn tiết không bị ghi sổ đầu bài." <br>
+            <span style="font-size: 0.6em; color: var(--accent);">- Trích châm ngôn sống của A</span>
+        </blockquote>
+
+        <h3>Hồ Sơ Trích Ngang</h3>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-num">9.5</span>
+                <span class="stat-label">Độ Đẹp Trai</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num">100+</span>
+                <span class="stat-label">Lần Ngủ Gật</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num">Top 1</span>
+                <span class="stat-label">Gánh Team</span>
+            </div>
+        </div>
+
+        <p>
+            Ngoài tài năng thiên bẩm về việc ngủ, Khiết còn là một game thủ cừ khôi và một người bạn chân thành. Bất cứ khi nào anh em cần, Khiết đều có mặt (trừ khi đang ngủ). Tương lai, A dự định sẽ trở thành một CEO công nghệ hoặc một Tiktoker triệu view. Chúng ta hãy cùng chờ xem!
+        </p>
+
+    </article>
+
+    <div class="footer-nav">
+        <a href="humans.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+    </div>
+
+</body>
+</html>

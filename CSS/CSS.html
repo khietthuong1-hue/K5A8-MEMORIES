@@ -1,0 +1,415 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --text-dark: #343a40;
+    --text-light: #ffffff;
+    --bg-light: #f8f9fa;
+    --bg-dark: #212529;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hero Banner Styling */
+.hero-banner {
+    position: relative;
+    height: 400px; /* Chiều cao của banner */
+    background: url('https://via.placeholder.com/1500x400/87CEEB/FFFFFF?text=Banner+Background') center center / cover no-repeat;
+    /* Thay thế URL ảnh trên bằng ảnh banner của bạn */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-light);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero-banner h1 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+}
+
+.hero-banner p {
+    font-size: 1.2em;
+}
+
+/* Content Section Styling */
+.content-section {
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.content-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.content-section p {
+    margin-bottom: 15px;
+}
+
+/* Footer Styling */
+footer {
+    margin-top: auto; /* Đẩy footer xuống dưới cùng */
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+
+/* ========================================= */
+/* CHATBOT POPUP STYLING */
+/* ========================================= */
+.open-chat-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+.open-chat-btn:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+.chat-container {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 999;
+    transform: translateY(100%); /* Ban đầu ẩn đi */
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+
+.chat-container.show {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.chat-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab; /* Để có thể kéo (nếu bạn thêm chức năng kéo thả bằng JS) */
+}
+
+.close-btn {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.chat-box {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    display: flex; /* Dùng flexbox để tin nhắn căn lề */
+    flex-direction: column;
+}
+
+.message {
+    padding: 8px 12px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    line-height: 1.4;
+}
+
+.bot-message {
+    background-color: #e2e6ea; /* Light grey */
+    align-self: flex-start; /* Căn trái */
+    border-bottom-left-radius: 5px; /* Bo góc đặc biệt */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.user-message {
+    background-color: #d1ecf1; /* Light blue */
+    align-self: flex-end; /* Căn phải */
+    text-align: right;
+    margin-left: auto; /* Đẩy tin nhắn sang phải */
+    border-bottom-right-radius: 5px; /* Bo góc đặc biệt */
+    border-top-right-radius: 5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid #dee2e6;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    padding: 8px 12px;
+    margin-right: 10px;
+    outline: none;
+}
+
+.chat-input button {
+    background-color: #28a745; /* Green */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-input button:hover {
+    background-color: #218838;
+}
+
+/* ========================================= */
+/* TYPING INDICATOR (HIỆU ỨNG ĐANG GÕ) */
+/* ========================================= */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    max-width: 80px; /* Giảm chiều rộng cho indicator */
+    background-color: #e2e6ea;
+}
+
+.typing-indicator .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #888;
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: bounce 1s infinite ease-in-out;
+}
+
+.typing-indicator .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Web với DeepSeek Chatbot</title>
+    <link rel="stylesheet" href="CSS/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <section class="hero-banner">
+        <h1>Chào mừng đến với K5A8</h1>
+        <p>Khám phá những điều thú vị và trò chuyện với bot của chúng tôi!</p>
+    </section>
+
+    <section class="content-section">
+        <h2>Về chúng tôi</h2>
+        <p>Đây là nội dung ví dụ về K5A8 và các hoạt động của chúng tôi. Hãy cuộn xuống để xem chatbot!</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum dignissimos, dolor modi, neque, aliquid unde vero non minima adipisci in atque! Facilis sequi placeat tempora ipsum, ad totam sapiente quia!</p>
+        <p>Esse voluptatem maiores, illum iure reprehenderit maxime. Autem sequi culpa dolore rerum. Voluptas, tempora? Cumque nihil sequi laboriosam assumenda, illo eaque fugiat at. Facilis perferendis quo ipsam, sint recusandae?</p>
+        <p>Aliquam asperiores voluptatum, culpa fugiat dolorum, quo, eum cumque earum ut id veritatis. Natus, dignissimos non. Vitae recusandae enim quam dolore, at soluta mollitia omnis, cumque nulla, eius unde corrupti.</p>
+        <p>Quidem, quos? Necessitatibus, vitae? Voluptatem totam quas eaque eveniet, maiores ipsam non facere soluta id dolores rerum modi architecto, praesentium cum. Reprehenderit veritatis, omnis at deleniti neque aliquid ea.</p>
+        <p>Consequuntur, quo dignissimos? Illum, dolore! Aliquid, dolorum. Voluptates dolorum est earum at, aut non pariatur architecto maiores officiis commodi sint? Quam eum, in placeat laboriosam quis minima maiores voluptatum.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 K5A8 Memories. All rights reserved.</p>
+    </footer>
+
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header" id="chat-header">
+            DeepSeek Chatbot K5A8 <span class="close-btn" id="close-chat">&times;</span>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="message bot-message">Chào bạn, tôi là bot hỗ trợ của K5A8. Bạn cần gì?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input-field" placeholder="Nhập tin nhắn...">
+            <button id="send-chat-btn">Gửi</button>
+        </div>
+    </div>
+    <button class="open-chat-btn" id="open-chat-btn">
+        <i class="fas fa-comment-dots"></i> </button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatContainer = document.getElementById('chat-container');
+            const openChatBtn = document.getElementById('open-chat-btn');
+            const closeChatBtn = document.getElementById('close-chat');
+            const chatInput = document.getElementById('chat-input-field');
+            const sendChatBtn = document.getElementById('send-chat-btn');
+            const chatBox = document.getElementById('chat-box');
+
+            // =========================================================
+            // CẤU HÌNH DEEPSEEK API - RẤT QUAN TRỌNG: THAY THẾ KEY CỦA BẠN
+            // =========================================================
+            const DEEPSEEK_API_KEY = 'YOUR_DEEPSEEK_API_KEY'; 
+            const DEEPSEEK_API_ENDPOINT = 'https://api.deepseek.com/chat/completions'; 
+            const DEEPSEEK_MODEL = 'deepseek-chat'; 
+
+            // Lưu trữ lịch sử hội thoại để bot có thể giữ ngữ cảnh
+            let conversationHistory = [
+                { role: "system", content: "Bạn là một trợ lý thân thiện, hữu ích từ K5A8. Bạn trả lời các câu hỏi về K5A8, kỷ niệm, và cung cấp thông tin chung. Hãy trả lời bằng tiếng Việt, ngắn gọn và trọng tâm." }
+            ];
+
+            // Ẩn/hiện Chatbot
+            if (openChatBtn && chatContainer) {
+                openChatBtn.addEventListener('click', () => {
+                    chatContainer.classList.add('show');
+                    openChatBtn.style.display = 'none';
+                    chatInput.focus();
+                });
+
+                closeChatBtn.addEventListener('click', () => {
+                    chatContainer.classList.remove('show');
+                    openChatBtn.style.display = 'flex';
+                });
+
+                sendChatBtn.addEventListener('click', sendMessage);
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+
+                async function sendMessage() {
+                    const messageText = chatInput.value.trim();
+                    if (messageText === '') return;
+
+                    // 1. Hiển thị tin nhắn của người dùng
+                    const userMessageDiv = document.createElement('div');
+                    userMessageDiv.classList.add('message', 'user-message');
+                    userMessageDiv.textContent = messageText;
+                    chatBox.appendChild(userMessageDiv);
+
+                    chatInput.value = '';
+                    chatBox.scrollTop = chatBox.scrollHeight;
+
+                    // Thêm tin nhắn người dùng vào lịch sử hội thoại
+                    conversationHistory.push({ role: "user", content: messageText });
+
+                    // Hiển thị indicator "bot đang gõ..."
+                    const typingIndicator = document.createElement('div');
+                    typingIndicator.classList.add('message', 'bot-message', 'typing-indicator');
+                    typingIndicator.innerHTML = '<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
+                    chatBox.appendChild(typingIndicator);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    chatInput.disabled = true; // Vô hiệu hóa input khi bot đang trả lời
+                    sendChatBtn.disabled = true;
+
+                    try {
+                        // 2. Gửi yêu cầu đến DeepSeek API
+                        const response = await fetch(DEEPSEEK_API_ENDPOINT, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+                            },
+                            body: JSON.stringify({
+                                model: DEEPSEEK_MODEL,
+                                messages: conversationHistory,
+                                stream: false 
+                            })
+                        });
+
+                        if (!response.ok) {
+                            // Cố gắng đọc thông báo lỗi từ API
+                            const errorData = await response.json();
+                            throw new Error(`Lỗi API: ${response.status} - ${response.statusText}. Chi tiết: ${JSON.stringify(errorData)}`);
+                        }
+
+                        const data = await response.json();
+                        let botResponseContent = "Có lỗi xảy ra khi nhận phản hồi từ bot.";
+
+                        if (data.choices && data.choices.length > 0) {
+                            botResponseContent = data.choices[0].message.content;
+                            conversationHistory.push({ role: "assistant", content: botResponseContent });
+                        }
+
+                        // 3. Xóa indicator "đang gõ" và hiển thị phản hồi của bot
+                        chatBox.removeChild(typingIndicator);
+                        const botMessageDiv = document.createElement('div');
+                        botMessageDiv.classList.add('message', 'bot-message');
+                        botMessageDiv.textContent = botResponseContent;
+                        chatBox.appendChild(botMessageDiv);
+                        chatBox.scrollTop = chatBox.scrollHeight;
+
+                    } catch (error) {
+                       const DEEPSEEK_API_KEY = 'sk-d49c1c4485c34811be36198479177a3c';
+                        if (typingIndicator.parentNode === chatBox) { // Kiểm tra xem indicator còn tồn tại không
+                            chatBox.removeChild(typingIndicator);
+                        }
+                        const errorDiv = document.createElement('div');
+                        errorDiv.classList.add('message', 'bot-message');
+                        errorDiv.textContent = "Xin lỗi, có vẻ bot đang gặp vấn đề. Vui lòng thử lại sau. (Xem console để biết chi tiết lỗi)";
+                        chatBox.appendChild(errorDiv);
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    } finally {
+                        chatInput.disabled = false;
+                        sendChatBtn.disabled = false;
+                        chatInput.focus();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+ <meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>K5A8 MEMORIES - Nơi cất giữ những kỉ niệm.</title>
+<!-- Favicon -->
+<link href="Images/logo.jpg" rel="icon" type="logo-white.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* KHỞI TẠO CHUNG VÀ BIẾN */
+    /* Đã gom các font vào một lần import duy nhất, đặt Fredoka lên đầu */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Quicksand:wght@400;500;600&display=swap');
+    :root {
+        --primary-color: #00BFFF; /* Xanh dương chính */
+        --secondary-color: #4bdafa; /* Xanh da trời nhạt */
+        --text-dark: #013A63; /* Xanh navy tối */
+        --text-light: #ffffff;
+        --bg-light: #e0f7fa;
+        --primary-blue: #0077b6; /* Xanh dương đậm hơn */
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* Áp dụng chung cho toàn trang */
+* {
+  font-family: 'Quicksand', sans-serif;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+    a { text-decoration: none; color: inherit; }
+
+.site-title {
+  font-family: "Comic Sans MS", "Poppins", sans-serif;
+  text-align: center;
+  font-size: 42px;
+  color: #ff6699;
+  letter-spacing: 3px;
+  margin: 40px 0 20px;
+  text-shadow: 2px 2px 8px rgba(255, 182, 193, 0.5);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.site-title:hover {
+  color: #ff85b3;
+  transform: scale(1.05);
+}
+    .hero-banner {
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #00BFFF 0%, #66CDAA 100%);
+      color: var(--text-light);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-title {
+      font-size: 60px;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: 3px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-subtitle {
+      font-size: 22px;
+      margin-top: 5px;
+      opacity: 0.9;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      background: var(--text-light);
+      border-bottom: 3px solid var(--secondary-color);
+      padding: 15px 10px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+    }
+
+    .article-container {
+      width: 90%;
+      max-width: 900px;
+      margin: 60px auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 150, 200, 0.15);
+      padding: 40px;
+    }
+
+    .article-title {
+      font-size: 34px;
+      color: #01497C;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .article-meta {
+      text-align: center;
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .article-img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+
+    .article-content {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #034f84;
+      text-align: justify;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      background: var(--primary-color);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #0077b6;
+    }
+
+    footer {
+      background-color: #0099cc;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 14px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+ <header>
+  <h1 class="site-title">K5A8 MEMORIES</h1>
+</header>
+    <p class="hero-subtitle">Nhật Kí K5A8</p>
+  </div>
+  
+
+  <nav>
+    <a href="index.html">TRANG CHỦ</a>
+    <a href="news.html">MEMORIES</a>
+    <a href="#">HUMANS OF K5A8</a>
+    <a href="#">TEACHER</a>
+    <a href="#">BAN CÁN SỰ</a>
+    <a href="#">THÀNH TÍCH</a>
+    <a href="#">DRAMA</a>
+    <a href="#">CONTACT</a>
+  </nav>
+
+  <div class="article-container">
+    <h2 class="article-title">Lần đầu tiên gặp nhau</h2>
+    <p class="article-meta">12/8/2023 — Tác giả: Nhóm K5A8</p>
+    <img src="Images/mm1.jpg" alt="Kỷ niệm đầu tiên" class="article-img">
+
+    <div class="article-content">
+      <p>12/8/2023 đánh dấu cột mốc đầu tiên trong hành trình của K5A8 - ngày những cá tính đến từ nhiều nơi khác nhau cùng bắt đầu một chặng đường mới.</p>
+
+      <p> Khoảnh khắc ấy mở ra một tập thể với năng lượng trẻ trung, tinh thần sẻ chia và khát vọng cùng nhau trưởng thành trong môi trường nội trú đặc biệt.</p>
+
+      <p>Hiện tại, khi đã cùng nhau đi qua hơn một nửa chặng đường đồng hành, chúng mình nhìn lại ngày ấy như một dấu mốc đáng nhớ - nơi hành trình được viết nên bởi những ngày bút thanh xuân.</p>
+
+      <p>Từ những bước chân đầu tiên, K5A8 đã trở thành mái nhà nhỏ, nơi mỗi người đều được là chính mình và cùng nhau tạo nên những kỉ niệm đáng trân quý.</p>
+      <p>Thanh xuân của chúng ta bắt đầu từ hôm đó — có lẽ mãi về sau này chúng ta chẳng thể nào quên về ngày hôm ấy. 💛</p>
+    </div>
+
+    <a href="news.html" class="back-btn">← Quay lại trang tin</a>
+  </div>
+
+  <footer>© 2025 K5A8. All rights reserved.</footer>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Strange Particle Shield</title>
+    <style>
+        body { margin: 0; background-color: #000; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // --- 1. THIẾT LẬP CƠ BẢN ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        document.body.appendChild(renderer.domElement);
+
+        // --- 2. TẠO TEXTURE HẠT (BẰNG CODE) ---
+        function createParticleTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64; canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+            grad.addColorStop(0, 'rgba(255,255,255,1)');
+            grad.addColorStop(0.2, 'rgba(255,180,50,0.8)');
+            grad.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 64, 64);
+            return new THREE.CanvasTexture(canvas);
+        }
+        const pTexture = createParticleTexture();
+
+        // --- 3. HÀM TẠO VÒNG TRÒN HẠT TOÁN HỌC ---
+        function createMagicRing(count, radius, color, size, isRunes = false) {
+            const geo = new THREE.BufferGeometry();
+            const pos = new Float32Array(count * 3);
+            
+            for (let i = 0; i < count; i++) {
+                const i3 = i * 3;
+                let angle;
+                
+                if (isRunes) {
+                    // Tạo các cụm hạt ngắt quãng nhìn như ký tự cổ
+                    angle = (i / count) * Math.PI * 2;
+                    if (Math.floor(angle * 10) % 2 === 0) angle += 0.05; 
+                } else {
+                    angle = (i / count) * Math.PI * 2;
+                }
+
+                pos[i3] = Math.cos(angle) * radius;
+                pos[i3 + 1] = Math.sin(angle) * radius;
+                pos[i3 + 2] = (Math.random() - 0.5) * 0.1; // Độ dày mỏng của vòng
+            }
+
+            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            const mat = new THREE.PointsMaterial({
+                size: size,
+                map: pTexture,
+                color: color,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+            return new THREE.Points(geo, mat);
+        }
+
+        // --- 4. TẠO CÁC LỚP VÒNG PHÉP ---
+        const shieldGroup = new THREE.Group();
+        scene.add(shieldGroup);
+
+        // Tạo nhiều lớp vòng với bán kính và màu sắc khác nhau
+        const rings = [
+            { obj: createMagicRing(2000, 4, 0xff7700, 0.15), speed: 0.005 },   // Vòng ngoài dày
+            { obj: createMagicRing(1500, 3.8, 0xffaa00, 0.08), speed: -0.01 }, // Vòng phụ quay ngược
+            { obj: createMagicRing(800, 2.5, 0xff4400, 0.1, true), speed: 0.02 }, // Vòng ký tự (ngắt quãng)
+            { obj: createMagicRing(500, 1.2, 0xffff00, 0.12), speed: -0.015 }  // Tâm vòng tròn
+        ];
+
+        rings.forEach(r => shieldGroup.add(r.obj));
+
+        // Thêm một hệ thống hạt tự do bay xung quanh cho "ngầu"
+        const sparkCount = 200;
+        const sparkGeo = new THREE.BufferGeometry();
+        const sparkPos = new Float32Array(sparkCount * 3);
+        for(let i=0; i<sparkCount*3; i++) sparkPos[i] = (Math.random() - 0.5) * 15;
+        sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPos, 3));
+        const sparkMat = new THREE.PointsMaterial({ size: 0.1, map: pTexture, color: 0xffaa00, transparent: true, blending: THREE.AdditiveBlending });
+        const sparks = new THREE.Points(sparkGeo, sparkMat);
+        scene.add(sparks);
+
+        camera.position.z = 10;
+
+        // --- 5. TƯƠNG TÁC CHUỘT ---
+        let mouseX = 0, mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // --- 6. VÒNG LẶP ANIMATION ---
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Quay từng vòng tròn theo tốc độ riêng
+            rings.forEach(r => {
+                r.obj.rotation.z += r.speed;
+            });
+
+            // Hiệu ứng hạt bay tự do
+            sparks.rotation.y += 0.002;
+            sparks.rotation.x += 0.001;
+
+            // Nghiêng cả khối theo chuột (Parallax)
+            shieldGroup.rotation.y += (mouseX * 0.6 - shieldGroup.rotation.y) * 0.05;
+            shieldGroup.rotation.x += (mouseY * -0.6 - shieldGroup.rotation.x) * 0.05;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

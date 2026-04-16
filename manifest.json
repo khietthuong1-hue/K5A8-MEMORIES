@@ -1,0 +1,20 @@
+{
+  "name": "K5A8 Memories",
+  "short_name": "K5A8",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#e0f7fa",
+  "theme_color": "#00BFFF",
+  "icons": [
+    {
+      "src": "Images/logo.jpg", 
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "https://scontent.fvca1-1.fna.fbcdn.net/v/t39.30808-1/375799518_122109203420027130_6066164240464080229_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=105&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeH83LxrQ8aejxSMmMG1nXBelsD8Hs8P0ZqWwPwezw_RmhQsUukpsXliD5chMoKw1ZAwfbo42hxMrQnIrgXoc3j0&_nc_ohc=tCeYsUqvJ4MQ7kNvwF9a_ib&_nc_oc=Adk5NbkaT8ory9MtaRtI6jWbKNTCNXIbLfr6-HTW6mXFQgjBuL6T1zxsKMvrj5ByNkI&_nc_zt=24&_nc_ht=scontent.fvca1-1.fna&_nc_gid=kxkckz7d6-w0kCZZLQzevA&oh=00_AfmwSMJaj5Bc7f72Vlh0LkY2PLqIO9rjXBoEghh5OpvPYw&oe=693582C5",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

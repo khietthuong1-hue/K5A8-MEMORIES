@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+    <title>MEMORIES - K5A8 SKY</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#87CEEB">
+    <link rel="apple-touch-icon" href="Images/logo.jpg">
+    <link href="Images/logo.jpg" rel="icon" type="image/jpg"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CORE STYLES --- */
+        :root {
+            --primary-color: #00BFFF;
+            --text-main: #01579B;
+            --text-sub: #0277bd;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --shadow: 0 10px 30px rgba(135, 206, 235, 0.4);
+            --safe-area-top: env(safe-area-inset-top);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(180deg, #87CEEB 0%, #E0F7FA 100%);
+            color: var(--text-main); overflow-x: hidden;
+            padding-bottom: 100px; min-height: 100vh;
+        }
+
+        /* --- CLOUDS BACKGROUND --- */
+        .cloud-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+        .cloud { position: absolute; background: #fff; border-radius: 100px; opacity: 0.8; filter: blur(5px); animation: floatCloud linear infinite; }
+        .cloud::after, .cloud::before { content: ''; position: absolute; background: inherit; border-radius: 50%; }
+        .cloud::after { width: 40%; height: 100%; top: -60%; left: 30%; }
+        .cloud::before { width: 30%; height: 80%; top: -40%; left: 60%; }
+        .c1 { width: 120px; height: 40px; top: 10%; left: -150px; animation-duration: 25s; }
+        .c2 { width: 180px; height: 60px; top: 25%; left: -200px; animation-duration: 35s; animation-delay: 5s; opacity: 0.6; }
+        .c3 { width: 100px; height: 35px; top: 60%; left: -120px; animation-duration: 20s; animation-delay: 2s; }
+        @keyframes floatCloud { 0% { transform: translateX(0); } 100% { transform: translateX(120vw); } }
+
+        /* --- NAVIGATION & AUTH UI --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            padding: 15px 20px; padding-top: max(15px, var(--safe-area-top));
+            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(135, 206, 235, 0.2);
+        }
+        .nav-logo { font-family: 'Baloo 2', cursive; font-size: 22px; font-weight: 800; color: var(--primary-color); text-shadow: 2px 2px 0px #fff; flex: 1;}
+        .menu-toggle { font-size: 22px; color: var(--primary-color); cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #fff; box-shadow: 0 4px 10px rgba(135, 206, 235, 0.3); }
+
+        .auth-container { display: flex; align-items: center; gap: 10px; margin-right: 15px; }
+        .btn-login, .btn-logout { padding: 8px 15px; border-radius: 20px; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 13px; }
+        .btn-login { background: var(--primary-color); color: #fff; box-shadow: 0 4px 10px rgba(0, 191, 255, 0.3); }
+        .btn-login:hover { transform: translateY(-2px); }
+        .btn-logout { background: #ff4757; color: #fff; display: none; }
+        #user-name-display { font-weight: 700; color: var(--primary-color); display: none; font-size: 13px;}
+
+        .nav-links {
+            position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(30px);
+            display: flex; flex-direction: column; padding-top: 100px; gap: 10px;
+            transition: 0.4s; z-index: 999; box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+        }
+        .nav-links.active { right: 0; }
+        .nav-links a { padding: 15px 25px; margin: 0 15px; border-radius: 15px; font-size: 16px; font-weight: 700; color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 15px; transition: 0.3s; }
+        .nav-links a:hover { background: #E1F5FE; color: var(--primary-color); }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: 0.5s; backdrop-filter: blur(3px); }
+        .overlay.active { opacity: 1; visibility: visible; }
+
+        /* --- HERO --- */
+        .page-header { margin-top: 80px; text-align: center; padding: 20px; }
+        .page-title { font-family: 'Baloo 2', cursive; font-size: 40px; color: #fff; text-shadow: 0 4px 10px rgba(0, 191, 255, 0.5); margin-bottom: 10px; }
+
+        /* --- NEWS GRID & CARDS --- */
+        .news-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+        .news-card {
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 2px solid #fff; border-radius: 25px; overflow: hidden;
+            box-shadow: var(--shadow); transition: transform 0.3s;
+            display: flex; flex-direction: column; position: relative;
+        }
+        .news-img-wrapper { height: 200px; overflow: hidden; position: relative; }
+        .news-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .news-card:hover img { transform: scale(1.1); }
+        
+        .news-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .news-date { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.9); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--primary-color); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .news-card h3 { font-family: 'Baloo 2', cursive; font-size: 20px; color: var(--text-main); margin-bottom: 10px; line-height: 1.3; }
+        .news-card p { font-size: 14px; color: var(--text-sub); line-height: 1.6; margin-bottom: 15px; flex-grow: 1; }
+
+        /* --- POST ACTIONS (LIKE & COMMENT) --- */
+        .post-actions { display: flex; gap: 15px; margin-bottom: 15px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.6); }
+        .action-btn { background: rgba(255,255,255,0.6); border: none; padding: 8px 15px; border-radius: 20px; color: var(--text-main); font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s; }
+        .action-btn:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(135, 206, 235, 0.2); }
+        .btn-like.liked { color: #ff4757; }
+        .btn-like.liked i { font-weight: 900; }
+
+        .read-more { cursor: pointer; display: inline-block; text-align: center; padding: 10px 20px; background: #fff; color: var(--primary-color); text-decoration: none; border-radius: 25px; font-weight: 700; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(135, 206, 235, 0.3); transition: 0.3s; align-self: flex-start;}
+        .read-more:hover { background: var(--primary-color); color: #fff; transform: translateY(-3px); }
+
+        /* --- ARTICLE DETAIL MODAL (NEW) --- */
+        .detail-modal {
+            position: fixed; top: 0; left: 100%; width: 100%; height: 100%;
+            background: #F0F8FF; z-index: 4000; overflow-y: auto;
+            transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex; flex-direction: column;
+        }
+        .detail-modal.open { left: 0; }
+        .dm-header {
+            position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+            padding: 15px 20px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 10;
+        }
+        .dm-close {
+            cursor: pointer; color: var(--primary-color); font-weight: 700; font-size: 16px;
+            display: flex; align-items: center; gap: 8px; background: #E1F5FE; padding: 8px 15px; border-radius: 20px;
+        }
+        .dm-content { max-width: 800px; margin: 0 auto; padding: 0 0 50px 0; background: #fff; min-height: 100%; box-shadow: 0 0 20px rgba(0,0,0,0.05);}
+        .dm-img { width: 100%; max-height: 400px; object-fit: cover; }
+        .dm-body { padding: 25px; }
+        .dm-date { display: inline-block; background: #E1F5FE; color: var(--primary-color); padding: 5px 15px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 15px; }
+        .dm-title { font-family: 'Baloo 2', cursive; font-size: 28px; color: var(--text-main); margin-bottom: 20px; line-height: 1.3; }
+        .dm-text { font-size: 16px; color: #444; line-height: 1.8; text-align: justify; }
+
+        /* --- COMMENT MODAL --- */
+        .comment-modal {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 0;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            z-index: 3000; border-top-left-radius: 30px; border-top-right-radius: 30px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1); overflow: hidden; transition: height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex; flex-direction: column;
+        }
+        .comment-modal.open { height: 85vh; }
+        .c-header { padding: 20px; background: #E1F5FE; display: flex; justify-content: space-between; align-items: center; }
+        .c-header h3 { color: var(--primary-color); font-weight: 800; font-size: 18px; margin:0;}
+        .close-btn { width: 35px; height: 35px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-main); }
+        .c-body { flex: 1; overflow-y: auto; padding: 20px; background: #F0F8FF; display: flex; flex-direction: column; gap: 15px; }
+        .comment-item { background: #fff; padding: 12px 15px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .c-name { font-weight: 700; color: var(--primary-color); font-size: 13px; margin-bottom: 5px; }
+        .c-text { color: #333; font-size: 14px; line-height: 1.4; }
+        .c-footer { padding: 15px; background: #fff; display: flex; gap: 10px; padding-bottom: max(15px, env(safe-area-inset-bottom)); border-top: 1px solid #eee; }
+        .c-input { flex: 1; border: none; background: #F0F4F8; padding: 12px 15px; border-radius: 20px; outline: none; font-family: inherit; font-size: 14px;}
+        .c-send { background: var(--primary-color); border: none; width: 45px; height: 45px; border-radius: 50%; color: #fff; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0, 191, 255, 0.3); }
+
+        footer { text-align: center; padding: 40px 20px; color: var(--text-main); font-size: 14px; font-weight: 600; }
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #E0F7FA; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s; }
+        .loader-cloud { font-size: 60px; color: var(--primary-color); animation: bounceCloud 2s infinite ease-in-out; }
+    </style>
+</head>
+<body>
+
+    <div class="cloud-container"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+    <div id="particles-js" style="position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></div>
+    <div id="loader"><i class="fas fa-cloud loader-cloud"></i><p style="margin-top: 15px; color: var(--text-main); font-weight: 700;">LOADING MEMORIES...</p></div>
+
+    <div class="overlay" id="overlay"></div>
+    <nav>
+        <div class="nav-logo"><i class="fas fa-camera-retro"></i> MEMORIES</div>
+        <div class="auth-container">
+            <span id="user-name-display"></span>
+            <button id="login-btn" class="btn-login"><i class="fab fa-google"></i> Login</button>
+            <button id="logout-btn" class="btn-logout"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+        <div class="menu-toggle" id="menu-btn"><i class="fas fa-bars"></i></div>
+    </nav>
+    <div class="nav-links" id="sidebar">
+        <div style="padding: 0 30px 30px;">
+            <h2 style="text-align: left; margin: 0; font-size: 30px; color: var(--primary-color);">MENU</h2>
+        </div>
+        <a href="index.html"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="news.html"><i class="fas fa-images"></i> Khoảnh khắc</a>
+        <a href="humans.html"><i class="fas fa-user-friends"></i> Thành viên</a>
+         <a href="thanhtich.html"><i class="fas fa-user-friends"></i> Thành tích</a>
+         <a href="video.html"><i class="fas fa-user-friends"></i> K5A8 Shorts</a>
+        <a href="#" onclick="closeMenu()"><i class="fas fa-times-circle"></i> Đóng lại</a>
+    </div>
+
+    <div class="page-header">
+        <h1 class="page-title">Hành Trình K5A8</h1>
+        <p style="color: var(--text-main); font-weight: 600;">3 Năm - Một Chặng Đường</p>
+    </div>
+
+    <div class="news-container">
+        <div class="news-grid" id="news-grid-container">
+            
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm1.jpg" alt="Lần đầu tiên gặp nhau"><span class="news-date">12/8/2023</span></div>
+                <div class="news-content">
+                    <h3>Lần đầu tiên gặp nhau</h3>
+                    <p>Không khí ấm áp và đầy cảm xúc trong ngày đặc biệt của đại gia đình K5A8.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm2.jpg" alt="Ngày Phụ Nữ Việt Nam"><span class="news-date">20/10/2023</span></div>
+                <div class="news-content">
+                    <h3>Ngày Phụ Nữ Việt Nam</h3>
+                    <p>Món quà đặc biệt dành tặng cho các quý cô K5A8, tràn ngập niềm vui và nụ cười.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/khamlon.jpg" alt="Tham Quan Khám Lớn và Đền Hùng"><span class="news-date">22/10/2023</span></div>
+                <div class="news-content">
+                    <h3>Tham Quan Khám Lớn và Đền Hùng</h3>
+                    <p>Chuyến đi đầu tiên cùng nhau.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm3.jpg" alt="Ngày Nhà Giáo Việt Nam"><span class="news-date">20/11/2023</span></div>
+                <div class="news-content">
+                    <h3>Ngày Nhà Giáo Việt Nam</h3>
+                    <p>Những khoảnh khắc xúc động dành tặng cho thầy Nguyễn Minh Khiêm thân yêu.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm8.jpg" alt="Phiên Tòa Giả Định"><span class="news-date">23/11/2023</span></div>
+                <div class="news-content">
+                    <h3>Phiên Tòa Giả Định</h3>
+                    <p>Hóa thân thành những người thực thi công lí cùng K5A8.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm4.jpg" alt="Giáng Sinh Ấm Áp"><span class="news-date">24/12/2023</span></div>
+                <div class="news-content">
+                    <h3>Giáng Sinh Ấm Áp</h3>
+                    <p>Tháng 12 lạnh giá nhưng tình cảm bạn bè khiến trái tim K5A8 luôn ấm áp.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm5.jpg" alt="Gian Hàng Tết"><span class="news-date">29/1/2024</span></div>
+                <div class="news-content">
+                    <h3>Gian Hàng Tết</h3>
+                    <p>Không khí rộn ràng của mùa xuân tràn ngập trong gian hàng nhỏ mang tên K5A8.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm6.jpg" alt="Ngày Quốc tế Phụ nữ"><span class="news-date">8/3/2024</span></div>
+                <div class="news-content">
+                    <h3>Ngày Quốc tế Phụ nữ</h3>
+                    <p>Kỷ niệm 8/3 đầu tiên, lớp chúng mình lại có dịp lan tỏa sự yêu thương và trân trọng đến phái đẹp.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm9.jpg" alt="Quốc Phòng đầu tiên"><span class="news-date">31/3/2024</span></div>
+                <div class="news-content">
+                    <h3>Quốc Phòng đầu tiên</h3>
+                    <p>Khoác lên mình màu áo xanh, K5A8 lăn lộn vì tổ quốc.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mmdacbiet.jpg" alt="Liên Hoan Cuối Năm Học"><span class="news-date">22/5/2024</span></div>
+                <div class="news-content">
+                    <h3>Liên Hoan Cuối Năm Học</h3>
+                    <p>Những giây phút bên nhau cuối cùng của năm học, gói trọn niềm vui và sự gắn kết không thể nào quên.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm10.jpg" alt="Kết thúc năm học đầu tiên"><span class="news-date">24/5/2024</span></div>
+                <div class="news-content">
+                    <h3>Kết thúc năm học đầu tiên</h3>
+                    <p>Ngày 24/5/2024 đánh dấu một cột mốc đặc biệt - khép lại năm học đầu tiên đầy trải nghiệm và kỷ niệm đáng nhớ.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm11.jpg" alt="Ngày Đầu Tiên Của Năm Học Thứ Hai"><span class="news-date">12/8/2024</span></div>
+                <div class="news-content">
+                    <h3>Ngày Đầu Tiên Của Năm Học Thứ Hai</h3>
+                    <p>Mùa hè đi qua và chúng ta lại gặp nhau trong một năm học có nhiều thay đổi.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm12.jpg" alt="Lần Đầu Được Chơi Team Building"><span class="news-date">30/8/2024</span></div>
+                <div class="news-content">
+                    <h3>Lần Đầu Được Chơi Team Building</h3>
+                    <p>Hành trình vui chơi thú vị cùng nhau của K5A8.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm13.jpg" alt="Khai Giảng Năm Thứ Hai"><span class="news-date">5/9/2024</span></div>
+                <div class="news-content">
+                    <h3>Khai Giảng Năm Thứ Hai</h3>
+                    <p>Thanh âm khai giảng ngày 5/9/2024 vang lên như một lời nhắc quen thuộc, nhưng ý nghĩa lại khác hẳn so với năm đầu tiên..</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm14.jpg" alt="Ngày Quân Sự Tại Hòa An"><span class="news-date">15/9/2024</span></div>
+                <div class="news-content">
+                    <h3>Ngày Quân Sự Tại Hòa An </h3>
+                    <p>Khoác lên mình màu xanh Tổ quốc, tập thể K5A8 chính thức bước vào những ngày quân sự tại Hòa An, một trải nghiệm rất khác so với những ngày học thường nhật.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm15.jpg" alt="Ngày Quốc Tế Nam Giới"><span class="news-date">19/11/2024</span></div>
+                <div class="news-content">
+                    <h3>Ngày Quốc Tế Nam Giới</h3>
+                    <p>Những nụ cười rạng rỡ trong khung hình của tuổi học trò.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm16.jpg" alt="Ngày Nhà Giáo Việt Nam"><span class="news-date">20/11/2024</span></div>
+                <div class="news-content">
+                    <h3>Ngày Nhà Giáo Việt Nam</h3>
+                    <p>Những khoảnh khắc cùng thầy Khiêm, ghế bàn, và những buổi học thân quen.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm17.jpg" alt="Ngày Hội Địa Lí Đa Quốc Gia"><span class="news-date">11/12/2024</span></div>
+                <div class="news-content">
+                    <h3>Ngày Hội Địa Lí Đa Quốc Gia</h3>
+                    <p>Ngày K5A8 phá đảo khối xã hội.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm18.jpg" alt="Hội Chợ Xuân Vị Tết Quê Em"><span class="news-date">12/1/2025</span></div>
+                <div class="news-content">
+                    <h3>Hội Chợ Xuân Vị Tết Quê Em</h3>
+                    <p>Ngày K5A8 cùng nhau khám phá đặc sản tết của nhiều vùng miền xa xôi trên đất nước.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm19.jpg" alt="Cổ Vũ Fschoolympic"><span class="news-date">27/3/2025</span></div>
+                <div class="news-content">
+                    <h3>Cổ Vũ Fschoolympic</h3>
+                    <p>K5A8 rực cháy trong ngày hội thể thao.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm20.jpg" alt="Ăn Liên Hoan - Ăn Tất Niên"><span class="news-date">13/1/2025</span></div>
+                <div class="news-content">
+                    <h3>Ăn Liên Hoan - Ăn Tất Niên</h3>
+                    <p>Khoảnh khắc vui vẻ cùng nhau trước khi bước vào kì nghỉ tết.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm21.jpg" alt="Thi Võ Nhạc"><span class="news-date">1/4/2025</span></div>
+                <div class="news-content">
+                    <h3>Thi Võ Nhạc</h3>
+                    <p>Nơi mà tài năng nghệ thuật và tinh thần võ đạo của K5A8 được bộc lộ.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm22.jpg" alt="Ăn Liên Hoan Cuối Năm"><span class="news-date">21/5/2025</span></div>
+                <div class="news-content">
+                    <h3>Ăn Liên Hoan Cuối Năm</h3>
+                    <p>Buổi ăn cuối cùng nhau trước khi bước vào kì nghỉ hè và khoảnh khắc bất ngờ dành cho thầy Khiêm.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm23.jpg" alt="Tổng Kết, Lễ Chúc Mừng Thành Tích"><span class="news-date">22/5/2025</span></div>
+                <div class="news-content">
+                    <h3>Tổng Kết, Lễ Chúc Mừng Thành Tích</h3>
+                    <p>Khoảnh khắc đáng nhớ khi K5A8 cùng nhau bước lên sân khấu.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm24.jpg" alt="Nhập Học Năm Cuối cấp"><span class="news-date">18/8/2025</span></div>
+                <div class="news-content">
+                    <h3>Nhập Học Năm Cuối cấp</h3>
+                    <p>Lần thứ ba cũng như là lần cuối cùng chúng ta có cảm giác này.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm25.jpg" alt="Team Building"><span class="news-date">28/8/2025</span></div>
+                <div class="news-content">
+                    <h3>Team Building</h3>
+                    <p>Khoảnh khắc K5A8 cùng nhau hợp sức giải đố các trò chơi và vui đùa trong nắng sớm.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm26.jpg" alt="Khai Giảng Lần Cuối"><span class="news-date">5/9/2025</span></div>
+                <div class="news-content">
+                    <h3>Khai Giảng Lần Cuối</h3>
+                    <p>Lần cuối cùng nhau, mặc dù có rất nhiều thay đổi nhưng cảm giác đầy tình yêu thương và ấm áp dành cho nhau vẫn vẹn nguyên như ngày đầu.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card">
+                <div class="news-img-wrapper"><img src="Images/mm27.jpg" alt="Xem Phim Mưa Đỏ"><span class="news-date">10/9/2025</span></div>
+                <div class="news-content">
+                    <h3>Xem Phim Mưa Đỏ</h3>
+                    <p>Cùng K5A8 lật lại những trang sử hào hùng của dân tộc.</p>
+                    <a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="news-card tilt-card"><div class="news-img-wrapper"><img src="Images/mm28.jpg"><span class="news-date">Coming Soon</span></div><div class="news-content"><h3>Coming Soon</h3><p>Đang chờ cập nhật...</p><a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a></div></article>
+            <article class="news-card tilt-card"><div class="news-img-wrapper"><img src="Images/mm29.jpg"><span class="news-date">Coming Soon</span></div><div class="news-content"><h3>Coming Soon</h3><p>Đang chờ cập nhật...</p><a class="read-more">Xem chi tiết <i class="fas fa-arrow-right"></i></a></div></article>
+
+        </div>
+    </div>
+
+    <div class="detail-modal" id="article-detail-modal">
+        <div class="dm-header">
+            <div class="dm-close" onclick="closeArticleDetail()"><i class="fas fa-arrow-left"></i> Trở về</div>
+        </div>
+        <div class="dm-content">
+            <img class="dm-img" id="ad-img" src="" alt="Ảnh chi tiết">
+            <div class="dm-body">
+                <div class="dm-date" id="ad-date"></div>
+                <h2 class="dm-title" id="ad-title"></h2>
+                <div class="dm-text" id="ad-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="comment-modal" id="comment-modal">
+        <div class="c-header">
+            <h3 id="modal-post-title"><i class="fas fa-comments"></i> Bình luận</h3>
+            <div class="close-btn" id="close-comment"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="c-body" id="comment-list">
+            <div style="text-align:center; color:#888; font-size:13px; margin-top:20px;">Đang tải bình luận...</div>
+        </div>
+        <form class="c-footer" id="comment-form">
+            <input type="text" id="comment-input" class="c-input" placeholder="Vui lòng đăng nhập để bình luận..." disabled required autocomplete="off">
+            <button type="submit" id="comment-btn" class="c-send" disabled style="opacity: 0.5;"><i class="fas fa-paper-plane"></i></button>
+        </form>
+    </div>
+
+    <footer>
+        <p style="opacity: 0.8;">© 2025 K5A8</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').style.display = 'none', 800);
+            }, 1000);
+        });
+
+        const menuBtn = document.getElementById('menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        function toggleMenu() { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); }
+        function closeMenu() { sidebar.classList.remove('active'); overlay.classList.remove('active'); }
+        menuBtn.addEventListener('click', toggleMenu); overlay.addEventListener('click', closeMenu);
+
+        particlesJS('particles-js', { "particles": { "number": { "value": 30 }, "color": { "value": "#ffffff" }, "shape": { "type": "circle" }, "opacity": { "value": 0.5 }, "size": { "value": 5, "random": true }, "move": { "enable": true, "speed": 1, "direction": "bottom" }, "line_linked": { "enable": false } }});
+
+        // --- XỬ LÝ MODAL CHI TIẾT BÀI VIẾT (Article Detail) ---
+        const detailModal = document.getElementById('article-detail-modal');
+        const adImg = document.getElementById('ad-img');
+        const adDate = document.getElementById('ad-date');
+        const adTitle = document.getElementById('ad-title');
+        const adText = document.getElementById('ad-text');
+
+        function openArticleDetail(imgSrc, dateStr, titleStr, descStr) {
+            adImg.src = imgSrc;
+            adDate.innerText = dateStr;
+            adTitle.innerText = titleStr;
+            
+            // Nếu muốn thêm bài dài hơn sau này, bạn có thể tạo 1 div ẩn có class "full-content" trong HTML.
+            // Đoạn code này mặc định lấy thẻ <p> để hiển thị.
+            adText.innerHTML = `<p>${descStr}</p><br><p style="color:#888; font-style:italic;">(Những hình ảnh và nội dung chi tiết hơn đang được đội ngũ Media cập nhật...)</p>`;
+            
+            detailModal.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Khóa cuộn màn hình nền
+        }
+
+        function closeArticleDetail() {
+            detailModal.classList.remove('open');
+            document.body.style.overflow = 'auto'; // Mở lại cuộn màn hình nền
+        }
+
+        // --- TỰ ĐỘNG CHÈN NÚT TIM, BÌNH LUẬN VÀ XỬ LÝ NÚT XEM CHI TIẾT ---
+        const allCards = document.querySelectorAll('.news-card');
+        allCards.forEach((card, index) => {
+            const postId = `post_${index + 1}`;
+            card.setAttribute('data-post-id', postId);
+            
+            const contentDiv = card.querySelector('.news-content');
+            const title = card.querySelector('h3').innerText;
+            const imgSrc = card.querySelector('img').src;
+            const dateStr = card.querySelector('.news-date').innerText;
+            const shortDesc = card.querySelector('p').innerText;
+
+            // Xử lý nút Xem chi tiết
+            const readMoreBtn = contentDiv.querySelector('.read-more');
+            readMoreBtn.onclick = () => openArticleDetail(imgSrc, dateStr, title, shortDesc);
+
+            // Tạo khung chứa nút Tim & Bình luận
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'post-actions';
+            actionsDiv.innerHTML = `
+                <button class="action-btn btn-like" onclick="handleLike('${postId}')" id="btn-like-${postId}">
+                    <i class="far fa-heart" id="icon-like-${postId}"></i> <span id="count-like-${postId}">0</span>
+                </button>
+                <button class="action-btn btn-comment" onclick="openCommentModal('${postId}', '${title}')">
+                    <i class="far fa-comment"></i> Bình luận
+                </button>
+            `;
+            contentDiv.insertBefore(actionsDiv, readMoreBtn);
+        });
+
+        ScrollReveal().reveal('.news-card', { delay: 100, distance: '30px', interval: 50, origin: 'bottom' });
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getDatabase, ref, push, onValue, set, remove, serverTimestamp, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBKUkvFuSBZcCQlVnuey56u7UukG1wM3Ig",
+            authDomain: "k5a8-fe4d3.firebaseapp.com",
+            databaseURL: "https://k5a8-fe4d3-default-rtdb.firebaseio.com",
+            projectId: "k5a8-fe4d3",
+            storageBucket: "k5a8-fe4d3.firebasestorage.app",
+            messagingSenderId: "488022889850",
+            appId: "1:488022889850:web:3aaca9ec88f339fce0f2c3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        const provider = new GoogleAuthProvider();
+
+        let currentUser = null;
+        let currentPostIdForComment = null;
+
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userNameDisplay = document.getElementById('user-name-display');
+        
+        loginBtn.addEventListener('click', () => signInWithPopup(auth, provider).catch(console.error));
+        logoutBtn.addEventListener('click', () => signOut(auth).catch(console.error));
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'inline-block';
+                userNameDisplay.style.display = 'inline-block';
+                userNameDisplay.innerText = user.displayName.split(" ")[0]; 
+            } else {
+                loginBtn.style.display = 'inline-block';
+                logoutBtn.style.display = 'none';
+                userNameDisplay.style.display = 'none';
+            }
+            initAllLikes();
+        });
+
+        window.handleLike = function(postId) {
+            if (!currentUser) { alert("Vui lòng đăng nhập để thả tim bài viết!"); return; }
+            const likeRef = ref(db, `likes/${postId}/${currentUser.uid}`);
+            const btnLike = document.getElementById(`btn-like-${postId}`);
+            if (btnLike.classList.contains('liked')) { remove(likeRef); } else { set(likeRef, true); }
+        };
+
+        function initAllLikes() {
+            const allCards = document.querySelectorAll('.news-card');
+            allCards.forEach((card) => {
+                const postId = card.getAttribute('data-post-id');
+                const likesRef = ref(db, `likes/${postId}`);
+                onValue(likesRef, (snapshot) => {
+                    const countSpan = document.getElementById(`count-like-${postId}`);
+                    const icon = document.getElementById(`icon-like-${postId}`);
+                    const btn = document.getElementById(`btn-like-${postId}`);
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        countSpan.innerText = Object.keys(data).length;
+                        if (currentUser && data[currentUser.uid]) {
+                            btn.classList.add('liked'); icon.classList.replace('far', 'fas');
+                        } else {
+                            btn.classList.remove('liked'); icon.classList.replace('fas', 'far');
+                        }
+                    } else {
+                        countSpan.innerText = "0"; btn.classList.remove('liked'); icon.classList.replace('fas', 'far');
+                    }
+                });
+            });
+        }
+        initAllLikes();
+
+        const commentModal = document.getElementById('comment-modal');
+        const closeCommentBtn = document.getElementById('close-comment');
+        const commentList = document.getElementById('comment-list');
+        const commentInput = document.getElementById('comment-input');
+        const commentSubmitBtn = document.getElementById('comment-btn');
+        const commentForm = document.getElementById('comment-form');
+
+        window.openCommentModal = function(postId, title) {
+            currentPostIdForComment = postId;
+            document.getElementById('modal-post-title').innerText = title;
+            commentModal.classList.add('open');
+            commentList.innerHTML = ''; 
+            
+            if (currentUser) {
+                commentInput.disabled = false; commentSubmitBtn.disabled = false; commentSubmitBtn.style.opacity = '1';
+                commentInput.placeholder = "Nhập bình luận của bạn...";
+            } else {
+                commentInput.disabled = true; commentSubmitBtn.disabled = true; commentSubmitBtn.style.opacity = '0.5';
+                commentInput.placeholder = "Vui lòng đăng nhập để bình luận...";
+                commentList.innerHTML = '<div style="text-align:center; color:#888; margin-top:20px;">Bạn cần đăng nhập để xem và gửi bình luận.</div>';
+                return;
+            }
+
+            const commentsRef = ref(db, `comments/${postId}`);
+            onChildAdded(commentsRef, (data) => {
+                const cData = data.val();
+                const div = document.createElement('div');
+                div.className = 'comment-item';
+                div.innerHTML = `<div class="c-name">${cData.name}</div><div class="c-text">${cData.text}</div>`;
+                commentList.appendChild(div);
+                commentList.scrollTop = commentList.scrollHeight;
+            });
+        };
+
+        closeCommentBtn.addEventListener('click', () => { commentModal.classList.remove('open'); currentPostIdForComment = null; });
+
+        commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = commentInput.value.trim();
+            if (!text || !currentUser || !currentPostIdForComment) return;
+            const commentsRef = ref(db, `comments/${currentPostIdForComment}`);
+            push(commentsRef, { uid: currentUser.uid, name: currentUser.displayName, text: text, timestamp: serverTimestamp() });
+            commentInput.value = '';
+        });
+    </script>
+</body>
+</html>

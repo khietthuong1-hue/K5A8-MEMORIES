@@ -512,21 +512,18 @@
             adImg.src = imgSrc;
             adDate.innerText = dateStr;
             adTitle.innerText = titleStr;
-            
-            // Nếu muốn thêm bài dài hơn sau này, bạn có thể tạo 1 div ẩn có class "full-content" trong HTML.
-            // Đoạn code này mặc định lấy thẻ <p> để hiển thị.
             adText.innerHTML = `<p>${descStr}</p><br><p style="color:#888; font-style:italic;">(Những hình ảnh và nội dung chi tiết hơn đang được đội ngũ Media cập nhật...)</p>`;
             
             detailModal.classList.add('open');
-            document.body.style.overflow = 'hidden'; // Khóa cuộn màn hình nền
+            document.body.style.overflow = 'hidden';
         }
 
         function closeArticleDetail() {
             detailModal.classList.remove('open');
-            document.body.style.overflow = 'auto'; // Mở lại cuộn màn hình nền
+            document.body.style.overflow = 'auto';
         }
 
-        // --- TỰ ĐỘNG CHÈN NÚT TIM, BÌNH LUẬN VÀ XỬ LÝ NÚT XEM CHI TIẾT ---
+        // --- TỰ ĐỘNG CHÈN NÚT TIM & BÌNH LUẬN VÀO GIAO DIỆN ---
         const allCards = document.querySelectorAll('.news-card');
         allCards.forEach((card, index) => {
             const postId = `post_${index + 1}`;
@@ -538,11 +535,9 @@
             const dateStr = card.querySelector('.news-date').innerText;
             const shortDesc = card.querySelector('p').innerText;
 
-            // Xử lý nút Xem chi tiết
             const readMoreBtn = contentDiv.querySelector('.read-more');
             readMoreBtn.onclick = () => openArticleDetail(imgSrc, dateStr, title, shortDesc);
 
-            // Tạo khung chứa nút Tim & Bình luận
             const actionsDiv = document.createElement('div');
             actionsDiv.className = 'post-actions';
             actionsDiv.innerHTML = `
@@ -559,128 +554,146 @@
         ScrollReveal().reveal('.news-card', { delay: 100, distance: '30px', interval: 50, origin: 'bottom' });
     </script>
 
+    <script type="module" src="auth-guard.js"></script>
+
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getDatabase, ref, push, onValue, set, remove, serverTimestamp, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBKUkvFuSBZcCQlVnuey56u7UukG1wM3Ig",
-            authDomain: "k5a8-fe4d3.firebaseapp.com",
-            databaseURL: "https://k5a8-fe4d3-default-rtdb.firebaseio.com",
-            projectId: "k5a8-fe4d3",
-            storageBucket: "k5a8-fe4d3.firebasestorage.app",
-            messagingSenderId: "488022889850",
-            appId: "1:488022889850:web:3aaca9ec88f339fce0f2c3"
-        };
+        // Chờ 1 giây để đảm bảo Firebase từ auth-guard.js đã được khởi tạo xong
+        setTimeout(() => {
+            const db = getDatabase();
+            let currentPostIdForComment = null;
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getDatabase(app);
-        const provider = new GoogleAuthProvider();
+            const commentModal = document.getElementById('comment-modal');
+            const closeCommentBtn = document.getElementById('close-comment');
+            const commentList = document.getElementById('comment-list');
+            const commentInput = document.getElementById('comment-input');
+            const commentSubmitBtn = document.getElementById('comment-btn');
+            const commentForm = document.getElementById('comment-form');
 
-        let currentUser = null;
-        let currentPostIdForComment = null;
+            // === 1. XỬ LÝ THẢ TIM ===
+            window.handleLike = function(postId) {
+                // Kiểm tra biến window.currentUser từ auth-guard.js
+                if (!window.currentUser) { 
+                    if(typeof window.showToast === 'function') window.showToast("Đăng nhập để thả tim!", 'error');
+                    else alert("Vui lòng đăng nhập để thả tim bài viết!"); 
+                    return; 
+                }
+                const likeRef = ref(db, `likes/${postId}/${window.currentUser.uid}`);
+                const btnLike = document.getElementById(`btn-like-${postId}`);
+                if (btnLike.classList.contains('liked')) { remove(likeRef); } else { set(likeRef, true); }
+            };
 
-        const loginBtn = document.getElementById('login-btn');
-        const logoutBtn = document.getElementById('logout-btn');
-        const userNameDisplay = document.getElementById('user-name-display');
-        
-        loginBtn.addEventListener('click', () => signInWithPopup(auth, provider).catch(console.error));
-        logoutBtn.addEventListener('click', () => signOut(auth).catch(console.error));
+            window.initAllLikes = function() {
+                const allCards = document.querySelectorAll('.news-card');
+                allCards.forEach((card) => {
+                    const postId = card.getAttribute('data-post-id');
+                    const likesRef = ref(db, `likes/${postId}`);
+                    onValue(likesRef, (snapshot) => {
+                        const countSpan = document.getElementById(`count-like-${postId}`);
+                        const icon = document.getElementById(`icon-like-${postId}`);
+                        const btn = document.getElementById(`btn-like-${postId}`);
+                        
+                        if (!btn || !countSpan || !icon) return; // Tránh lỗi nếu phần tử chưa load
 
-        onAuthStateChanged(auth, (user) => {
-            currentUser = user;
-            if (user) {
-                loginBtn.style.display = 'none';
-                logoutBtn.style.display = 'inline-block';
-                userNameDisplay.style.display = 'inline-block';
-                userNameDisplay.innerText = user.displayName.split(" ")[0]; 
-            } else {
-                loginBtn.style.display = 'inline-block';
-                logoutBtn.style.display = 'none';
-                userNameDisplay.style.display = 'none';
-            }
-            initAllLikes();
-        });
-
-        window.handleLike = function(postId) {
-            if (!currentUser) { alert("Vui lòng đăng nhập để thả tim bài viết!"); return; }
-            const likeRef = ref(db, `likes/${postId}/${currentUser.uid}`);
-            const btnLike = document.getElementById(`btn-like-${postId}`);
-            if (btnLike.classList.contains('liked')) { remove(likeRef); } else { set(likeRef, true); }
-        };
-
-        function initAllLikes() {
-            const allCards = document.querySelectorAll('.news-card');
-            allCards.forEach((card) => {
-                const postId = card.getAttribute('data-post-id');
-                const likesRef = ref(db, `likes/${postId}`);
-                onValue(likesRef, (snapshot) => {
-                    const countSpan = document.getElementById(`count-like-${postId}`);
-                    const icon = document.getElementById(`icon-like-${postId}`);
-                    const btn = document.getElementById(`btn-like-${postId}`);
-                    if (snapshot.exists()) {
-                        const data = snapshot.val();
-                        countSpan.innerText = Object.keys(data).length;
-                        if (currentUser && data[currentUser.uid]) {
-                            btn.classList.add('liked'); icon.classList.replace('far', 'fas');
+                        if (snapshot.exists()) {
+                            const data = snapshot.val();
+                            countSpan.innerText = Object.keys(data).length;
+                            if (window.currentUser && data[window.currentUser.uid]) {
+                                btn.classList.add('liked'); icon.classList.replace('far', 'fas');
+                            } else {
+                                btn.classList.remove('liked'); icon.classList.replace('fas', 'far');
+                            }
                         } else {
-                            btn.classList.remove('liked'); icon.classList.replace('fas', 'far');
+                            countSpan.innerText = "0"; btn.classList.remove('liked'); icon.classList.replace('fas', 'far');
                         }
+                    });
+                });
+            }
+            
+            // Khởi tạo hiển thị số Tim lần đầu
+            window.initAllLikes();
+
+          // === 2. XỬ LÝ BÌNH LUẬN (ĐÃ FIX LỖI) ===
+            let currentCommentListener = null; // Biến để lưu và hủy bộ lắng nghe cũ
+
+            window.openCommentModal = function(postId, title) {
+                currentPostIdForComment = postId;
+                document.getElementById('modal-post-title').innerText = title;
+                commentModal.classList.add('open');
+                commentList.innerHTML = '<div style="text-align:center; color:#888; margin-top:20px;"><i class="fas fa-spinner fa-spin"></i> Đang tải bình luận...</div>'; 
+                
+                if (window.currentUser) {
+                    commentInput.disabled = false; commentSubmitBtn.disabled = false; commentSubmitBtn.style.opacity = '1';
+                    commentInput.placeholder = "Nhập bình luận của bạn...";
+                } else {
+                    commentInput.disabled = true; commentSubmitBtn.disabled = true; commentSubmitBtn.style.opacity = '0.5';
+                    commentInput.placeholder = "Vui lòng đăng nhập để bình luận...";
+                    commentList.innerHTML = '<div style="text-align:center; color:#888; margin-top:20px;">Bạn cần đăng nhập để xem và gửi bình luận.</div>';
+                    return;
+                }
+
+                const commentsRef = ref(db, `comments/${postId}`);
+
+                // QUAN TRỌNG NHẤT: Xóa lắng nghe của bài cũ trước khi tải bài mới
+                if (currentCommentListener) {
+                    currentCommentListener(); 
+                }
+
+                // Dùng onValue để tải và đồng bộ toàn bộ danh sách bình luận
+                currentCommentListener = onValue(commentsRef, (snapshot) => {
+                    commentList.innerHTML = ''; // Xóa sạch khung chứa
+
+                    if (snapshot.exists()) {
+                        snapshot.forEach((childSnap) => {
+                            const cData = childSnap.val();
+                            const div = document.createElement('div');
+                            div.className = 'comment-item';
+                            const userPhoto = cData.photoURL || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+                            
+                            // Form giao diện bình luận đẹp hơn
+                            div.innerHTML = `
+                                <img src="${userPhoto}" style="width:35px; height:35px; border-radius:50%; object-fit:cover; margin-right:10px; border: 1px solid var(--primary-color);">
+                                <div>
+                                    <div class="c-name" style="font-size: 13px; font-weight: 700; color: var(--primary-color);">${cData.name}</div>
+                                    <div class="c-text" style="font-size: 15px; margin-top:2px; color: var(--text-main);">${cData.text}</div>
+                                </div>
+                            `;
+                            div.style.display = 'flex';
+                            div.style.marginBottom = '15px';
+                            commentList.appendChild(div);
+                        });
+                        // Tự động cuộn xuống tin nhắn mới nhất
+                        commentList.scrollTop = commentList.scrollHeight;
                     } else {
-                        countSpan.innerText = "0"; btn.classList.remove('liked'); icon.classList.replace('fas', 'far');
+                        commentList.innerHTML = '<div style="text-align:center; color:#888; margin-top:20px;">Chưa có ai bình luận. Hãy là người đầu tiên!</div>';
                     }
                 });
-            });
-        }
-        initAllLikes();
+            };
 
-        const commentModal = document.getElementById('comment-modal');
-        const closeCommentBtn = document.getElementById('close-comment');
-        const commentList = document.getElementById('comment-list');
-        const commentInput = document.getElementById('comment-input');
-        const commentSubmitBtn = document.getElementById('comment-btn');
-        const commentForm = document.getElementById('comment-form');
-
-        window.openCommentModal = function(postId, title) {
-            currentPostIdForComment = postId;
-            document.getElementById('modal-post-title').innerText = title;
-            commentModal.classList.add('open');
-            commentList.innerHTML = ''; 
-            
-            if (currentUser) {
-                commentInput.disabled = false; commentSubmitBtn.disabled = false; commentSubmitBtn.style.opacity = '1';
-                commentInput.placeholder = "Nhập bình luận của bạn...";
-            } else {
-                commentInput.disabled = true; commentSubmitBtn.disabled = true; commentSubmitBtn.style.opacity = '0.5';
-                commentInput.placeholder = "Vui lòng đăng nhập để bình luận...";
-                commentList.innerHTML = '<div style="text-align:center; color:#888; margin-top:20px;">Bạn cần đăng nhập để xem và gửi bình luận.</div>';
-                return;
+            if(closeCommentBtn) {
+                closeCommentBtn.addEventListener('click', () => { 
+                    commentModal.classList.remove('open'); 
+                    currentPostIdForComment = null; 
+                });
             }
 
-            const commentsRef = ref(db, `comments/${postId}`);
-            onChildAdded(commentsRef, (data) => {
-                const cData = data.val();
-                const div = document.createElement('div');
-                div.className = 'comment-item';
-                div.innerHTML = `<div class="c-name">${cData.name}</div><div class="c-text">${cData.text}</div>`;
-                commentList.appendChild(div);
-                commentList.scrollTop = commentList.scrollHeight;
-            });
-        };
-
-        closeCommentBtn.addEventListener('click', () => { commentModal.classList.remove('open'); currentPostIdForComment = null; });
-
-        commentForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const text = commentInput.value.trim();
-            if (!text || !currentUser || !currentPostIdForComment) return;
-            const commentsRef = ref(db, `comments/${currentPostIdForComment}`);
-            push(commentsRef, { uid: currentUser.uid, name: currentUser.displayName, text: text, timestamp: serverTimestamp() });
-            commentInput.value = '';
-        });
+            if(commentForm) {
+                commentForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const text = commentInput.value.trim();
+                    if (!text || !window.currentUser || !currentPostIdForComment) return;
+                    
+                    const commentsRef = ref(db, `comments/${currentPostIdForComment}`);
+                    push(commentsRef, { 
+                        uid: window.currentUser.uid, 
+                        name: window.currentUser.displayName, 
+                        photoURL: window.currentUser.photoURL || '',
+                        text: text, 
+                        timestamp: serverTimestamp() 
+                    });
+                    commentInput.value = '';
+                });
+            }
+        }, 1000); // Chờ 1s
     </script>
-    <script type="module" src="auth-guard.js"></script>
-</body>
-</html>

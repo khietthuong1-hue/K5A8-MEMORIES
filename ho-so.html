@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hồ Sơ Của Tôi - K5A8 SKY</title>
+    <link rel="icon" href="Images/logo.jpg">
+
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #00BFFF;
+            --text-main: #01579B;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --shadow: 0 15px 35px rgba(135, 206, 235, 0.3);
+            --safe-area-top: env(safe-area-inset-top);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(180deg, #87CEEB 0%, #E0F7FA 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- CLOUDS --- */
+        .cloud-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        .cloud { position: absolute; background: #fff; border-radius: 100px; opacity: 0.8; filter: blur(5px); animation: floatCloud linear infinite; }
+        .cloud::after, .cloud::before { content: ''; position: absolute; background: inherit; border-radius: 50%; }
+        .cloud::after { width: 40%; height: 100%; top: -60%; left: 30%; }
+        .cloud::before { width: 30%; height: 80%; top: -40%; left: 60%; }
+        .c1 { width: 150px; height: 50px; top: 15%; left: -150px; animation-duration: 25s; }
+        .c2 { width: 200px; height: 70px; top: 40%; left: -200px; animation-duration: 35s; animation-delay: 5s; opacity: 0.6; }
+        @keyframes floatCloud { 0% { transform: translateX(0); } 100% { transform: translateX(120vw); } }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.5); padding: 15px 20px; padding-top: max(15px, var(--safe-area-top));
+            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(135, 206, 235, 0.2);
+        }
+        .nav-logo { font-family: 'Baloo 2', cursive; font-size: 22px; font-weight: 800; color: var(--primary-color); text-shadow: 2px 2px 0px #fff; display: flex; align-items: center; gap: 5px; cursor: pointer; text-decoration: none;}
+        .auth-container { display: flex; align-items: center; gap: 10px; margin-right: 15px; }
+        .btn-auth { padding: 8px 15px; border-radius: 20px; border: none; font-family: 'Quicksand'; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 13px; }
+        #login-btn { background: var(--primary-color); color: #fff; }
+        #logout-btn { background: #ff4757; color: #fff; display: none; }
+        .menu-toggle { font-size: 22px; color: var(--primary-color); cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #fff; box-shadow: 0 4px 10px rgba(135, 206, 235, 0.3); transition: 0.3s; }
+        
+        .user-profile-area { display: flex; align-items: center; gap: 8px; display: none; background: rgba(255,255,255,0.6); padding: 4px 12px 4px 4px; border-radius: 30px; border: 1px solid #fff;}
+        .user-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-color); }
+        #user-name-display { font-weight: 700; color: var(--text-main); font-size: 14px; }
+
+        /* Sidebar */
+        .nav-links { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(30px); display: flex; flex-direction: column; padding-top: 100px; gap: 10px; transition: 0.4s; z-index: 999; box-shadow: -10px 0 30px rgba(0,0,0,0.05); }
+        .nav-links.active { right: 0; }
+        .nav-links a { padding: 15px 25px; margin: 0 15px; border-radius: 15px; font-size: 16px; font-weight: 700; color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 15px; transition: 0.3s; }
+        .nav-links a:hover { background: #E1F5FE; color: var(--primary-color); transform: translateX(5px); }
+        .overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: 0.5s; backdrop-filter: blur(3px); }
+        .overlay.active { opacity: 1; visibility: visible; }
+
+        /* --- PROFILE EDITOR FORM --- */
+        .profile-container {
+            margin-top: 120px;
+            width: 90%;
+            max-width: 500px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid #fff;
+            border-radius: 25px;
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .avatar-edit-wrapper {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+        }
+
+        .avatar-preview {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 10px 20px rgba(0,191,255,0.2);
+            background: #e0f7fa;
+        }
+
+        .page-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            margin-left: 5px;
+        }
+
+        .inp-field {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 2px solid #fff;
+            background: rgba(255,255,255,0.7);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 15px;
+            color: #333;
+            outline: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        .inp-field:focus {
+            border-color: var(--primary-color);
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.1);
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 16px;
+            border-radius: 15px;
+            border: none;
+            background: linear-gradient(45deg, var(--primary-color), #0091ea);
+            color: #fff;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,191,255,0.3);
+            transition: 0.3s;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,191,255,0.4);
+        }
+        .btn-save:disabled {
+            background: #ccc; cursor: not-allowed; box-shadow: none; transform: none;
+        }
+
+        .note {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+            display: block;
+            margin-left: 5px;
+        }
+
+        /* --- TOAST --- */
+        .toast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #fff; color: var(--text-main); padding: 12px 25px; border-radius: 30px; font-weight: 700; font-size: 14px; z-index: 9999; box-shadow: 0 5px 20px rgba(0,0,0,0.2); transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; gap: 10px; border: 2px solid var(--primary-color);}
+        .toast.show { top: 30px; }
+        .toast.error { background: #ff4757; color: #fff; border-color: #ff4757;}
+        
+        .require-login-msg {
+            text-align: center;
+            padding: 50px 20px;
+            display: none;
+        }
+        .require-login-msg i { font-size: 50px; color: var(--primary-color); margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="toast" class="toast"><i class="fas fa-check-circle"></i> <span id="toast-msg">Thành công!</span></div>
+
+    <div class="cloud-container"><div class="cloud c1"></div><div class="cloud c2"></div></div>
+
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+    
+    <nav>
+        <a href="index.html" class="nav-logo"><i class="fas fa-cloud"></i> K5A8</a>
+        <div class="auth-container">
+            <div id="user-profile-area" class="user-profile-area">
+                <img id="user-avatar" class="user-avatar" src="" alt="Avatar">
+                <span id="user-name-display"></span>
+            </div>
+            <button id="login-btn" class="btn-auth" onclick="globalLogin()"><i class="fab fa-google"></i> Đăng nhập</button>
+            <button id="logout-btn" class="btn-auth" onclick="globalLogout()"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+        <div class="menu-toggle" id="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <div class="nav-links" id="sidebar">
+        <div style="padding: 0 30px 30px;"><h2 style="text-align: left; margin: 0; font-size: 30px; color: var(--primary-color);">MENU</h2></div>
+        <a href="index.html"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="news.html"><i class="fas fa-images"></i> Khoảnh khắc</a>
+        <a href="humans.html"><i class="fas fa-user-friends"></i> Thành viên</a>
+        <a href="thanhtich.html"><i class="fas fa-star"></i> Thành tích</a>
+        <a href="short.html"><i class="fas fa-video"></i> K5A8 Shorts</a>
+        <a href="#" onclick="closeMenu()"><i class="fas fa-times-circle"></i> Đóng lại</a>
+    </div>
+
+    <div class="require-login-msg" id="require-login">
+        <i class="fas fa-lock"></i>
+        <h2>Vui lòng đăng nhập</h2>
+        <p style="color: #666; margin-bottom: 20px;">Bạn cần đăng nhập để cập nhật hồ sơ cá nhân.</p>
+        <button class="btn-auth" style="background: var(--primary-color); color: #fff; padding: 12px 25px; font-size: 16px;" onclick="globalLogin()"><i class="fab fa-google"></i> Đăng nhập ngay</button>
+    </div>
+
+    <div class="profile-container" id="profile-editor" style="display: none;">
+        <h1 class="page-title">Hồ Sơ Của Tôi</h1>
+        <p class="page-subtitle">Dấu ấn của bạn tại K5A8</p>
+
+        <div class="avatar-edit-wrapper">
+            <img id="preview-img" class="avatar-preview" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Preview Avatar">
+        </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-user"></i> Tên hiển thị</label>
+            <input type="text" id="inp-name" class="inp-field" placeholder="Nhập tên của bạn...">
+        </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-image"></i> Link ảnh đại diện (URL)</label>
+            <input type="url" id="inp-avatar" class="inp-field" placeholder="Dán link ảnh từ Facebook, Imgur...">
+            <span class="note">Mẹo: Copy địa chỉ hình ảnh (Copy image address) từ Facebook dán vào đây. Hoặc để trống để dùng ảnh Google.</span>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-quote-left"></i> Tiểu sử / Câu nói yêu thích</label>
+            <textarea id="inp-bio" class="inp-field" rows="3" placeholder="Ví dụ: Thanh xuân như một cơn mưa rào..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fab fa-facebook"></i> Link Facebook cá nhân</label>
+            <input type="url" id="inp-fb" class="inp-field" placeholder="https://facebook.com/...">
+        </div>
+
+        <button class="btn-save" id="btn-save" onclick="saveProfile()">
+            <i class="fas fa-save"></i> Lưu Thay Đổi
+        </button>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        function toggleMenu() { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); }
+        function closeMenu() { sidebar.classList.remove('active'); overlay.classList.remove('active'); }
+        
+        // Preview ảnh ngay khi dán link
+        document.getElementById('inp-avatar').addEventListener('input', function(e) {
+            const url = e.target.value.trim();
+            if(url) {
+                document.getElementById('preview-img').src = url;
+            }
+        });
+        
+        // Bắt lỗi ảnh hỏng -> trả về ảnh mặc định
+        document.getElementById('preview-img').addEventListener('error', function() {
+            this.src = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+        });
+    </script>
+
+    <script type="module" src="auth-guard.js"></script>
+
+    <script type="module">
+        import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        const auth = getAuth();
+        const db = getDatabase();
+        let currentUid = null;
+
+        const editorDiv = document.getElementById('profile-editor');
+        const requireLoginDiv = document.getElementById('require-login');
+        const btnSave = document.getElementById('btn-save');
+
+        // Lắng nghe đăng nhập
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUid = user.uid;
+                editorDiv.style.display = 'block';
+                requireLoginDiv.style.display = 'none';
+                
+                // Tải dữ liệu cũ lên Form
+                loadProfileData(user);
+            } else {
+                currentUid = null;
+                editorDiv.style.display = 'none';
+                requireLoginDiv.style.display = 'block';
+            }
+        });
+
+        async function loadProfileData(user) {
+            // Mặc định lấy từ Google Auth
+            document.getElementById('inp-name').value = user.displayName || '';
+            document.getElementById('inp-avatar').value = user.photoURL || '';
+            document.getElementById('preview-img').src = user.photoURL || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+
+            // Lấy Tiểu sử và FB từ Database (nếu có)
+            try {
+                const snapshot = await get(ref(db, `users/${user.uid}`));
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    if(data.bio) document.getElementById('inp-bio').value = data.bio;
+                    if(data.facebook) document.getElementById('inp-fb').value = data.facebook;
+                    
+                    // Ghi đè Tên và Avatar từ DB nếu trong DB có lưu mới hơn
+                    if(data.displayName) document.getElementById('inp-name').value = data.displayName;
+                    if(data.photoURL) {
+                        document.getElementById('inp-avatar').value = data.photoURL;
+                        document.getElementById('preview-img').src = data.photoURL;
+                    }
+                }
+            } catch (error) {
+                console.error("Lỗi tải dữ liệu:", error);
+            }
+        }
+
+        window.saveProfile = async () => {
+            if (!currentUid) return;
+            
+            const newName = document.getElementById('inp-name').value.trim();
+            let newAvatar = document.getElementById('inp-avatar').value.trim();
+            const newBio = document.getElementById('inp-bio').value.trim();
+            const newFb = document.getElementById('inp-fb').value.trim();
+
+            if (!newName) {
+                if(typeof window.showToast === 'function') window.showToast('Vui lòng nhập tên hiển thị!', 'error');
+                return;
+            }
+
+            btnSave.disabled = true;
+            btnSave.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang lưu...';
+
+            try {
+                // 1. Cập nhật Firebase Auth Profile (Để Chat & Shorts tự động nhận diện)
+                await updateProfile(auth.currentUser, {
+                    displayName: newName,
+                    photoURL: newAvatar || null
+                });
+
+                // 2. Cập nhật vào Database (Để lưu Tiểu sử & Facebook)
+                await set(ref(db, `users/${currentUid}`), {
+                    displayName: newName,
+                    photoURL: newAvatar || auth.currentUser.photoURL,
+                    bio: newBio,
+                    facebook: newFb,
+                    role: "Thành viên K5A8" // Mặc định
+                });
+
+                if(typeof window.showToast === 'function') window.showToast('Lưu hồ sơ thành công!');
+                
+                // Cập nhật lại UI Avatar trên Navbar ngay lập tức
+                document.getElementById('user-name-display').innerText = newName.split(' ')[0];
+                if(newAvatar) document.getElementById('user-avatar').src = newAvatar;
+
+            } catch (error) {
+                console.error("Lỗi lưu hồ sơ:", error);
+                if(typeof window.showToast === 'function') window.showToast('Có lỗi xảy ra: ' + error.message, 'error');
+            } finally {
+                btnSave.disabled = false;
+                btnSave.innerHTML = '<i class="fas fa-save"></i> Lưu Thay Đổi';
+            }
+        };
+    </script>
+</body>
+</html>

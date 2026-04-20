@@ -123,9 +123,9 @@
 
     <div id="toast" class="toast"><i class="fas fa-check-circle"></i> <span id="toast-msg">Thành công!</span></div>
 
-    <div class="top-auth" id="auth-status" onclick="handleAuthClick()">
-        <i class="fab fa-google"></i> Đăng nhập
-    </div>
+    <div class="top-auth" id="auth-status" onclick="if(window.currentUser){ globalLogout(); } else { globalLogin(); }">
+    <i class="fab fa-google"></i> Đăng nhập
+</div>
 
     <div class="top-tabs">
         <span id="tab-trending" class="active" onclick="switchTab('trending')">Xu hướng</span>
@@ -622,5 +622,6 @@
             setTimeout(() => heart.remove(), 500);
         }
     </script>
+    <script type="module" src="auth-guard.js"></script>
 </body>
 </html>

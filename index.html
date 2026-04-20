@@ -291,8 +291,8 @@
         <div class="nav-logo"><i class="fas fa-cloud"></i> K5A8</div>
         <div class="auth-container">
             <span id="user-name-display"></span>
-            <button id="login-btn" class="btn-login"><i class="fab fa-google"></i> Login</button>
-            <button id="logout-btn" class="btn-logout"><i class="fas fa-sign-out-alt"></i></button>
+           <button id="login-btn" class="btn-auth" onclick="globalLogin()"><i class="fab fa-google"></i> Đăng nhập</button>
+            <button id="logout-btn" class="btn-auth btn-logout" onclick="globalLogout()">Đăng xuất</button>
         </div>
         <div class="menu-toggle" id="menu-btn"><i class="fas fa-bars"></i></div>
     </nav>
@@ -661,5 +661,6 @@
             groupChatBox.scrollTop = groupChatBox.scrollHeight;
         });
     </script>
+    <script type="module" src="auth-guard.js"></script>
 </body>
 </html>

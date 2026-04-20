@@ -121,8 +121,8 @@
         <div class="nav-brand">THE K5A8 TIMES</div>
         <div class="auth-container">
             <span id="user-name-display"></span>
-            <button id="login-btn" class="btn-auth"><i class="fab fa-google"></i> Đăng nhập</button>
-            <button id="logout-btn" class="btn-auth btn-logout">Đăng xuất</button>
+           <button id="login-btn" class="btn-auth" onclick="globalLogin()"><i class="fab fa-google"></i> Đăng nhập</button>
+<button id="logout-btn" class="btn-auth btn-logout" onclick="globalLogout()">Đăng xuất</button>
         </div>
     </nav>
 
@@ -418,5 +418,6 @@
 
         setTimeout(() => { initAllLikes(); }, 500);
     </script>
+    <script type="module" src="auth-guard.js"></script>
 </body>
 </html>
